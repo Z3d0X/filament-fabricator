@@ -27,7 +27,7 @@ class FilamentFabricatorManager
     {
         $this->blocks->put($pageBlock->getName(), $pageBlock);
     }
-    
+
     public function getComponentFromLayoutName(string $layoutName): string
     {
         return $this->layouts->get($layoutName)->getComponent();

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getComponentFromBlockName(string $name)
  * @method static array getLayouts()
  * @method static array getBlocks()
- * 
+ *
  * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
  */
 class FilamentFabricator extends Facade
