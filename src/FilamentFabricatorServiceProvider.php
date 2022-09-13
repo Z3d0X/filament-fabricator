@@ -5,6 +5,8 @@ namespace Z3d0X\FilamentFabricator;
 use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
+use Z3d0X\FilamentFabricator\Commands\MakeLayoutCommand;
+use Z3d0X\FilamentFabricator\Commands\MakePageBlockCommand;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class FilamentFabricatorServiceProvider extends PluginServiceProvider
@@ -22,6 +24,10 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
             ->hasMigration('create_pages_table')
             ->hasRoute('web')
             ->hasViews()
+            ->hasCommands([
+                MakePageBlockCommand::class,
+                MakeLayoutCommand::class,
+            ])
             ->hasInstallCommand(function (InstallCommand $installCommand) {
                 $installCommand
                     ->publishConfigFile()

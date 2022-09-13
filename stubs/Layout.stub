@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Z3d0X\FilamentFabricator\Layouts\Layout;
+
+class {{ class }} extends Layout
+{
+    protected static ?string $name = '{{ shortName }}';
+}
