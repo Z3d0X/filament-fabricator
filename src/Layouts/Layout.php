@@ -11,6 +11,10 @@ abstract class Layout
 
     protected static ?string $name;
 
+    final public function __construct() {
+        //
+    }
+
     public function getName(): string
     {
         return static::$name;

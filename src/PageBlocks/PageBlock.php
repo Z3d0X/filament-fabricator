@@ -11,6 +11,10 @@ abstract class PageBlock
 
     abstract public function getBlockSchema(): Block;
 
+    final public function __construct() {
+        //
+    }
+
     public function getComponent(): string
     {
         if (isset(static::$component)) {
