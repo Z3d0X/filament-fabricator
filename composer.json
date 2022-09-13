@@ -1,23 +1,23 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "z3d0x/filament-fabricator",
+    "description": "Block-Based Page Builder for your Filament Apps",
     "keywords": [
-        ":vendor_name",
+        "Z3d0X",
         "laravel",
-        ":package_slug"
+        "filament-fabricator"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/z3d0x/filament-fabricator",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Ziyaan Hassan",
+            "email": "ziyaan2010@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.0",
-        "filament/filament": "^2.0",
+        "filament/filament": "^2.15",
         "spatie/laravel-package-tools": "^1.9.2",
         "illuminate/contracts": "^9.0"
     },
@@ -38,13 +38,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Z3d0X\\FilamentFabricator\\": "src",
+            "Z3d0X\\FilamentFabricator\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Z3d0X\\FilamentFabricator\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -67,10 +67,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Z3d0X\\FilamentFabricator\\FilamentFabricatorServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentFabricator": "Z3d0X\\FilamentFabricator\\Facades\\FilamentFabricator"
             }
         }
     },

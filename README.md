@@ -1,9 +1,9 @@
-# :package_description
+# Block-Based Page Builder for your Filament Apps
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Check%20&%20fix%20styling?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/run-tests?label=tests)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/Check%20&%20fix%20styling?label=code%20style)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -12,26 +12,26 @@ This is where your description should go. Limit it to a paragraph or two. Consid
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require z3d0x/filament-fabricator
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="filament-fabricator-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="filament-fabricator-config"
 ```
 
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="filament-fabricator-views"
 ```
 
 This is the contents of the published config file:
@@ -44,8 +44,8 @@ return [
 ## Usage
 
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+$filament-fabricator = new Z3d0X\FilamentFabricator();
+echo $filament-fabricator->echoPhrase('Hello, Z3d0X!');
 ```
 
 ## Testing
@@ -68,7 +68,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Ziyaan Hassan](https://github.com/Z3d0X)
 - [All Contributors](../../contributors)
 
 ## License

@@ -1,13 +1,13 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Z3d0X\FilamentFabricator;
 
 use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 
-class SkeletonServiceProvider extends PluginServiceProvider
+class FilamentFabricatorServiceProvider extends PluginServiceProvider
 {
-    public static string $name = 'skeleton';
+    public static string $name = 'filament-fabricator';
 
     protected array $resources = [
         // CustomResource::class,
@@ -22,15 +22,15 @@ class SkeletonServiceProvider extends PluginServiceProvider
     ];
 
     protected array $styles = [
-        'plugin-skeleton' => __DIR__ . '/../dist/skeleton.css',
+        'plugin-filament-fabricator' => __DIR__ . '/../dist/filament-fabricator.css',
     ];
 
     protected array $scripts = [
-        'plugin-skeleton' => __DIR__ . '/../dist/skeleton.js',
+        'plugin-filament-fabricator' => __DIR__ . '/../dist/filament-fabricator.js',
     ];
 
     // protected array $beforeCoreScripts = [
-    //     'plugin-skeleton' => __DIR__ . '/../dist/skeleton.js',
+    //     'plugin-filament-fabricator' => __DIR__ . '/../dist/filament-fabricator.js',
     // ];
 
     public function configurePackage(Package $package): void
