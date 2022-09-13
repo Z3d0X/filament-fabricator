@@ -11,7 +11,8 @@ abstract class Layout
 
     protected static ?string $name;
 
-    final public function __construct() {
+    final public function __construct()
+    {
         //
     }
 

@@ -11,7 +11,8 @@ abstract class PageBlock
 
     abstract public function getBlockSchema(): Block;
 
-    final public function __construct() {
+    final public function __construct()
+    {
         //
     }
 
