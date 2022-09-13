@@ -23,28 +23,28 @@ class FilamentFabricatorManager
         $this->layouts->put($layout->getName(), $layout);
     }
 
-    public function getLayouts(): array
+    public function registerPageBlock(PageBlock $pageBlock): void
     {
-        return $this->layouts->map->getLabel()->toArray();
+        $this->blocks->put($pageBlock->getName(), $pageBlock);
     }
-
+    
     public function getComponentFromLayoutName(string $layoutName): string
     {
         return $this->layouts->get($layoutName)->getComponent();
     }
 
-    public function registerPageBlock(PageBlock $pageBlock): void
+    public function getComponentFromBlockName(string $name): string
     {
-        $this->blocks->put($pageBlock->getName(), $pageBlock);
+        return $this->blocks->get($name)->getComponent();
+    }
+
+    public function getLayouts(): array
+    {
+        return $this->layouts->map->getLabel()->toArray();
     }
 
     public function getBlocks(): array
     {
         return $this->blocks->map->getBlockSchema()->toArray();
-    }
-
-    public function getComponentFromBlockName(string $name): string
-    {
-        return $this->blocks->get($name)->getComponent();
     }
 }
