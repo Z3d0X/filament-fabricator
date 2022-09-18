@@ -3,35 +3,24 @@
 namespace  Z3d0X\FilamentFabricator\PageBlocks;
 
 use Filament\Forms\Components\Builder\Block;
-use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 
 abstract class PageBlock
 {
     protected static ?string $component;
 
-    abstract public function getBlockSchema(): Block;
+    abstract public static function getBlockSchema(): Block;
 
-    final public function __construct()
-    {
-        //
-    }
-
-    public function getComponent(): string
+    public static function getComponent(): string
     {
         if (isset(static::$component)) {
             return static::$component;
         }
 
-        return 'filament-fabricator.page-blocks.' . $this->getName();
+        return 'filament-fabricator.page-blocks.' . static::getName();
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
-        return $this->getBlockSchema()->getName();
-    }
-
-    public static function register(): void
-    {
-        FilamentFabricator::registerPageBlock((new static()));
+        return static::getBlockSchema()->getName();
     }
 }

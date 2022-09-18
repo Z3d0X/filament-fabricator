@@ -18,33 +18,43 @@ class FilamentFabricatorManager
         $this->layouts = collect();
     }
 
-    public function registerLayout(Layout $layout): void
+    /** @param  class-string  $layout */
+    public function registerLayout(string $layout): void
     {
-        $this->layouts->put($layout->getName(), $layout);
+        if (! is_subclass_of($layout, Layout::class)) {
+            throw new \InvalidArgumentException("{$layout} must extend " . Layout::class);
+        }
+
+        $this->layouts->put($layout::getName(), $layout);
     }
 
-    public function registerPageBlock(PageBlock $pageBlock): void
+    /** @param  class-string  $pageBlock */
+    public function registerPageBlock(string $pageBlock): void
     {
-        $this->blocks->put($pageBlock->getName(), $pageBlock);
+        if (! is_subclass_of($pageBlock, PageBlock::class)) {
+            throw new \InvalidArgumentException("{$pageBlock} must extend " . PageBlock::class);
+        }
+
+        $this->blocks->put($pageBlock::getName(), $pageBlock);
     }
-    
+
     public function getComponentFromLayoutName(string $layoutName): string
     {
-        return $this->layouts->get($layoutName)->getComponent();
+        return $this->layouts->get($layoutName)::getComponent();
     }
 
     public function getComponentFromBlockName(string $name): string
     {
-        return $this->blocks->get($name)->getComponent();
+        return $this->blocks->get($name)::getComponent();
     }
 
     public function getLayouts(): array
     {
-        return $this->layouts->map->getLabel()->toArray();
+        return $this->layouts->map(fn ($layout) => $layout::getLabel())->toArray();
     }
 
     public function getBlocks(): array
     {
-        return $this->blocks->map->getBlockSchema()->toArray();
+        return $this->blocks->map(fn ($block) => $block::getBlockSchema())->toArray();
     }
 }
