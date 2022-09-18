@@ -19,19 +19,19 @@ class FilamentFabricatorManager
     }
 
     /**
-     *  @param class-string $class
-     *  @param class-string $baseClass
+     *  @param  class-string  $class
+     *  @param  class-string  $baseClass
      */
     public function register(string $class, string $baseClass): void
     {
-        match($baseClass) {
+        match ($baseClass) {
             Layout::class => static::registerLayout($class),
             PageBlock::class => static::registerPageBlock($class),
             default => throw new \Exception('Invalid class type'),
         };
     }
 
-    /** @param class-string $layout */
+    /** @param  class-string  $layout */
     public function registerLayout(string $layout): void
     {
         if (! is_subclass_of($layout, Layout::class)) {
@@ -41,7 +41,7 @@ class FilamentFabricatorManager
         $this->layouts->put($layout::getName(), $layout);
     }
 
-    /** @param class-string $pageBlock */
+    /** @param  class-string  $pageBlock */
     public function registerPageBlock(string $pageBlock): void
     {
         if (! is_subclass_of($pageBlock, PageBlock::class)) {

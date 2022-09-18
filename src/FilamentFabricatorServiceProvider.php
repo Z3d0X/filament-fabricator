@@ -103,6 +103,6 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
                 ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
                 ->each(fn (string $class) => FilamentFabricator::register($class, $baseClass))
                 ->all(),
-            );
+        );
     }
 }
