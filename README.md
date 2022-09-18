@@ -1,11 +1,13 @@
-# Block-Based Page Builder for your Filament Apps
+# Block-Based Page Builder Skeleton for your Filament Apps
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/run-tests?label=tests)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/Check%20&%20fix%20styling?label=code%20style)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/75579178/190926394-daa1b85d-70cc-4730-9a28-cd0c3a0d1230.png" />
+</p>
 
 ## Installation
 
