@@ -17,44 +17,14 @@ You can install the package via composer:
 composer require z3d0x/filament-fabricator
 ```
 
-You can publish and run the migrations with:
-
+After that run the install command:
 ```bash
-php artisan vendor:publish --tag="filament-fabricator-migrations"
-php artisan migrate
+php artisan filament-fabricator:install
 ```
 
-You can publish the config file with:
+## Documentation
 
-```bash
-php artisan vendor:publish --tag="filament-fabricator-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-fabricator-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-## Usage
-
-```php
-$filament-fabricator = new Z3d0X\FilamentFabricator();
-echo $filament-fabricator->echoPhrase('Hello, Z3d0X!');
-```
-
-## Testing
-
-```bash
-composer test
-```
+Documentation can be viewed at: https://filamentphp.com/plugins/fabricator
 
 ## Changelog
 
