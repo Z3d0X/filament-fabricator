@@ -8,17 +8,30 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class FilamentFabricatorManager
 {
-    protected Collection $blocks;
+    protected Collection $pageBlocks;
 
     protected Collection $layouts;
 
     public function __construct()
     {
-        $this->blocks = collect();
+        $this->pageBlocks = collect();
         $this->layouts = collect();
     }
 
-    /** @param  class-string  $layout */
+    /**
+     *  @param class-string $class
+     *  @param class-string $baseClass
+     */
+    public function register(string $class, string $baseClass): void
+    {
+        match($baseClass) {
+            Layout::class => static::registerLayout($class),
+            PageBlock::class => static::registerPageBlock($class),
+            default => throw new \Exception('Invalid class type'),
+        };
+    }
+
+    /** @param class-string $layout */
     public function registerLayout(string $layout): void
     {
         if (! is_subclass_of($layout, Layout::class)) {
@@ -28,14 +41,14 @@ class FilamentFabricatorManager
         $this->layouts->put($layout::getName(), $layout);
     }
 
-    /** @param  class-string  $pageBlock */
+    /** @param class-string $pageBlock */
     public function registerPageBlock(string $pageBlock): void
     {
         if (! is_subclass_of($pageBlock, PageBlock::class)) {
             throw new \InvalidArgumentException("{$pageBlock} must extend " . PageBlock::class);
         }
 
-        $this->blocks->put($pageBlock::getName(), $pageBlock);
+        $this->pageBlocks->put($pageBlock::getName(), $pageBlock);
     }
 
     public function getComponentFromLayoutName(string $layoutName): string
@@ -45,7 +58,7 @@ class FilamentFabricatorManager
 
     public function getComponentFromBlockName(string $name): string
     {
-        return $this->blocks->get($name)::getComponent();
+        return $this->pageBlocks->get($name)::getComponent();
     }
 
     public function getLayouts(): array
@@ -53,8 +66,8 @@ class FilamentFabricatorManager
         return $this->layouts->map(fn ($layout) => $layout::getLabel())->toArray();
     }
 
-    public function getBlocks(): array
+    public function getPageBlocks(): array
     {
-        return $this->blocks->map(fn ($block) => $block::getBlockSchema())->toArray();
+        return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
     }
 }

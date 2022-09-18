@@ -36,7 +36,7 @@ class PageResource extends Resource
                 Group::make()
                     ->schema([
                         Builder::make('blocks')
-                            ->blocks(FilamentFabricator::getBlocks()),
+                            ->blocks(FilamentFabricator::getPageBlocks()),
                     ])
                     ->columnSpan(2),
 

@@ -44,7 +44,7 @@ class MakePageBlockCommand extends Command
 
         $path = app_path(
             (string) Str::of($pageBlock)
-                ->prepend('Filament\\Fabricator\\Blocks\\')
+                ->prepend('Filament\\Fabricator\\PageBlocks\\')
                 ->replace('\\', '/')
                 ->append('.php'),
         );
@@ -64,7 +64,7 @@ class MakePageBlockCommand extends Command
 
         $this->copyStubToApp('PageBlock', $path, [
             'class' => $pageBlockClass,
-            'namespace' => 'App\\Filament\\Fabricator\\Blocks' . ($pageBlockNamespace !== '' ? "\\{$pageBlockNamespace}" : ''),
+            'namespace' => 'App\\Filament\\Fabricator\\PageBlocks' . ($pageBlockNamespace !== '' ? "\\{$pageBlockNamespace}" : ''),
             'shortName' => $shortName,
         ]);
 
