@@ -7,7 +7,7 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class {{ class }} extends PageBlock
 {
-    public function getBlockSchema(): Block
+    public static function getBlockSchema(): Block
     {
         return Block::make('{{ shortName }}')
             ->schema([
