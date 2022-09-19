@@ -15,7 +15,7 @@ class {{ class }} extends PageBlock
             ]);
     }
 
-    public static function mutateBlockData(array $data): array
+    public static function mutateData(array $data): array
     {
         return $data;
     }
