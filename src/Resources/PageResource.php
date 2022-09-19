@@ -12,8 +12,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
@@ -82,13 +86,24 @@ class PageResource extends Resource
                 TextColumn::make('slug')
                     ->searchable()
                     ->sortable(),
+
+                BadgeColumn::make('layout')
+                    ->sortable()
+                    ->enum(FilamentFabricator::getLayouts()),
             ])
             ->filters([
-                //
+                SelectFilter::make('layout')
+                    ->options(FilamentFabricator::getLayouts()),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
+                Action::make('visit')
+                    ->url(fn (Page $record) => '/' . $record->slug)
+                    ->icon('heroicon-o-external-link')
+                    ->openUrlInNewTab()
+                    ->color('success')
+                    ->visible(config('filament-fabricator.routing.enabled')),
             ])
             ->bulkActions([]);
     }
