@@ -23,4 +23,9 @@ abstract class PageBlock
     {
         return static::getBlockSchema()->getName();
     }
+
+    public static function mutateData(array $data): array
+    {
+        return $data;
+    }
 }

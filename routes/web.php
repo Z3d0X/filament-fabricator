@@ -8,7 +8,7 @@ use Z3d0X\FilamentFabricator\Models\Page;
 
 Route::middleware(SubstituteBindings::class)->group(function () {
     Route::get('/{page}', function (Page $page) {
-        $component = FilamentFabricator::getComponentFromLayoutName($page->layout);
+        $component = FilamentFabricator::getLayoutFromName($page->layout)::getComponent();
 
         return Blade::render(
             <<<'BLADE'

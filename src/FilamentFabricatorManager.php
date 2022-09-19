@@ -8,8 +8,10 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class FilamentFabricatorManager
 {
+    /** @var Collection<int, string> */
     protected Collection $pageBlocks;
 
+    /** @var Collection<int, string> */
     protected Collection $layouts;
 
     public function __construct()
@@ -51,14 +53,14 @@ class FilamentFabricatorManager
         $this->pageBlocks->put($pageBlock::getName(), $pageBlock);
     }
 
-    public function getComponentFromLayoutName(string $layoutName): string
+    public function getLayoutFromName(string $layoutName): string
     {
-        return $this->layouts->get($layoutName)::getComponent();
+        return $this->layouts->get($layoutName);
     }
 
-    public function getComponentFromBlockName(string $name): string
+    public function getPageBlockFromName(string $name): string
     {
-        return $this->pageBlocks->get($name)::getComponent();
+        return $this->pageBlocks->get($name);
     }
 
     public function getLayouts(): array

@@ -1,8 +1,11 @@
 @props(['blocks' => []])
 
-@foreach ($blocks as $block)
+@foreach ($blocks as $blockData)
+    @php
+        $pageBlock = Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getPageBlockFromName($blockData['type'])   
+    @endphp
     <x-dynamic-component
-        :component="Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getComponentFromBlockName($block['type'])"
-        :attributes="new \Illuminate\View\ComponentAttributeBag($block['data'])"
+        :component="$pageBlock::getComponent()"
+        :attributes="new \Illuminate\View\ComponentAttributeBag($pageBlock::mutateData($blockData['data']))"
     />
 @endforeach

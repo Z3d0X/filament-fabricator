@@ -14,4 +14,9 @@ class {{ class }} extends PageBlock
                 //
             ]);
     }
+
+    public static function mutateBlockData(array $data): array
+    {
+        return $data;
+    }
 }
