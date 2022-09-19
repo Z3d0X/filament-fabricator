@@ -37,6 +37,7 @@ class MakePageBlockCommand extends Command
             ->implode('.');
 
         $view = Str::of($pageBlock)
+            ->beforeLast('Block')
             ->prepend('components\\filament-fabricator\\page-blocks\\')
             ->explode('\\')
             ->map(fn ($segment) => Str::kebab($segment))

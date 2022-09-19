@@ -37,6 +37,7 @@ class MakeLayoutCommand extends Command
             ->implode('.');
 
         $view = Str::of($layout)
+            ->beforeLast('Layout')
             ->prepend('components\\filament-fabricator\\layouts\\')
             ->explode('\\')
             ->map(fn ($segment) => Str::kebab($segment))
