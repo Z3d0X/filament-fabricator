@@ -2,6 +2,10 @@
 
 // config for Z3d0X/FilamentFabricator
 return [
+    'routing' => [
+        'enabled' => true,
+    ],
+
     'layouts' => [
         'namespace' => 'App\\Filament\\Fabricator\\Layouts',
         'path' => app_path('Filament/Fabricator/Layouts'),
