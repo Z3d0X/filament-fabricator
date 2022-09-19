@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/run-tests?label=tests)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/Check%20&%20fix%20styling?label=code%20style)](https://github.com/z3d0x/filament-fabricator/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/z3d0x/filament-fabricator/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/Z3d0X/filament-fabricator/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/z3d0x/filament-fabricator.svg?style=flat-square)](https://packagist.org/packages/z3d0x/filament-fabricator)
 
 <p align="center">
