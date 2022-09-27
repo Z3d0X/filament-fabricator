@@ -3,7 +3,6 @@
 namespace Z3d0X\FilamentFabricator\Resources;
 
 use Closure;
-use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
@@ -21,6 +20,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
+use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 
@@ -39,7 +39,7 @@ class PageResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-                        Builder::make('blocks')
+                        PageBuilder::make('blocks')
                             ->label(__('filament-fabricator::page-resource.labels.blocks'))
                             ->blocks(FilamentFabricator::getPageBlocks()),
                     ])
