@@ -107,6 +107,7 @@ class PageResource extends Resource
                 ViewAction::make(),
                 EditAction::make(),
                 Action::make('visit')
+                    ->label(__('filament-fabricator::page-resource.actions.visit'))
                     ->url(fn (Page $record) => '/' . $record->slug)
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()

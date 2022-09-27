@@ -7,4 +7,8 @@ return [
         'slug' => 'Slug',
         'layout' => 'Layout',
     ],
+
+    'actions' => [
+        'visit' => 'Visit',
+    ],
 ];
