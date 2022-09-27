@@ -2,7 +2,7 @@
 
 @foreach ($blocks as $blockData)
     @php
-        $pageBlock = Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getPageBlockFromName($blockData['type'])   
+        $pageBlock = \Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getPageBlockFromName($blockData['type'])   
     @endphp
     <x-dynamic-component
         :component="$pageBlock::getComponent()"
