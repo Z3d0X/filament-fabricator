@@ -17,6 +17,7 @@ class EditPage extends EditRecord
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
             Action::make('visit')
+                ->label(__('filament-fabricator::page-resource.actions.visit'))
                 ->url('/' . $this->record->slug)
                 ->icon('heroicon-o-external-link')
                 ->openUrlInNewTab()
