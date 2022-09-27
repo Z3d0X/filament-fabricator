@@ -31,6 +31,7 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
             ->hasMigration('create_pages_table')
             ->hasRoute('web')
             ->hasViews()
+            ->hasTranslations()
             ->hasCommands([
                 MakePageBlockCommand::class,
                 MakeLayoutCommand::class,
