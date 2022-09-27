@@ -40,6 +40,7 @@ class PageResource extends Resource
                 Group::make()
                     ->schema([
                         Builder::make('blocks')
+                            ->label(__('filament-fabricator::page-resource.labels.blocks'))
                             ->blocks(FilamentFabricator::getPageBlocks()),
                     ])
                     ->columnSpan(2),
@@ -48,6 +49,7 @@ class PageResource extends Resource
                     ->columnSpan(1)
                     ->schema([
                         TextInput::make('title')
+                            ->label(__('filament-fabricator::page-resource.labels.title'))
                             ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?Model $record) {
                                 if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                     $set('slug', Str::slug($state));
@@ -61,6 +63,7 @@ class PageResource extends Resource
                             ->dehydrated(false),
 
                         TextInput::make('slug')
+                            ->label(__('filament-fabricator::page-resource.labels.slug'))
                             ->unique(ignoreRecord: true)
                             ->afterStateUpdated(function (Closure $set) {
                                 $set('is_slug_changed_manually', true);
@@ -68,6 +71,7 @@ class PageResource extends Resource
                             ->required(),
 
                         Select::make('layout')
+                            ->label(__('filament-fabricator::page-resource.labels.layout'))
                             ->options(FilamentFabricator::getLayouts())
                             ->default('default')
                             ->required(),
@@ -80,19 +84,23 @@ class PageResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__('filament-fabricator::page-resource.labels.title'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('slug')
+                    ->label(__('filament-fabricator::page-resource.labels.slug'))
                     ->searchable()
                     ->sortable(),
 
                 BadgeColumn::make('layout')
+                    ->label(__('filament-fabricator::page-resource.labels.layout'))
                     ->sortable()
                     ->enum(FilamentFabricator::getLayouts()),
             ])
             ->filters([
                 SelectFilter::make('layout')
+                    ->label(__('filament-fabricator::page-resource.labels.layout'))
                     ->options(FilamentFabricator::getLayouts()),
             ])
             ->actions([
