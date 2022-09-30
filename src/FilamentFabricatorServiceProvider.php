@@ -4,6 +4,7 @@ namespace Z3d0X\FilamentFabricator;
 
 use Filament\PluginServiceProvider;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -52,22 +53,25 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
         $this->app->scoped('filament-fabricator', function () {
             return new FilamentFabricatorManager();
         });
+    }
 
-        $this->app->booting(function () {
-            $this->registerComponentsFromDirectory(
-                Layout::class,
-                config('filament-fabricator.layouts.register'),
-                config('filament-fabricator.layouts.path'),
-                config('filament-fabricator.layouts.namespace')
-            );
+    public function bootingPackage()
+    {
+        Route::model('filamentFabricatorPage', FilamentFabricator::getPageModel());
 
-            $this->registerComponentsFromDirectory(
-                PageBlock::class,
-                config('filament-fabricator.page-blocks.register'),
-                config('filament-fabricator.page-blocks.path'),
-                config('filament-fabricator.page-blocks.namespace')
-            );
-        });
+        $this->registerComponentsFromDirectory(
+            Layout::class,
+            config('filament-fabricator.layouts.register'),
+            config('filament-fabricator.layouts.path'),
+            config('filament-fabricator.layouts.namespace')
+        );
+
+        $this->registerComponentsFromDirectory(
+            PageBlock::class,
+            config('filament-fabricator.page-blocks.register'),
+            config('filament-fabricator.page-blocks.path'),
+            config('filament-fabricator.page-blocks.namespace')
+        );
     }
 
     protected function registerComponentsFromDirectory(string $baseClass, array $register, ?string $directory, ?string $namespace): void

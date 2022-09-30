@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getScripts()
  * @method static array getStyles()
  * @method static ?string getFavicon()
+ * @method static string getPageModel()
  *
  * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
  */

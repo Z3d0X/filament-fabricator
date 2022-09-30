@@ -4,6 +4,7 @@ namespace Z3d0X\FilamentFabricator;
 
 use Illuminate\Support\Collection;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
+use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class FilamentFabricatorManager
@@ -119,5 +120,11 @@ class FilamentFabricatorManager
     public function getFavicon(): ?string
     {
         return $this->favicon;
+    }
+
+    /** @return class-string */
+    public function getPageModel(): string
+    {
+        return config('filament-fabricator.page-model') ?? Page::class;
     }
 }

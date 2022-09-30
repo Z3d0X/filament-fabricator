@@ -21,4 +21,6 @@ return [
             //
         ],
     ],
+
+    'page-model' => \Z3d0X\FilamentFabricator\Models\Page::class,
 ];

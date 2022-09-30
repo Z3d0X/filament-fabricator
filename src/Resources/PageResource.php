@@ -21,16 +21,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
-use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 
 class PageResource extends Resource
 {
-    protected static ?string $model = Page::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $recordTitleAttribute = 'title';
+
+    public static function getModel(): string
+    {
+        return FilamentFabricator::getPageModel();
+    }
 
     public static function form(Form $form): Form
     {
@@ -108,7 +110,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn (Page $record) => '/' . $record->slug)
+                    ->url(fn ($record) => '/' . $record->slug)
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')
