@@ -57,7 +57,13 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
 
     public function bootingPackage()
     {
-        Route::model('filamentFabricatorPage', FilamentFabricator::getPageModel());
+        Route::bind('filamentFabricatorPage', function ($value) {
+            $pageModel = FilamentFabricator::getPageModel();
+
+            return $pageModel::query()
+                ->where('slug', $value)
+                ->firstOrFail();
+        });
 
         $this->registerComponentsFromDirectory(
             Layout::class,

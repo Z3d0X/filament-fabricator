@@ -31,9 +31,4 @@ class Page extends Model
         'blocks' => 'array',
         'parent_id' => 'integer',
     ];
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 }
