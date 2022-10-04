@@ -53,7 +53,7 @@ class PageResource extends Resource
                         TextInput::make('title')
                             ->label(__('filament-fabricator::page-resource.labels.title'))
                             ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?Model $record) {
-                                if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
+                                if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                     $set('slug', Str::slug($state));
                                 }
                             })
@@ -110,7 +110,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn ($record) => '/' . $record->slug)
+                    ->url(fn($record) => config('filament-fabricator.routing.prefix') . '/' . $record->slug)
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')

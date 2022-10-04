@@ -17,7 +17,7 @@ class ViewPage extends ViewRecord
             Actions\EditAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
-                ->url('/' . $this->record->slug)
+                ->url(config('filament-fabricator.routing.prefix') . '/' . $this->record->slug)
                 ->icon('heroicon-o-external-link')
                 ->openUrlInNewTab()
                 ->color('success')
