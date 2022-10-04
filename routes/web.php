@@ -26,6 +26,7 @@ if (config('filament-fabricator.routing.enabled')) {
                 BLADE,
                 ['component' => $component, 'page' => $filamentFabricatorPage]
             );
-        });
+        })
+        ->whereIn('filamentFabricatorPage', FilamentFabricator::getPageUrls());
     });
 }

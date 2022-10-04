@@ -2,6 +2,7 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Page;
@@ -22,6 +23,8 @@ class FilamentFabricatorManager
     protected array $styles = [];
 
     protected ?string $favicon = 'favicon.ico';
+
+    protected array $pageUrls = [];
 
     public function __construct()
     {
@@ -126,5 +129,37 @@ class FilamentFabricatorManager
     public function getPageModel(): string
     {
         return config('filament-fabricator.page-model') ?? Page::class;
+    }
+
+    public function getPageUrls(): array
+    {
+        $this->getPageModel()::query()
+            ->select('id', 'slug', 'title')
+            ->whereNull('parent_id')
+            ->with('allChildren')
+            ->get()
+            ->each(fn (Model $page) => $this->setPageUrl($page));
+
+        return $this->pageUrls;
+    }
+
+    public function getPageUrlFromId(int $id, bool $prefixSlash = false): ?string
+    {
+        $url = $this->getPageUrls()[$id];
+
+        return ($url[0] !== '/' && $prefixSlash) ? "/{$url}" : $url;
+    }
+
+    protected function setPageUrl(Model $page, ?string $parentUrl = null): string
+    {
+        $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
+
+        if ($page->children) {
+            foreach ($page->children as $child) {
+                $this->setPageUrl($child, $pageUrl);
+            }
+        }
+
+        return $this->pageUrls[$page->id] = $pageUrl;
     }
 }

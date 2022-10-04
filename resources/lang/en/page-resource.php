@@ -6,6 +6,7 @@ return [
         'title' => 'Title',
         'slug' => 'Slug',
         'layout' => 'Layout',
+        'parent' => 'Parent',
     ],
 
     'actions' => [
