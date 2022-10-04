@@ -31,5 +31,4 @@ class Page extends Model
         'blocks' => 'array',
         'parent_id' => 'integer',
     ];
-
 }
