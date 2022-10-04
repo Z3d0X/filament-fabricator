@@ -25,18 +25,18 @@ class Page extends Model implements Contract
 
     protected static function booted()
     {
-        static::saved(fn () => Cache::forget('filament-fabricator::page-urls'));
-        static::deleted(fn () => Cache::forget('filament-fabricator::page-urls'));
+        static::saved(fn() => Cache::forget('filament-fabricator::page-urls'));
+        static::deleted(fn() => Cache::forget('filament-fabricator::page-urls'));
     }
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Page::class, 'parent_id');
+        return $this->belongsTo(static::class, 'parent_id');
     }
 
     public function children(): HasMany
     {
-        return $this->hasMany(Page::class, 'parent_id');
+        return $this->hasMany(static::class, 'parent_id');
     }
 
     public function allChildren(): HasMany

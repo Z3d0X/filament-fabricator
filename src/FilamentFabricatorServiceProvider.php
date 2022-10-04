@@ -16,6 +16,7 @@ use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
+use Z3d0X\FilamentFabricator\Resources\TranslatablePageResource;
 
 class FilamentFabricatorServiceProvider extends PluginServiceProvider
 {
@@ -53,6 +54,9 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
         $this->app->scoped('filament-fabricator', function () {
             return new FilamentFabricatorManager();
         });
+        if (FilamentFabricator::getPageModel() == \Z3d0X\FilamentFabricator\Models\TranslatablePage::class) {
+            $this->resources = [TranslatablePageResource::class];
+        }
     }
 
     public function bootingPackage()
