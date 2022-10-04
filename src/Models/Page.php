@@ -32,8 +32,4 @@ class Page extends Model
         'parent_id' => 'integer',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 }
