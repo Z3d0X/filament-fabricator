@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator\Resources;
 
 use Closure;
+use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
@@ -89,6 +90,14 @@ class PageResource extends Resource
                             ->label(__('filament-fabricator::page-resource.labels.parent'))
                             ->searchable()
                             ->preload()
+                            ->reactive()
+                            ->suffixAction(
+                                fn ($get, $context) => FormAction::make($context . '-parent')
+                                        ->icon('heroicon-o-external-link')
+                                        ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
+                                        ->openUrlInNewTab()
+                                        ->visible(fn () => filled($get('parent_id')))
+                            )
                             ->relationship(
                                 'parent',
                                 'title',
@@ -111,17 +120,21 @@ class PageResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('slug')
-                    ->label(__('filament-fabricator::page-resource.labels.slug'))
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('url')
+                    ->label(__('filament-fabricator::page-resource.labels.url'))
+                    ->toggleable()
+                    ->getStateUsing(fn ($record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
+                    ->url(fn ($record) => FilamentFabricator::getPageUrls()[$record->id] ?? null),
 
                 BadgeColumn::make('layout')
                     ->label(__('filament-fabricator::page-resource.labels.layout'))
+                    ->toggleable()
                     ->sortable()
                     ->enum(FilamentFabricator::getLayouts()),
 
                 TextColumn::make('parent.title')
+                    ->label(__('filament-fabricator::page-resource.labels.parent'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->formatStateUsing(fn ($state) => $state ?? '-')
                     ->url(fn ($record) => filled($record->parent_id) ? PageResource::getUrl('edit', ['record' => $record->parent_id]) : null),
             ])

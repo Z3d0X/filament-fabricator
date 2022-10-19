@@ -141,7 +141,7 @@ class FilamentFabricatorManager
                 ->with('allChildren')
                 ->get()
                 ->each(fn (Model $page) => $this->setPageUrl($page));
-    
+
             return $this->pageUrls;
         });
     }
