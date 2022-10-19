@@ -6,6 +6,8 @@ return [
         'title' => 'Title',
         'slug' => 'Slug',
         'layout' => 'Layout',
+        'parent' => 'Parent',
+        'url' => 'URL',
     ],
 
     'actions' => [

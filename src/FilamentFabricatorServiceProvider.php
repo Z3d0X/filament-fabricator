@@ -60,8 +60,12 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
         Route::bind('filamentFabricatorPage', function ($value) {
             $pageModel = FilamentFabricator::getPageModel();
 
+            $pageUrls = FilamentFabricator::getPageUrls();
+
+            $pageId = array_search($value, $pageUrls);
+
             return $pageModel::query()
-                ->where('slug', $value)
+                ->where('id', $pageId)
                 ->firstOrFail();
         });
 
