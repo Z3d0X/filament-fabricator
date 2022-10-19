@@ -5,6 +5,7 @@ namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
+use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class ViewPage extends ViewRecord
@@ -17,7 +18,7 @@ class ViewPage extends ViewRecord
             Actions\EditAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
-                ->url('/' . $this->record->slug)
+                ->url(fn () => FilamentFabricator::getPageUrlFromId($this->record->id, true))
                 ->icon('heroicon-o-external-link')
                 ->openUrlInNewTab()
                 ->color('success')
