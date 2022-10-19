@@ -4,6 +4,7 @@ namespace Z3d0X\FilamentFabricator;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
@@ -133,14 +134,16 @@ class FilamentFabricatorManager
 
     public function getPageUrls(): array
     {
-        $this->getPageModel()::query()
-            ->select('id', 'slug', 'title')
-            ->whereNull('parent_id')
-            ->with('allChildren')
-            ->get()
-            ->each(fn (Model $page) => $this->setPageUrl($page));
-
-        return $this->pageUrls;
+        return Cache::rememberForever('filament-fabricator::page-urls', function () {
+            $this->getPageModel()::query()
+                ->select('id', 'slug', 'title')
+                ->whereNull('parent_id')
+                ->with('allChildren')
+                ->get()
+                ->each(fn (Model $page) => $this->setPageUrl($page));
+    
+            return $this->pageUrls;
+        });
     }
 
     public function getPageUrlFromId(int $id, bool $prefixSlash = false): ?string
