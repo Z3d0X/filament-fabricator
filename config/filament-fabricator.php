@@ -4,7 +4,7 @@
 return [
     'routing' => [
         'enabled' => true,
-        'prefix' => null //    /pages
+        'prefix' => null, //    /pages
     ],
 
     'layouts' => [

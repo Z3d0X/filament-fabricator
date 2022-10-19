@@ -61,7 +61,7 @@ class PageResource extends Resource
                         TextInput::make('title')
                             ->label(__('filament-fabricator::page-resource.labels.title'))
                             ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?Model $record) {
-                                if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
+                                if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                     $set('slug', Str::slug($state));
                                 }
                             })
