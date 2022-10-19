@@ -19,7 +19,7 @@ class EditPage extends EditRecord
             Actions\DeleteAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
-                ->url(fn () => FilamentFabricator::getPageUrlFromId($this->record->id, true))
+                ->url(fn () => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($this->record->id, true))
                 ->icon('heroicon-o-external-link')
                 ->openUrlInNewTab()
                 ->color('success')

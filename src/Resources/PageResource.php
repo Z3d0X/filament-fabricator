@@ -56,12 +56,12 @@ class PageResource extends Resource
                     ->schema([
                         Placeholder::make('page_url')
                             ->visible(fn ($record) => filled($record))
-                            ->content(fn ($record) => FilamentFabricator::getPageUrlFromId($record?->id, true)),
+                            ->content(fn ($record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
 
                         TextInput::make('title')
                             ->label(__('filament-fabricator::page-resource.labels.title'))
                             ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?Model $record) {
-                                if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
+                                if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                     $set('slug', Str::slug($state));
                                 }
                             })
@@ -148,7 +148,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn ($record) => FilamentFabricator::getPageUrlFromId($record->id, true))
+                    ->url(fn ($record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true))
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')
