@@ -153,7 +153,7 @@ class FilamentFabricatorManager
         return ($url[0] !== '/' && $prefixSlash) ? "/{$url}" : $url;
     }
 
-    protected function setPageUrl(Page $page, ?string $parentUrl = null): string
+    protected function setPageUrl(Model $page, ?string $parentUrl = null): string
     {
         $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
 
