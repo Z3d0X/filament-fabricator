@@ -9,6 +9,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static void register(string $class, string $baseClass)
  * @method static void registerLayout(string $layout)
  * @method static void registerPageBlock(string $pageBlock)
+ * @method static void registerSchemaSlot(string $name, array | \Closure $schema)
  * @method static void pushMeta(array $meta)
  * @method static void registerScripts(array $scripts)
  * @method static void registerStyles(array $styles)
@@ -17,11 +18,15 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static string getPageBlockFromName(string $name)
  * @method static array getLayouts()
  * @method static array getPageBlocks()
+ * @method static array | \Closure getSchemaSlot(string $name)
  * @method static array getMeta()
  * @method static array getScripts()
  * @method static array getStyles()
  * @method static ?string getFavicon()
  * @method static class-string<PageContract> getPageModel()
+ * @method static array getPageUrls()
+ * @method static ?string getPageUrlFromId(int $id, bool $prefixSlash = false)
+ * 
  *
  * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
  */
