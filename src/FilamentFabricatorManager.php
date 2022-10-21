@@ -2,10 +2,10 @@
 
 namespace Z3d0X\FilamentFabricator;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
@@ -126,7 +126,7 @@ class FilamentFabricatorManager
         return $this->favicon;
     }
 
-    /** @return class-string */
+    /** @return class-string<PageContract> */
     public function getPageModel(): string
     {
         return config('filament-fabricator.page-model') ?? Page::class;
@@ -140,7 +140,7 @@ class FilamentFabricatorManager
                 ->whereNull('parent_id')
                 ->with('allChildren')
                 ->get()
-                ->each(fn (Model $page) => $this->setPageUrl($page));
+                ->each(fn (PageContract $page) => $this->setPageUrl($page));
 
             return $this->pageUrls;
         });
@@ -153,7 +153,7 @@ class FilamentFabricatorManager
         return ($url[0] !== '/' && $prefixSlash) ? "/{$url}" : $url;
     }
 
-    protected function setPageUrl(Model $page, ?string $parentUrl = null): string
+    protected function setPageUrl(PageContract $page, ?string $parentUrl = null): string
     {
         $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
 

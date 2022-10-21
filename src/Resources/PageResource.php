@@ -20,11 +20,11 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 
 class PageResource extends Resource
@@ -55,12 +55,12 @@ class PageResource extends Resource
                     ->columnSpan(1)
                     ->schema([
                         Placeholder::make('page_url')
-                            ->visible(fn ($record) => filled($record))
-                            ->content(fn ($record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
+                            ->visible(fn (?PageContract $record) => filled($record))
+                            ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
 
                         TextInput::make('title')
                             ->label(__('filament-fabricator::page-resource.labels.title'))
-                            ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?Model $record) {
+                            ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
                                 if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                     $set('slug', Str::slug($state));
                                 }
@@ -101,7 +101,7 @@ class PageResource extends Resource
                             ->relationship(
                                 'parent',
                                 'title',
-                                function (Builder $query, $record) {
+                                function (Builder $query, ?PageContract $record) {
                                     if (filled($record)) {
                                         $query->where('id', '!=', $record->id);
                                     }
@@ -123,8 +123,8 @@ class PageResource extends Resource
                 TextColumn::make('url')
                     ->label(__('filament-fabricator::page-resource.labels.url'))
                     ->toggleable()
-                    ->getStateUsing(fn ($record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
-                    ->url(fn ($record) => FilamentFabricator::getPageUrls()[$record->id] ?? null),
+                    ->getStateUsing(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
+                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null),
 
                 BadgeColumn::make('layout')
                     ->label(__('filament-fabricator::page-resource.labels.layout'))
@@ -136,7 +136,7 @@ class PageResource extends Resource
                     ->label(__('filament-fabricator::page-resource.labels.parent'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->formatStateUsing(fn ($state) => $state ?? '-')
-                    ->url(fn ($record) => filled($record->parent_id) ? PageResource::getUrl('edit', ['record' => $record->parent_id]) : null),
+                    ->url(fn (?PageContract $record) => filled($record->parent_id) ? PageResource::getUrl('edit', ['record' => $record->parent_id]) : null),
             ])
             ->filters([
                 SelectFilter::make('layout')
@@ -148,7 +148,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn ($record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true))
+                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true))
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')
