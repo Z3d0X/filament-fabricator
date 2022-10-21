@@ -2,6 +2,7 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Closure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
@@ -16,6 +17,8 @@ class FilamentFabricatorManager
 
     /** @var Collection<int, string> */
     protected Collection $layouts;
+
+    protected array $schemaSlot = [];
 
     protected array $meta = [];
 
@@ -66,6 +69,11 @@ class FilamentFabricatorManager
         $this->pageBlocks->put($pageBlock::getName(), $pageBlock);
     }
 
+    public function registerSchemaSlot(string $name, array | Closure $schema)
+    {
+        $this->schemaSlot[$name] = $schema;
+    }
+
     public function pushMeta(array $meta): void
     {
         $this->meta = array_merge($this->meta, $meta);
@@ -104,6 +112,11 @@ class FilamentFabricatorManager
     public function getPageBlocks(): array
     {
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
+    }
+
+    public function getSchemaSlot(string $name): array | Closure
+    {
+        return $this->schemaSlot[$name] ?? [];
     }
 
     public function getMeta(): array
