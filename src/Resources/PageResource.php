@@ -65,7 +65,7 @@ class PageResource extends Resource
                                 Placeholder::make('page_url')
                                     ->visible(fn (?PageContract $record) => filled($record))
                                     ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
-        
+
                                 TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
                                     ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
@@ -75,11 +75,11 @@ class PageResource extends Resource
                                     })
                                     ->debounce('500ms')
                                     ->required(),
-        
+
                                 Hidden::make('is_slug_changed_manually')
                                     ->default(false)
                                     ->dehydrated(false),
-        
+
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
                                     ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id')))
@@ -87,13 +87,13 @@ class PageResource extends Resource
                                         $set('is_slug_changed_manually', true);
                                     })
                                     ->required(),
-        
+
                                 Select::make('layout')
                                     ->label(__('filament-fabricator::page-resource.labels.layout'))
                                     ->options(FilamentFabricator::getLayouts())
                                     ->default('default')
                                     ->required(),
-        
+
                                 Select::make('parent_id')
                                     ->label(__('filament-fabricator::page-resource.labels.parent'))
                                     ->searchable()
