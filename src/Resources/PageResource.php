@@ -45,69 +45,81 @@ class PageResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.before')),
+
                         PageBuilder::make('blocks')
                             ->label(__('filament-fabricator::page-resource.labels.blocks'))
                             ->blocks(FilamentFabricator::getPageBlocks()),
+
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.after')),
                     ])
                     ->columnSpan(2),
 
-                Card::make()
+                Group::make()
                     ->columnSpan(1)
                     ->schema([
-                        Placeholder::make('page_url')
-                            ->visible(fn (?PageContract $record) => filled($record))
-                            ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.before')),
 
-                        TextInput::make('title')
-                            ->label(__('filament-fabricator::page-resource.labels.title'))
-                            ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
-                                if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
-                                    $set('slug', Str::slug($state));
-                                }
-                            })
-                            ->debounce('500ms')
-                            ->required(),
+                        Card::make()
+                            ->schema([
+                                Placeholder::make('page_url')
+                                    ->visible(fn (?PageContract $record) => filled($record))
+                                    ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
 
-                        Hidden::make('is_slug_changed_manually')
-                            ->default(false)
-                            ->dehydrated(false),
+                                TextInput::make('title')
+                                    ->label(__('filament-fabricator::page-resource.labels.title'))
+                                    ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
+                                        if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
+                                            $set('slug', Str::slug($state));
+                                        }
+                                    })
+                                    ->debounce('500ms')
+                                    ->required(),
 
-                        TextInput::make('slug')
-                            ->label(__('filament-fabricator::page-resource.labels.slug'))
-                            ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id')))
-                            ->afterStateUpdated(function (Closure $set) {
-                                $set('is_slug_changed_manually', true);
-                            })
-                            ->required(),
+                                Hidden::make('is_slug_changed_manually')
+                                    ->default(false)
+                                    ->dehydrated(false),
 
-                        Select::make('layout')
-                            ->label(__('filament-fabricator::page-resource.labels.layout'))
-                            ->options(FilamentFabricator::getLayouts())
-                            ->default('default')
-                            ->required(),
+                                TextInput::make('slug')
+                                    ->label(__('filament-fabricator::page-resource.labels.slug'))
+                                    ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id')))
+                                    ->afterStateUpdated(function (Closure $set) {
+                                        $set('is_slug_changed_manually', true);
+                                    })
+                                    ->required(),
 
-                        Select::make('parent_id')
-                            ->label(__('filament-fabricator::page-resource.labels.parent'))
-                            ->searchable()
-                            ->preload()
-                            ->reactive()
-                            ->suffixAction(
-                                fn ($get, $context) => FormAction::make($context . '-parent')
-                                        ->icon('heroicon-o-external-link')
-                                        ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
-                                        ->openUrlInNewTab()
-                                        ->visible(fn () => filled($get('parent_id')))
-                            )
-                            ->relationship(
-                                'parent',
-                                'title',
-                                function (Builder $query, ?PageContract $record) {
-                                    if (filled($record)) {
-                                        $query->where('id', '!=', $record->id);
-                                    }
-                                }
-                            ),
+                                Select::make('layout')
+                                    ->label(__('filament-fabricator::page-resource.labels.layout'))
+                                    ->options(FilamentFabricator::getLayouts())
+                                    ->default('default')
+                                    ->required(),
+
+                                Select::make('parent_id')
+                                    ->label(__('filament-fabricator::page-resource.labels.parent'))
+                                    ->searchable()
+                                    ->preload()
+                                    ->reactive()
+                                    ->suffixAction(
+                                        fn ($get, $context) => FormAction::make($context . '-parent')
+                                                ->icon('heroicon-o-external-link')
+                                                ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
+                                                ->openUrlInNewTab()
+                                                ->visible(fn () => filled($get('parent_id')))
+                                    )
+                                    ->relationship(
+                                        'parent',
+                                        'title',
+                                        function (Builder $query, ?PageContract $record) {
+                                            if (filled($record)) {
+                                                $query->where('id', '!=', $record->id);
+                                            }
+                                        }
+                                    ),
+                            ]),
+
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.after')),
                     ]),
+
             ]);
     }
 
