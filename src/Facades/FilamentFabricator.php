@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 
 /**
  * @method static void register(string $class, string $baseClass)
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getScripts()
  * @method static array getStyles()
  * @method static ?string getFavicon()
- * @method static string getPageModel()
+ * @method static class-string<PageContract> getPageModel()
  *
  * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
  */
