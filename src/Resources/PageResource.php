@@ -63,7 +63,7 @@ class PageResource extends Resource
                         Card::make()
                             ->schema([
                                 Placeholder::make('page_url')
-                                    ->visible(fn (?PageContract $record) => filled($record))
+                                    ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
                                     ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
 
                                 TextInput::make('title')
@@ -136,7 +136,8 @@ class PageResource extends Resource
                     ->label(__('filament-fabricator::page-resource.labels.url'))
                     ->toggleable()
                     ->getStateUsing(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
-                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null),
+                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
+                    ->visible(config('filament-fabricator.routing.enabled')),
 
                 BadgeColumn::make('layout')
                     ->label(__('filament-fabricator::page-resource.labels.layout'))
