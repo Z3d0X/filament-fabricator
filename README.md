@@ -19,6 +19,7 @@ You can install the package via composer:
 composer require z3d0x/filament-fabricator
 ```
 
+
 After that run the install command:
 ```bash
 php artisan filament-fabricator:install
@@ -27,6 +28,10 @@ php artisan filament-fabricator:install
 ## Documentation
 
 Documentation can be viewed at: https://filamentphp.com/plugins/fabricator
+
+## Screenshots
+<img alt="fabricator-index" src="https://user-images.githubusercontent.com/75579178/201537846-6d4d7cf9-9da5-4f9c-a39c-66e2965b6665.png">
+<img alt="fabricator-deatil" src="https://user-images.githubusercontent.com/75579178/201537847-8bdd3330-2a4e-418e-a128-daa4651cce25.png">
 
 ## Changelog
 
