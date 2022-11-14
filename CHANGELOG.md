@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.0.2 - 2022-11-14
+
+### What's Changed
+
+- Fix: Homepage Routing by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/24
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.1...v1.0.2
+
 ## v1.0.1 - 2022-11-13
 
 ### What's Changed
