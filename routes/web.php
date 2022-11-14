@@ -13,8 +13,12 @@ if (config('filament-fabricator.routing.enabled')) {
             Route::get('/{filamentFabricatorPage?}', function (?Page $filamentFabricatorPage = null) {
                 // Handle root (home) page
                 if (blank($filamentFabricatorPage)) {
+                    $pageUrls = FilamentFabricator::getPageUrls();
+
+                    $pageId = array_search('/', $pageUrls);
+
                     $filamentFabricatorPage = FilamentFabricator::getPageModel()::query()
-                        ->where('slug', '/')
+                        ->where('id', $pageId)
                         ->firstOrFail();
                 }
 
