@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create(config('filament-fabricator.table_name', 'pages'), function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
             $table->string('slug')->unique();
@@ -21,6 +21,6 @@ return new class extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists(config('filament-fabricator.table_name', 'pages'));
     }    
 };

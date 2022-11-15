@@ -10,6 +10,15 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as Contract;
 
 class Page extends Model implements Contract
 {
+    public function __construct(array $attributes = [])
+    {
+        if (! isset($this->table)) {
+            $this->setTable(config('filament-fabricator.table_name', 'pages'));
+        }
+
+        parent::__construct($attributes);
+    }
+
     protected $fillable = [
         'title',
         'slug',
