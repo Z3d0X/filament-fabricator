@@ -2,6 +2,24 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.0.2 - 2022-11-14
+
+### What's Changed
+
+- Fix: Homepage Routing by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/24
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.1...v1.0.2
+
+## v1.0.1 - 2022-11-13
+
+### What's Changed
+
+- build(deps): bump dependabot/fetch-metadata from 1.3.4 to 1.3.5 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/21
+- Feature: Configurable `PageResource` by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/22
+- Fix: Hide page urls when routing disabled by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/23
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.0...v1.0.1
+
 ## v1.0.0 - 2022-10-25
 
 ### What's Changed

@@ -21,9 +21,12 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
 {
     public static string $name = 'filament-fabricator';
 
-    protected array $resources = [
-        PageResource::class,
-    ];
+    protected function getResources(): array
+    {
+        return [
+            config('filament-fabricator.page-resource') ?? PageResource::class,
+        ];
+    }
 
     public function configurePackage(Package $package): void
     {
