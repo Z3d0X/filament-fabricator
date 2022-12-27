@@ -15,6 +15,9 @@ class EditPage extends EditRecord
     protected function getActions(): array
     {
         return [
+            Action::make('save')
+            ->action('save')
+            ->label(__('filament::resources/pages/edit-record.form.actions.save.label')),
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
             Action::make('visit')
