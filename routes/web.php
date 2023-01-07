@@ -34,6 +34,7 @@ if (config('filament-fabricator.routing.enabled')) {
                     ['component' => $component, 'page' => $filamentFabricatorPage]
                 );
             })
-            ->where('filamentFabricatorPage', '.*');
+            ->where('filamentFabricatorPage', '.*')
+            ->fallback();
         });
 }
