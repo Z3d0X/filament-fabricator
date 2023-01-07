@@ -135,8 +135,8 @@ class PageResource extends Resource
                 TextColumn::make('url')
                     ->label(__('filament-fabricator::page-resource.labels.url'))
                     ->toggleable()
-                    ->getStateUsing(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
-                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrls()[$record->id] ?? null)
+                    ->getStateUsing(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?? null)
+                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?? null, true)
                     ->visible(config('filament-fabricator.routing.enabled')),
 
                 BadgeColumn::make('layout')
@@ -161,7 +161,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true))
+                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?? null)
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')
