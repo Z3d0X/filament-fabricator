@@ -24,6 +24,9 @@ class EditPage extends EditRecord
                 ->openUrlInNewTab()
                 ->color('success')
                 ->visible(config('filament-fabricator.routing.enabled')),
+            Action::make('save')
+                ->action('save')
+                ->label(__('filament::resources/pages/edit-record.form.actions.save.label')),
         ];
     }
 }
