@@ -69,7 +69,7 @@ class FilamentFabricatorManager
         $this->pageBlocks->put($pageBlock::getName(), $pageBlock);
     }
 
-    public function registerSchemaSlot(string $name, array | Closure $schema)
+    public function registerSchemaSlot(string $name, array|Closure $schema)
     {
         $this->schemaSlot[$name] = $schema;
     }
@@ -114,7 +114,7 @@ class FilamentFabricatorManager
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
     }
 
-    public function getSchemaSlot(string $name): array | Closure
+    public function getSchemaSlot(string $name): array|Closure
     {
         return $this->schemaSlot[$name] ?? [];
     }
