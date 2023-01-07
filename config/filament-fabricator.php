@@ -26,10 +26,10 @@ return [
     'page-model' => \Z3d0X\FilamentFabricator\Models\Page::class,
 
     'page-resource' => \Z3d0X\FilamentFabricator\Resources\PageResource::class,
-    
+
     /*
      * This is the name of the table that will be created by the migration and
      * used by the above page-model shipped with this package.
      */
-    'table_name' => 'pages',      
+    'table_name' => 'pages',
 ];
