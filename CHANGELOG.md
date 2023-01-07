@@ -2,6 +2,23 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.0.3 - 2023-01-07
+
+### What's Changed
+
+- build(deps): bump ramsey/composer-install from 1 to 2 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/28
+- Add a save button at the top of the page by @jvkassi in https://github.com/Z3d0X/filament-fabricator/pull/31
+- build(deps): bump aglipanci/laravel-pint-action from 1.0.0 to 2.1.0 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/32
+- Configurable Database Table & Migration Down Method by @mrlinnth in https://github.com/Z3d0X/filament-fabricator/pull/19
+- Fix: Frontend Routing by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/34
+
+### New Contributors
+
+- @jvkassi made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/31
+- @mrlinnth made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/19
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2022-11-14
 
 ### What's Changed
