@@ -11,6 +11,7 @@
 
 ***What is Filament Fabricator?*** Filament Fabricator is simply said a block-based page builder skeleton. Filament Fabricator takes care of the PageResource & frontend routing, so you can focus on what really matters: your [Layouts](https://filamentphp.com/plugins/fabricator#layouts) & [Page Blocks](https://filamentphp.com/plugins/fabricator#page-blocks).
 
+If you are a visual learner checkout [this video](https://youtu.be/HMTtpsVX2mo).
 ## Installation
 
 You can install the package via composer:
