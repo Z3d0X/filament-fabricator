@@ -2,6 +2,19 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.0.4 - 2023-02-14
+
+### What's Changed
+
+- build(deps): bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/35
+- Fix custom PageResource not being considered on Pages by @lucasgiovanny in https://github.com/Z3d0X/filament-fabricator/pull/37
+
+### New Contributors
+
+- @lucasgiovanny made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/37
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.3...v1.0.4
+
 ## v1.0.3 - 2023-01-07
 
 ### What's Changed
