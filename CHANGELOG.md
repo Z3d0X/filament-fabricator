@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.1.0 - 2023-02-15
+
+### What's Changed
+
+- Laravel 10 Support by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/38
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.0.4...v1.1.0
+
 ## v1.0.4 - 2023-02-14
 
 ### What's Changed
