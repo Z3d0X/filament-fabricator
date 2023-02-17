@@ -48,8 +48,7 @@ class PageResource extends Resource
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.before')),
 
                         PageBuilder::make('blocks')
-                            ->label(__('filament-fabricator::page-resource.labels.blocks'))
-                            ->blocks(FilamentFabricator::getPageBlocks()),
+                            ->label(__('filament-fabricator::page-resource.labels.blocks')),
 
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.after')),
                     ])

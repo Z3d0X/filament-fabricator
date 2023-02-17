@@ -94,12 +94,12 @@ class FilamentFabricatorManager
         $this->favicon = $favicon;
     }
 
-    public function getLayoutFromName(string $layoutName): string
+    public function getLayoutFromName(string $layoutName): ?string
     {
         return $this->layouts->get($layoutName);
     }
 
-    public function getPageBlockFromName(string $name): string
+    public function getPageBlockFromName(string $name): ?string
     {
         return $this->pageBlocks->get($name);
     }
@@ -112,6 +112,11 @@ class FilamentFabricatorManager
     public function getPageBlocks(): array
     {
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
+    }
+
+    public function getPageBlocksRaw(): array
+    {
+        return $this->pageBlocks->toArray();
     }
 
     public function getSchemaSlot(string $name): array|Closure

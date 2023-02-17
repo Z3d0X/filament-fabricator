@@ -22,7 +22,13 @@ if (config('filament-fabricator.routing.enabled')) {
                         ->firstOrFail();
                 }
 
-                $component = FilamentFabricator::getLayoutFromName($filamentFabricatorPage?->layout)::getComponent();
+                $layout = FilamentFabricator::getLayoutFromName($filamentFabricatorPage?->layout);
+
+                if (! isset($layout)) {
+                    throw new \Exception("Filament Fabricator: Layout \"{$filamentFabricatorPage->layout}\" not found");
+                }
+
+                $component = $layout::getComponent();
 
                 return Blade::render(
                     <<<'BLADE'
