@@ -12,10 +12,10 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class FilamentFabricatorManager
 {
-    /** @var Collection<int, string> */
+    /** @var Collection<string,string> */
     protected Collection $pageBlocks;
 
-    /** @var Collection<int, string> */
+    /** @var Collection<string,string> */
     protected Collection $layouts;
 
     protected array $schemaSlot = [];
@@ -32,8 +32,14 @@ class FilamentFabricatorManager
 
     public function __construct()
     {
-        $this->pageBlocks = collect();
-        $this->layouts = collect();
+        /** @var Collection<string,string> */
+        $pageBlocks = collect([]);
+
+        /** @var Collection<string,string> */
+        $layouts = collect([]);
+
+        $this->pageBlocks = $pageBlocks;
+        $this->layouts = $layouts;
     }
 
     /**
@@ -69,7 +75,7 @@ class FilamentFabricatorManager
         $this->pageBlocks->put($pageBlock::getName(), $pageBlock);
     }
 
-    public function registerSchemaSlot(string $name, array|Closure $schema)
+    public function registerSchemaSlot(string $name, array|Closure $schema): void
     {
         $this->schemaSlot[$name] = $schema;
     }
@@ -158,7 +164,7 @@ class FilamentFabricatorManager
                 ->whereNull('parent_id')
                 ->with('allChildren')
                 ->get()
-                ->each(fn (PageContract $page) => $this->setPageUrl($page));
+                ->each(fn (PageContract $page) => $this->setPageUrl($page)); // @phpstan-ignore-line
 
             return $this->pageUrls;
         });
