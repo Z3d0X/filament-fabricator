@@ -99,7 +99,7 @@ class FilamentFabricatorManager
         return $this->layouts->get($layoutName);
     }
 
-    public function getPageBlockFromName(string $name): string
+    public function getPageBlockFromName(string $name): ?string
     {
         return $this->pageBlocks->get($name);
     }
