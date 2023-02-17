@@ -14,7 +14,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static void registerScripts(array $scripts)
  * @method static void registerStyles(array $styles)
  * @method static void favicon(?string $favicon)
- * @method static string getLayoutFromName(string $layoutName)
+ * @method static ?string getLayoutFromName(string $layoutName)
  * @method static ?string getPageBlockFromName(string $name)
  * @method static array getLayouts()
  * @method static array getPageBlocks()

@@ -94,7 +94,7 @@ class FilamentFabricatorManager
         $this->favicon = $favicon;
     }
 
-    public function getLayoutFromName(string $layoutName): string
+    public function getLayoutFromName(string $layoutName): ?string
     {
         return $this->layouts->get($layoutName);
     }
