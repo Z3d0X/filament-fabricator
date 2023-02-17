@@ -18,6 +18,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static ?string getPageBlockFromName(string $name)
  * @method static array getLayouts()
  * @method static array getPageBlocks()
+ * @method static array getPageBlocksRaw()
  * @method static array | \Closure getSchemaSlot(string $name)
  * @method static array getMeta()
  * @method static array getScripts()

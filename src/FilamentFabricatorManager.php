@@ -114,6 +114,11 @@ class FilamentFabricatorManager
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
     }
 
+    public function getPageBlocksRaw(): array
+    {
+        return $this->pageBlocks->toArray();
+    }
+
     public function getSchemaSlot(string $name): array|Closure
     {
         return $this->schemaSlot[$name] ?? [];
