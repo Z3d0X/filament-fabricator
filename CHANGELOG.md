@@ -2,6 +2,15 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.1.1 - 2023-02-17
+
+### What's Changed
+
+- Fix: ignore deleted blocks by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/41
+- Refactor to PageController by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/42
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.1.0...v1.1.1
+
 ## v1.1.0 - 2023-02-15
 
 ### What's Changed
