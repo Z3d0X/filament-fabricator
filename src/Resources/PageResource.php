@@ -63,7 +63,7 @@ class PageResource extends Resource
                             ->schema([
                                 Placeholder::make('page_url')
                                     ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
-                                    ->content(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record?->id, true)),
+                                    ->content(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record?->id)),
 
                                 TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
@@ -84,6 +84,13 @@ class PageResource extends Resource
                                     ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id')))
                                     ->afterStateUpdated(function (Closure $set) {
                                         $set('is_slug_changed_manually', true);
+                                    })
+                                    ->rule(function ($state) {
+                                        return function (string $attribute, $value, Closure $fail) use ($state) {
+                                            if ($state !== '/' && (Str::startsWith($value, '/') || Str::endsWith($value, '/'))) {
+                                                $fail(__('filament-fabricator::page-resource.errors.slug_starts_or_ends_with_slash'));
+                                            }
+                                        };
                                     })
                                     ->required(),
 
@@ -134,8 +141,8 @@ class PageResource extends Resource
                 TextColumn::make('url')
                     ->label(__('filament-fabricator::page-resource.labels.url'))
                     ->toggleable()
-                    ->getStateUsing(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
-                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?: null, true)
+                    ->getStateUsing(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id) ?: null)
+                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id) ?: null, true)
                     ->visible(config('filament-fabricator.routing.enabled')),
 
                 BadgeColumn::make('layout')
@@ -160,7 +167,7 @@ class PageResource extends Resource
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
-                    ->url(fn (?PageContract $record) => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
+                    ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
                     ->icon('heroicon-o-external-link')
                     ->openUrlInNewTab()
                     ->color('success')

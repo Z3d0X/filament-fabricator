@@ -5,6 +5,7 @@ namespace Z3d0X\FilamentFabricator;
 use Closure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Models\Page;
@@ -156,6 +157,17 @@ class FilamentFabricatorManager
         return config('filament-fabricator.page-model') ?? Page::class;
     }
 
+    public function getRoutingPrefix(): ?string
+    {
+        $prefix = config('filament-fabricator.routing.prefix');
+
+        if (is_null($prefix)) {
+            return null;
+        }
+
+        return Str::start(config('filament-fabricator.routing.prefix'), '/');
+    }
+
     public function getPageUrls(): array
     {
         return Cache::rememberForever('filament-fabricator::page-urls', function () {
@@ -174,7 +186,11 @@ class FilamentFabricatorManager
     {
         $url = $this->getPageUrls()[$id];
 
-        return ($url[0] !== '/' && $prefixSlash) ? "/{$url}" : $url;
+        if ($routingPrefix = $this->getRoutingPrefix()) {
+            $url = Str::start($url, $routingPrefix);
+        }
+
+        return $url;
     }
 
     protected function setPageUrl(PageContract $page, ?string $parentUrl = null): string
@@ -187,6 +203,6 @@ class FilamentFabricatorManager
             }
         }
 
-        return $this->pageUrls[$page->id] = $pageUrl;
+        return $this->pageUrls[$page->id] = Str::start($pageUrl, '/');
     }
 }

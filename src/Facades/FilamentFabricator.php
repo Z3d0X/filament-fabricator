@@ -25,6 +25,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static array getStyles()
  * @method static ?string getFavicon()
  * @method static class-string<PageContract> getPageModel()
+ * @method static string getRoutingPrefix()
  * @method static array getPageUrls()
  * @method static ?string getPageUrlFromId(int $id, bool $prefixSlash = false)
  *
