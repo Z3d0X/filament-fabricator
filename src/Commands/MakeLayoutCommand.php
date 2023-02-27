@@ -12,7 +12,7 @@ class MakeLayoutCommand extends Command
     use CanManipulateFiles;
     use CanValidateInput;
 
-    protected $signature = 'make:filament-fabricator-layout{name?} {--F|force}';
+    protected $signature = 'filament-fabricator:layout {name?} {--F|force}';
 
     protected $description = 'Create a new filament-fabricator layout';
 

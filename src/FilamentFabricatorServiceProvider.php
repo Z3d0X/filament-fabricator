@@ -10,8 +10,6 @@ use ReflectionClass;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Symfony\Component\Finder\SplFileInfo;
-use Z3d0X\FilamentFabricator\Commands\MakeLayoutCommand;
-use Z3d0X\FilamentFabricator\Commands\MakePageBlockCommand;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
@@ -36,10 +34,7 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
             ->hasRoute('web')
             ->hasViews()
             ->hasTranslations()
-            ->hasCommands([
-                MakePageBlockCommand::class,
-                MakeLayoutCommand::class,
-            ])
+            ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $installCommand) {
                 $installCommand
                     ->publishConfigFile()
@@ -47,6 +42,28 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
                     ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('z3d0x/filament-fabricator');
             });
+    }
+
+    protected function getCommands(): array
+    {
+        $commands = [
+            Commands\MakeLayoutCommand::class,
+            Commands\MakePageBlockCommand::class,
+        ];
+
+        $aliases = [];
+
+        foreach ($commands as $command) {
+            $class = 'Z3d0X\\FilamentFabricator\\Commands\\Aliases\\' . class_basename($command);
+
+            if (! class_exists($class)) {
+                continue;
+            }
+
+            $aliases[] = $class;
+        }
+
+        return array_merge($commands, $aliases);
     }
 
     public function packageRegistered(): void
