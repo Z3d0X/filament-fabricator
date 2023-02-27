@@ -23,7 +23,7 @@ class ViewPage extends ViewRecord
             Actions\EditAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
-                ->url(fn () => config('filament-fabricator.routing.prefix') . FilamentFabricator::getPageUrlFromId($this->record->id, true))
+                ->url(fn () => FilamentFabricator::getPageUrlFromId($this->record->id))
                 ->icon('heroicon-o-external-link')
                 ->openUrlInNewTab()
                 ->color('success')

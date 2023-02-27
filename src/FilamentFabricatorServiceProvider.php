@@ -82,6 +82,8 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
 
             $pageUrls = FilamentFabricator::getPageUrls();
 
+            $value = Str::start($value, '/');
+
             $pageId = array_search($value, $pageUrls);
 
             return $pageModel::query()
