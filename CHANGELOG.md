@@ -2,6 +2,16 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.1.2 - 2023-02-27
+
+### What's Changed
+
+- Make `$page` instance accessible in blocks by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/45
+- Shorter Commands by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/46
+- Fix Routing Urls by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/47
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2023-02-17
 
 ### What's Changed
