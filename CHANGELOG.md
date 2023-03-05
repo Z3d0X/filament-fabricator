@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.1.3 - 2023-03-05
+
+### What's Changed
+
+- Fix: Page Middleware by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/51
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.1.2...v1.1.3
+
 ## v1.1.2 - 2023-02-27
 
 ### What's Changed
