@@ -3,10 +3,12 @@
 return [
     'labels' => [
         'blocks' => 'Blocks',
-        'title' => 'Title',
-        'slug' => 'Slug',
         'layout' => 'Layout',
+        'page' => 'Page',
+        'pages' => 'Pages',
         'parent' => 'Parent',
+        'slug' => 'Slug',
+        'title' => 'Title',
         'url' => 'URL',
     ],
 
