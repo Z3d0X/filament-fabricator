@@ -2,6 +2,15 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.1.4 - 2023-03-30
+
+### What's Changed
+
+- build(deps): bump aglipanci/laravel-pint-action from 2.1.0 to 2.2.0 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/54
+- Translatable Resource Labels in https://github.com/Z3d0X/filament-fabricator/commit/073fb9d4935951b6f59fd01b8426ddf8321344be
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.1.3...v1.1.4
+
 ## v1.1.3 - 2023-03-05
 
 ### What's Changed
