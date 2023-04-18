@@ -174,7 +174,7 @@ class FilamentFabricatorManager
             $this->getPageModel()::query()
                 ->select('id', 'slug', 'title')
                 ->whereNull('parent_id')
-                ->with('allChildren')
+                ->with(['children', 'allChildren'])
                 ->get()
                 ->each(fn (PageContract $page) => $this->setPageUrl($page)); // @phpstan-ignore-line
 
