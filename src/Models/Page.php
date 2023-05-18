@@ -22,7 +22,14 @@ class Page extends Model implements Contract
     protected $fillable = [
         'title',
         'slug',
-        'blocks',
+        'blocks',   
+        'titolo',
+        'paragrafo',
+        'meta',
+        'published_at',
+        'categoria',
+        'autore',
+        'tag',
         'layout',
         'parent_id',
     ];

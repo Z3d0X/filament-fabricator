@@ -12,6 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->index();
             $table->string('slug')->unique();
+            $table->string('titolo')->unique();
+            $table->string('meta')->unique();
             $table->string('layout')->default('default')->index();
             $table->json('blocks');
             $table->foreignId('parent_id')->nullable()->constrained('pages')->cascadeOnDelete()->cascadeOnUpdate();

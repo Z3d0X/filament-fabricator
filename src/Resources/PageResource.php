@@ -7,6 +7,7 @@ use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,6 +19,10 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TimePicker;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -40,12 +45,39 @@ class PageResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        // ZIOVANJA
+
         return $form
             ->columns(3)
             ->schema([
                 Group::make()
                     ->schema([
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.before')),
+                        TextInput::make('meta')->maxLength(155),
+                        TextInput::make('titolo')->maxLength(65),
+
+                        Select::make('categoria')
+                            ->options([
+                                'Difensore' => 'Difensore',
+                                'Centrocampista' => 'Centrocampista',
+                                'Attacco' => 'Attacco',
+                            ]),
+                        Select::make('autore')
+                            ->options([
+                                'Francesco' => 'Francesco',
+                                'Valentina' => 'Valentina',
+                                'Kevin' => 'Kevin',
+                                'Antonio' => 'Antonio',
+                            ]),
+
+
+                        Select::make('tag')
+                            ->options([
+                                'Partite' => 'Partite',
+                                'Classifica' => 'Classifica',
+                                'Punti' => 'Punti',
+                            ]),
 
                         PageBuilder::make('blocks')
                             ->label(__('filament-fabricator::page-resource.labels.blocks')),
@@ -68,7 +100,7 @@ class PageResource extends Resource
                                 TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
                                     ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
-                                        if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
+                                        if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                             $set('slug', Str::slug($state));
                                         }
                                     })
@@ -78,6 +110,8 @@ class PageResource extends Resource
                                 Hidden::make('is_slug_changed_manually')
                                     ->default(false)
                                     ->dehydrated(false),
+
+                                DateTimePicker::make('published_at'),
 
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
@@ -100,27 +134,7 @@ class PageResource extends Resource
                                     ->default('default')
                                     ->required(),
 
-                                Select::make('parent_id')
-                                    ->label(__('filament-fabricator::page-resource.labels.parent'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->reactive()
-                                    ->suffixAction(
-                                        fn ($get, $context) => FormAction::make($context . '-parent')
-                                                ->icon('heroicon-o-external-link')
-                                                ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
-                                                ->openUrlInNewTab()
-                                                ->visible(fn () => filled($get('parent_id')))
-                                    )
-                                    ->relationship(
-                                        'parent',
-                                        'title',
-                                        function (Builder $query, ?PageContract $record) {
-                                            if (filled($record)) {
-                                                $query->where('id', '!=', $record->id);
-                                            }
-                                        }
-                                    ),
+
                             ]),
 
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.after')),
@@ -150,6 +164,7 @@ class PageResource extends Resource
                     ->toggleable()
                     ->sortable()
                     ->enum(FilamentFabricator::getLayouts()),
+
 
                 TextColumn::make('parent.title')
                     ->label(__('filament-fabricator::page-resource.labels.parent'))

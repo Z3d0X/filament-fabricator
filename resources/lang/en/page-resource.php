@@ -2,13 +2,18 @@
 
 return [
     'labels' => [
-        'blocks' => 'Blocks',
+        'blocks' => 'Aggiungi blocchi',
         'layout' => 'Layout',
         'page' => 'Page',
         'pages' => 'Pages',
         'parent' => 'Parent',
         'slug' => 'Slug',
         'title' => 'Title',
+        'categoria' => 'Categoria',
+        'autore' => 'Autore',
+        'tag' => 'Tag',
+        'meta' => 'meta',
+        'titolo' => 'titolo',
         'url' => 'URL',
     ],
 
