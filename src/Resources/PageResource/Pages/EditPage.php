@@ -67,6 +67,7 @@ class EditPage extends EditRecord
         $component = $layout::getComponent();
 
         $data['component'] = $component;
+
         return $data;
     }
 }
