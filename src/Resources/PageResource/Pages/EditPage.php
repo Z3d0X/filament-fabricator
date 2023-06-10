@@ -5,11 +5,15 @@ namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class EditPage extends EditRecord
 {
+    use HasPreviewModal;
+
     protected static string $resource = PageResource::class;
 
     public static function getResource(): string
@@ -20,6 +24,7 @@ class EditPage extends EditRecord
     protected function getActions(): array
     {
         return [
+            PreviewAction::make(),
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
             Action::make('visit')
@@ -33,5 +38,35 @@ class EditPage extends EditRecord
                 ->action('save')
                 ->label(__('filament::resources/pages/edit-record.form.actions.save.label')),
         ];
+    }
+
+    protected function getPreviewModalView(): ?string
+    {
+        return 'filament-fabricator::preview';
+    }
+
+    protected function getPreviewModalDataRecordKey(): ?string
+    {
+        return 'page';
+    }
+
+    protected function mutatePreviewModalData($data): array
+    {
+        $layoutName = $this->data['layout'] ?? null;
+        if (! isset($layoutName)) {
+            return null;
+        }
+
+        $layout = FilamentFabricator::getLayoutFromName($layoutName);
+
+        if (! isset($layout)) {
+            throw new \Exception("Filament Fabricator: Layout \"{$layoutName}\" not found");
+        }
+
+        /** @var string $component */
+        $component = $layout::getComponent();
+
+        $data['component'] = $component;
+        return $data;
     }
 }
