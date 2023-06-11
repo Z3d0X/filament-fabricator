@@ -107,10 +107,10 @@ class PageResource extends Resource
                                     ->reactive()
                                     ->suffixAction(
                                         fn ($get, $context) => FormAction::make($context . '-parent')
-                                                ->icon('heroicon-o-external-link')
-                                                ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
-                                                ->openUrlInNewTab()
-                                                ->visible(fn () => filled($get('parent_id')))
+                                            ->icon('heroicon-o-external-link')
+                                            ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
+                                            ->openUrlInNewTab()
+                                            ->visible(fn () => filled($get('parent_id')))
                                     )
                                     ->relationship(
                                         'parent',
