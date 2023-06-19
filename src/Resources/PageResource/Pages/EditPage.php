@@ -24,7 +24,8 @@ class EditPage extends EditRecord
     {
         return [
             PreviewAction::make(),
-            Actions\ViewAction::make(),
+            Actions\ViewAction::make()
+                ->visible(config('filament-fabricator.enable-view-page')),
             Actions\DeleteAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
