@@ -163,7 +163,8 @@ class PageResource extends Resource
                     ->options(FilamentFabricator::getLayouts()),
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->visible(config('filament-fabricator.enable-view-page')),
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
@@ -188,11 +189,11 @@ class PageResource extends Resource
 
     public static function getPages(): array
     {
-        return [
+        return array_filter([
             'index' => Pages\ListPages::route('/'),
             'create' => Pages\CreatePage::route('/create'),
-            'view' => Pages\ViewPage::route('/{record}'),
+            'view' => config('filament-fabricator.enable-view-page') ? Pages\ViewPage::route('/{record}') : null,
             'edit' => Pages\EditPage::route('/{record}/edit'),
-        ];
+        ]);
     }
 }
