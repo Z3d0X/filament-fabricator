@@ -12,14 +12,17 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
+use Filament\Forms\Components\TagsInput;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TimePicker;
@@ -31,6 +34,7 @@ use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
+
 
 class PageResource extends Resource
 {
@@ -46,7 +50,7 @@ class PageResource extends Resource
     public static function form(Form $form): Form
     {
 
-        // ZIOVANJA
+        // Nvan
 
         return $form
             ->columns(3)
@@ -54,30 +58,28 @@ class PageResource extends Resource
                 Group::make()
                     ->schema([
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.before')),
-                        TextInput::make('meta')->maxLength(155),
-                        TextInput::make('titolo')->maxLength(65),
+
+                        TextInput::make('title')->required()->maxLength(65)->label('Titolo')->reactive()->label('Titolo (massimo 65 caratteri spazi inclusi)')
+                            ->afterStateUpdated(function (Closure $set, $state) {
+                                $set('slug', Str::slug($state));
+                            })->required(),
+
+
+                        TextInput::make('sottotitolo')->required(),
+
 
                         Select::make('categoria')
                             ->options([
-                                'Difensore' => 'Difensore',
-                                'Centrocampista' => 'Centrocampista',
-                                'Attacco' => 'Attacco',
-                            ]),
-                        Select::make('autore')
-                            ->options([
-                                'Francesco' => 'Francesco',
-                                'Valentina' => 'Valentina',
-                                'Kevin' => 'Kevin',
-                                'Antonio' => 'Antonio',
-                            ]),
+                                'prima_squadra' => 'Prima squadra',
+                                'settore_giovanile' => 'Settore giovanile',
+                                'societa' => 'Società',
+                                'stampa' => 'Biglietti',
+                                'partner' => 'Partner',
+                                'Progetti_speciali' => 'Progetti speciali',
+                            ])->required(),
 
 
-                        Select::make('tag')
-                            ->options([
-                                'Partite' => 'Partite',
-                                'Classifica' => 'Classifica',
-                                'Punti' => 'Punti',
-                            ]),
+                        MarkdownEditor::make('meta')->required()->maxLength(155)->label('Meta description (massimo 155 caratteri spazi inclusi)')->toolbarButtons([]),
 
                         PageBuilder::make('blocks')
                             ->label(__('filament-fabricator::page-resource.labels.blocks')),
@@ -93,25 +95,33 @@ class PageResource extends Resource
 
                         Card::make()
                             ->schema([
-                                Placeholder::make('page_url')
-                                    ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
-                                    ->content(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record?->id)),
+                                // Placeholder::make('page_url')
+                                //     ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
+                                //     ->content(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record?->id)),
 
-                                TextInput::make('title')
-                                    ->label(__('filament-fabricator::page-resource.labels.title'))
-                                    ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
-                                        if (!$get('is_slug_changed_manually') && filled($state) && blank($record)) {
-                                            $set('slug', Str::slug($state));
-                                        }
-                                    })
-                                    ->debounce('500ms')
-                                    ->required(),
+                                Select::make('autore')
+                                    ->options([
+                                        'Feralpisalò Media house' => 'Feralpisalò Media house',
+                                    ])->disabled()->default('Feralpisalò Media house'),
 
-                                Hidden::make('is_slug_changed_manually')
-                                    ->default(false)
-                                    ->dehydrated(false),
 
                                 DateTimePicker::make('published_at'),
+
+
+                                TagsInput::make('tag')->separator(','),
+
+
+
+                                // Hidden::make('is_slug_changed_manually')
+                                //     ->default(false)
+                                //     ->dehydrated(false),
+
+
+
+                                // TextInput::make('slug')
+                                //  ->label(__('filament-fabricator::page-resource.labels.slug'))
+                                //   ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id'))),
+
 
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
@@ -127,13 +137,19 @@ class PageResource extends Resource
                                         };
                                     })
                                     ->required(),
+                                //     ->afterStateUpdated(function (Closure $set) {
+                                //         $set('is_slug_changed_manually', true);
+                                //     })
+                                //     ->rule(function ($state) {
+                                //         return function (string $attribute, $value, Closure $fail) use ($state) {
+                                //             if ($state !== '/' && (Str::startsWith($value, '/') || Str::endsWith($value, '/'))) {
+                                //                 $fail(__('filament-fabricator::page-resource.errors.slug_starts_or_ends_with_slash'));
+                                //             }
+                                //         };
+                                //     })
+                                //     ->required(),
 
-                                Select::make('layout')
-                                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                                    ->options(FilamentFabricator::getLayouts())
-                                    ->default('default')
-                                    ->required(),
-
+                                Toggle::make('is_published')->label('Attivo')
 
                             ]),
 
@@ -159,11 +175,8 @@ class PageResource extends Resource
                     ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id) ?: null, true)
                     ->visible(config('filament-fabricator.routing.enabled')),
 
-                BadgeColumn::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->toggleable()
-                    ->sortable()
-                    ->enum(FilamentFabricator::getLayouts()),
+                BooleanColumn::make('is_published')->searchable()->label('Attivo')->default(false),
+
 
 
                 TextColumn::make('parent.title')
@@ -172,11 +185,7 @@ class PageResource extends Resource
                     ->formatStateUsing(fn ($state) => $state ?? '-')
                     ->url(fn (?PageContract $record) => filled($record->parent_id) ? PageResource::getUrl('edit', ['record' => $record->parent_id]) : null),
             ])
-            ->filters([
-                SelectFilter::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->options(FilamentFabricator::getLayouts()),
-            ])
+
             ->actions([
                 ViewAction::make(),
                 EditAction::make(),
