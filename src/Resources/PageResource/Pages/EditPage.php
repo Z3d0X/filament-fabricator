@@ -5,11 +5,14 @@ namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class EditPage extends EditRecord
 {
+    use Concerns\HasPreviewModal;
+
     protected static string $resource = PageResource::class;
 
     public static function getResource(): string
@@ -20,7 +23,9 @@ class EditPage extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+            PreviewAction::make(),
+            Actions\ViewAction::make()
+                ->visible(config('filament-fabricator.enable-view-page')),
             Actions\DeleteAction::make(),
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
