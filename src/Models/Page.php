@@ -20,10 +20,10 @@ class Page extends Model implements Contract
     }
 
     protected $fillable = [
-        'title',
         'slug',
         'blocks',   
         'titolo',
+        'sottotitolo',
         'paragrafo',
         'meta',
         'published_at',

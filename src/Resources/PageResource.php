@@ -1,7 +1,6 @@
 <?php
 
 namespace Z3d0X\FilamentFabricator\Resources;
-
 use Closure;
 use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Card;
@@ -39,7 +38,9 @@ use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 class PageResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
+    protected static ?string $label = 'News';
+    protected static ?string $navigationLabel = 'Archivio News';
+    protected static ?string $pluralModelLabel = 'News';
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function getModel(): string
@@ -149,35 +150,8 @@ class PageResource extends Resource
                                 //     })
                                 //     ->required(),
 
-                                Toggle::make('is_published')->label('Attivo'),
+                                Toggle::make('is_published')->label('Attivo')
 
-                                Select::make('layout')
-                                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                                    ->options(FilamentFabricator::getLayouts())
-                                    ->default('default')
-                                    ->required(),
-
-                                Select::make('parent_id')
-                                    ->label(__('filament-fabricator::page-resource.labels.parent'))
-                                    ->searchable()
-                                    ->preload()
-                                    ->reactive()
-                                    ->suffixAction(
-                                        fn ($get, $context) => FormAction::make($context . '-parent')
-                                            ->icon('heroicon-o-external-link')
-                                            ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
-                                            ->openUrlInNewTab()
-                                            ->visible(fn () => filled($get('parent_id')))
-                                    )
-                                    ->relationship(
-                                        'parent',
-                                        'title',
-                                        function (Builder $query, ?PageContract $record) {
-                                            if (filled($record)) {
-                                                $query->where('id', '!=', $record->id);
-                                            }
-                                        }
-                                    ),
                             ]),
 
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.after')),
@@ -214,8 +188,7 @@ class PageResource extends Resource
             ])
 
             ->actions([
-                ViewAction::make()
-                    ->visible(config('filament-fabricator.enable-view-page')),
+                ViewAction::make(),
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
@@ -240,11 +213,11 @@ class PageResource extends Resource
 
     public static function getPages(): array
     {
-        return array_filter([
+        return [
             'index' => Pages\ListPages::route('/'),
             'create' => Pages\CreatePage::route('/create'),
-            'view' => config('filament-fabricator.enable-view-page') ? Pages\ViewPage::route('/{record}') : null,
+            'view' => Pages\ViewPage::route('/{record}'),
             'edit' => Pages\EditPage::route('/{record}/edit'),
-        ]);
+        ];
     }
 }

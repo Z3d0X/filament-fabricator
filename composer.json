@@ -18,9 +18,8 @@
     "require": {
         "php": "^8.0",
         "filament/filament": "^2.15.46",
-        "illuminate/contracts": "^9.0 | ^10.0",
-        "pboivin/filament-peek": "^0.2.3",
-        "spatie/laravel-package-tools": "^1.13.5"
+        "spatie/laravel-package-tools": "^1.13.5",
+        "illuminate/contracts": "^9.0 | ^10.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

@@ -9,7 +9,7 @@ if (config('filament-fabricator.routing.enabled')) {
         ->prefix(FilamentFabricator::getRoutingPrefix())
         ->group(function () {
             Route::get('/{filamentFabricatorPage?}', PageController::class)
-                ->where('filamentFabricatorPage', '.*')
-                ->fallback();
+            ->where('filamentFabricatorPage', '.*')
+            ->fallback();
         });
 }
