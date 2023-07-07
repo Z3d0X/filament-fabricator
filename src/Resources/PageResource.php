@@ -1,6 +1,7 @@
 <?php
 
 namespace Z3d0X\FilamentFabricator\Resources;
+
 use Closure;
 use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Card;
@@ -106,7 +107,7 @@ class PageResource extends Resource
                                     ])->disabled()->default('Feralpisalò Media house'),
 
 
-                                DateTimePicker::make('published_at'),
+                                DateTimePicker::make('published_at')->label('Data e ora di pubblicazione'),
 
 
                                 TagsInput::make('tag')->separator(','),
