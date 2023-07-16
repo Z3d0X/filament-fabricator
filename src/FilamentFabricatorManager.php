@@ -193,7 +193,7 @@ class FilamentFabricatorManager
         return $url;
     }
 
-    protected function setPageUrl(PageContract $page, ?string $parentUrl = null): string
+    protected function setPageUrl(PageContract $page, string $parentUrl = null): string
     {
         $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
 
