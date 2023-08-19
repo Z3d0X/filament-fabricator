@@ -17,6 +17,7 @@ return [
     ],
 
     'actions' => [
+        'save' => 'Enregistrer',
         'visit' => 'Visiter',
     ],
 ];

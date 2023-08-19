@@ -13,6 +13,8 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class FilamentFabricatorManager
 {
+    const ID = 'filament-fabricator';
+
     /** @var Collection<string,string> */
     protected Collection $pageBlocks;
 
@@ -47,7 +49,7 @@ class FilamentFabricatorManager
      *  @param  class-string  $class
      *  @param  class-string  $baseClass
      */
-    public function register(string $class, string $baseClass): void
+    public function registerComponent(string $class, string $baseClass): void
     {
         match ($baseClass) {
             Layout::class => static::registerLayout($class),
