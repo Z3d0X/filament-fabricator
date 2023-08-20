@@ -4,10 +4,10 @@ namespace Z3d0X\FilamentFabricator\Resources;
 
 use Closure;
 use Filament\Forms\Components\Actions\Action as FormAction;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -60,7 +60,7 @@ class PageResource extends Resource
                     ->schema([
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.before')),
 
-                        Card::make()
+                        Section::make()
                             ->schema([
                                 Placeholder::make('page_url')
                                     ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
