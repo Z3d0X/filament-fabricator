@@ -19,10 +19,10 @@ class MakePageBlockCommand extends Command
     public function handle(): int
     {
         $pageBlock = (string) Str::of($this->argument('name') ?? text(
-                label: 'What is the block name?',
-                placeholder: 'HeroBlock',
-                required: true,
-            ))
+            label: 'What is the block name?',
+            placeholder: 'HeroBlock',
+            required: true,
+        ))
             ->trim('/')
             ->trim('\\')
             ->trim(' ')

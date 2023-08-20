@@ -19,10 +19,10 @@ class MakeLayoutCommand extends Command
     public function handle(): int
     {
         $layout = (string) Str::of($this->argument('name') ?? text(
-                label: 'What is the layout name?',
-                placeholder: 'DefaultLayout',
-                required: true,
-            ))
+            label: 'What is the layout name?',
+            placeholder: 'DefaultLayout',
+            required: true,
+        ))
             ->trim('/')
             ->trim('\\')
             ->trim(' ')
