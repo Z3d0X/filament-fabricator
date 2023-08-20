@@ -244,7 +244,6 @@ class AuthServiceProvider extends ServiceProvider
 
 
 ## Compatibility
-## Compatibility
 | Fabricator | Filament | PHP |
 |------|----------|--------|
 | [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
