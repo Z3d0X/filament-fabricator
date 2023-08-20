@@ -1,11 +1,17 @@
 ## Introduction
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/75579178/190926394-daa1b85d-70cc-4730-9a28-cd0c3a0d1230.png" />
+<p align="center" class="filament-hidden">
+  <img alt="fabricator banner" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/banner.jpg" />
 </p>
 
 **What is Filament Fabricator?** Filament Fabricator is simply said a block-based page builder skeleton.  Filament Fabricator takes care of the `PageResource` & frontend routing, so you can focus on what really matters: your [Layouts](#layouts) & [Page Blocks](#page-blocks).
 
+
+## Screenshots
+
+<img alt="fabricator-index" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/list-screenshot.png">
+<img alt="fabricator-edit-1" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-1.png">
+<img alt="fabricator-edit-2" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-2.png">
 
 ## Installation
 

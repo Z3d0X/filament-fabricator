@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/z3d0x/filament-fabricator.svg?style=for-the-badge)](https://packagist.org/packages/z3d0x/filament-fabricator)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/75579178/190926394-daa1b85d-70cc-4730-9a28-cd0c3a0d1230.png" />
+  <img alt="fabricator banner" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/banner.jpg" />
 </p>
 
 ***What is Filament Fabricator?*** Filament Fabricator is simply said a block-based page builder skeleton. Filament Fabricator takes care of the PageResource & frontend routing, so you can focus on what really matters: your [Layouts](https://filamentphp.com/plugins/z3d0x-fabricator#layouts) & [Page Blocks](https://filamentphp.com/plugins/z3d0x-fabricator#page-blocks).
@@ -34,8 +34,10 @@ php artisan filament-fabricator:install
 Documentation can be viewed at: https://filamentphp.com/plugins/z3d0x-fabricator
 
 ## Screenshots
-<img alt="fabricator-index" src="https://user-images.githubusercontent.com/75579178/201537846-6d4d7cf9-9da5-4f9c-a39c-66e2965b6665.png">
-<img alt="fabricator-deatil" src="https://user-images.githubusercontent.com/75579178/201537847-8bdd3330-2a4e-418e-a128-daa4651cce25.png">
+
+<img alt="fabricator-index" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/list-screenshot.png">
+<img alt="fabricator-edit-1" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-1.png">
+<img alt="fabricator-edit-2" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-2.png">
 
 ## Changelog
 
