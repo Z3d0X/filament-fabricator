@@ -24,6 +24,18 @@ After that run the install command: (this will publish the config & migrations)
 ```bash
 php artisan filament-fabricator:install
 ```
+Register a `FilamentFabricatorPlugin` instance in your Panel provider:
+
+```php
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->plugins([
+            FilamentFabricatorPlugin::make(),
+        ]);
+}
+```
 
 To get started create a [Layout](#layouts) and then [Page Blocks](#page-blocks)
 
