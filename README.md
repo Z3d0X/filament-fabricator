@@ -23,6 +23,19 @@ After that run the install command:
 php artisan filament-fabricator:install
 ```
 
+Register a `FilamentFabricatorPlugin` instance in your Panel provider:
+
+```php
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->plugins([
+            FilamentFabricatorPlugin::make(),
+        ]);
+}
+```
+
 ## Compatibility
 | Fabricator | Filament | PHP |
 |------|----------|--------|
