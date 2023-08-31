@@ -14,7 +14,7 @@
 You can install the package via composer:
 
 ```bash
-composer require z3d0x/filament-fabricator
+composer require pboivin/filament-peek:"^2.0.0-beta4" z3d0x/filament-fabricator
 ```
 
 
