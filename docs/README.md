@@ -17,7 +17,7 @@
 
 Once you have [Filament Panels](https://filamentphp.com/docs/3.x/panels/installation) configured. You can install this package via composer:
 ```bash
-composer require pboivin/filament-peek:"^2.0.0-beta4" z3d0x/filament-fabricator
+composer require z3d0x/filament-fabricator
 ```
 
 After that run the install command: (this will publish the config & migrations)
