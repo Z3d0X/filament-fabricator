@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 
 /**
- * @method static void register(string $class, string $baseClass)
+ * @method static void registerComponent(string $class, string $baseClass)
  * @method static void registerLayout(string $layout)
  * @method static void registerPageBlock(string $pageBlock)
  * @method static void registerSchemaSlot(string $name, array | \Closure $schema)

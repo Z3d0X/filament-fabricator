@@ -3,14 +3,14 @@
 namespace Z3d0X\FilamentFabricator\Commands;
 
 use Filament\Support\Commands\Concerns\CanManipulateFiles;
-use Filament\Support\Commands\Concerns\CanValidateInput;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+
+use function Laravel\Prompts\text;
 
 class MakeLayoutCommand extends Command
 {
     use CanManipulateFiles;
-    use CanValidateInput;
 
     protected $signature = 'filament-fabricator:layout {name?} {--F|force}';
 
@@ -18,7 +18,11 @@ class MakeLayoutCommand extends Command
 
     public function handle(): int
     {
-        $layout = (string) Str::of($this->argument('name') ?? $this->askRequired('Name (e.g. `DefaultLayout`)', 'name'))
+        $layout = (string) Str::of($this->argument('name') ?? text(
+            label: 'What is the layout name?',
+            placeholder: 'DefaultLayout',
+            required: true,
+        ))
             ->trim('/')
             ->trim('\\')
             ->trim(' ')

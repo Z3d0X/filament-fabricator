@@ -2,33 +2,23 @@
 
 namespace Z3d0X\FilamentFabricator;
 
-use Filament\PluginServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
-use Z3d0X\FilamentFabricator\Resources\PageResource;
 
-class FilamentFabricatorServiceProvider extends PluginServiceProvider
+class FilamentFabricatorServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'filament-fabricator';
-
-    protected function getResources(): array
-    {
-        return [
-            config('filament-fabricator.page-resource') ?? PageResource::class,
-        ];
-    }
-
     public function configurePackage(Package $package): void
     {
-        $package->name(static::$name)
+        $package->name(FilamentFabricatorManager::ID)
             ->hasConfigFile()
             ->hasMigration('create_pages_table')
             ->hasRoute('web')
@@ -37,6 +27,7 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $installCommand) {
                 $installCommand
+                    ->startWith(fn (InstallCommand $installCommand) => $installCommand->call('filament:upgrade'))
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
@@ -138,7 +129,7 @@ class FilamentFabricatorServiceProvider extends PluginServiceProvider
                         ->replace(['/', '.php'], ['\\', '']);
                 })
                 ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
-                ->each(fn (string $class) => FilamentFabricator::register($class, $baseClass))
+                ->each(fn (string $class) => FilamentFabricator::registerComponent($class, $baseClass))
                 ->all(),
         );
     }

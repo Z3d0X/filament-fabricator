@@ -2,6 +2,26 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.1 - 2023-08-20
+
+### What's Changed
+
+- Fix deprecated code by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/83
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.0...v2.0.1
+
+## v1.1.5 - 2023-04-18
+
+### What's Changed
+
+- Prevented lazy loading. by @danielbehrendt in https://github.com/Z3d0X/filament-fabricator/pull/56
+
+### New Contributors
+
+- @danielbehrendt made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/56
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.1.4...v1.1.5
+
 ## v1.1.4 - 2023-03-30
 
 ### What's Changed

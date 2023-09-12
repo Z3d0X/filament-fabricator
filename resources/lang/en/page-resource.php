@@ -17,6 +17,7 @@ return [
     ],
 
     'actions' => [
+        'save' => 'Save',
         'visit' => 'Visit',
     ],
 ];

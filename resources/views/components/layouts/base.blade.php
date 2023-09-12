@@ -10,13 +10,13 @@
     class="filament-fabricator"
 >
     <head>
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.head.start') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::head.start') }}
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @foreach (\Filament\Facades\Filament::getMeta() as $tag)
+        @foreach (\Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getMeta() as $tag)
             {{ $tag }}
         @endforeach
 
@@ -40,15 +40,15 @@
             @endif
         @endforeach
 
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.head.end') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::head.end') }}
     </head>
 
     <body class="filament-fabricator-body">
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.body.start') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::body.start') }}
 
         {{ $slot }}
 
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.scripts.start') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::scripts.start') }}
 
         @foreach (\Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getScripts() as $name => $path)
             @if (\Illuminate\Support\Str::of($path)->startsWith('<'))
@@ -60,8 +60,8 @@
 
         @stack('scripts')
 
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.scripts.end') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::scripts.end') }}
 
-        {{ \Filament\Facades\Filament::renderHook('filament-fabricator.body.end') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook('filament-fabricator::body.end') }}
     </body>
 </html>

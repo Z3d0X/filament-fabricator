@@ -4,21 +4,22 @@ namespace Z3d0X\FilamentFabricator\Resources;
 
 use Closure;
 use Filament\Forms\Components\Actions\Action as FormAction;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
@@ -59,7 +60,7 @@ class PageResource extends Resource
                     ->schema([
                         Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.before')),
 
-                        Card::make()
+                        Section::make()
                             ->schema([
                                 Placeholder::make('page_url')
                                     ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
@@ -67,7 +68,7 @@ class PageResource extends Resource
 
                                 TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
-                                    ->afterStateUpdated(function (Closure $get, Closure $set, ?string $state, ?PageContract $record) {
+                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state, ?PageContract $record) {
                                         if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
                                             $set('slug', Str::slug($state));
                                         }
@@ -81,8 +82,8 @@ class PageResource extends Resource
 
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
-                                    ->unique(ignoreRecord: true, callback: fn (Unique $rule, Closure $get) => $rule->where('parent_id', $get('parent_id')))
-                                    ->afterStateUpdated(function (Closure $set) {
+                                    ->unique(ignoreRecord: true, modifyRuleUsing: fn (Unique $rule, Get $get) => $rule->where('parent_id', $get('parent_id')))
+                                    ->afterStateUpdated(function (Set $set) {
                                         $set('is_slug_changed_manually', true);
                                     })
                                     ->rule(function ($state) {
@@ -107,10 +108,10 @@ class PageResource extends Resource
                                     ->reactive()
                                     ->suffixAction(
                                         fn ($get, $context) => FormAction::make($context . '-parent')
-                                                ->icon('heroicon-o-external-link')
-                                                ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
-                                                ->openUrlInNewTab()
-                                                ->visible(fn () => filled($get('parent_id')))
+                                            ->icon('heroicon-o-arrow-top-right-on-square')
+                                            ->url(fn () => PageResource::getUrl($context, ['record' => $get('parent_id')]))
+                                            ->openUrlInNewTab()
+                                            ->visible(fn () => filled($get('parent_id')))
                                     )
                                     ->relationship(
                                         'parent',
@@ -145,11 +146,11 @@ class PageResource extends Resource
                     ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id) ?: null, true)
                     ->visible(config('filament-fabricator.routing.enabled')),
 
-                BadgeColumn::make('layout')
+                TextColumn::make('layout')
                     ->label(__('filament-fabricator::page-resource.labels.layout'))
+                    ->badge()
                     ->toggleable()
-                    ->sortable()
-                    ->enum(FilamentFabricator::getLayouts()),
+                    ->sortable(),
 
                 TextColumn::make('parent.title')
                     ->label(__('filament-fabricator::page-resource.labels.parent'))
@@ -163,12 +164,13 @@ class PageResource extends Resource
                     ->options(FilamentFabricator::getLayouts()),
             ])
             ->actions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->visible(config('filament-fabricator.enable-view-page')),
                 EditAction::make(),
                 Action::make('visit')
                     ->label(__('filament-fabricator::page-resource.actions.visit'))
                     ->url(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
-                    ->icon('heroicon-o-external-link')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
                     ->openUrlInNewTab()
                     ->color('success')
                     ->visible(config('filament-fabricator.routing.enabled')),
@@ -188,11 +190,11 @@ class PageResource extends Resource
 
     public static function getPages(): array
     {
-        return [
+        return array_filter([
             'index' => Pages\ListPages::route('/'),
             'create' => Pages\CreatePage::route('/create'),
-            'view' => Pages\ViewPage::route('/{record}'),
+            'view' => config('filament-fabricator.enable-view-page') ? Pages\ViewPage::route('/{record}') : null,
             'edit' => Pages\EditPage::route('/{record}/edit'),
-        ];
+        ]);
     }
 }
