@@ -176,7 +176,6 @@ class FilamentFabricatorManager
             $this->getPageModel()::query()
                 ->select('id', 'slug', 'title')
                 ->whereNull('parent_id')
-                ->with(['children', 'allChildren'])
                 ->get()
                 ->each(fn (PageContract $page) => $this->setPageUrl($page)); // @phpstan-ignore-line
 
@@ -197,6 +196,8 @@ class FilamentFabricatorManager
 
     protected function setPageUrl(PageContract $page, string $parentUrl = null): string
     {
+        $page->load(['children', 'allChildren']);
+        
         $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
 
         if (filled($page->children)) {
