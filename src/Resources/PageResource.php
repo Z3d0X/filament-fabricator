@@ -63,6 +63,7 @@ class PageResource extends Resource
                         Section::make()
                             ->schema([
                                 Placeholder::make('page_url')
+                                    ->label(__('filament-fabricator::page-resource.labels.url'))
                                     ->visible(fn (?PageContract $record) => config('filament-fabricator.routing.enabled') && filled($record))
                                     ->content(fn (?PageContract $record) => FilamentFabricator::getPageUrlFromId($record?->id)),
 
