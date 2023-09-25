@@ -2,6 +2,22 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.2 - 2023-09-25
+
+### What's Changed
+
+- [Docs]: Remove Peek from installation instructions by @viraljetani in https://github.com/Z3d0X/filament-fabricator/pull/87
+- build(deps): bump actions/checkout from 3 to 4 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/89
+- Update PageResource.php by @RibesAlexandre in https://github.com/Z3d0X/filament-fabricator/pull/93
+- Fix: Lazy Loading in Model Strict Mode by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/96
+
+### New Contributors
+
+- @viraljetani made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/87
+- @RibesAlexandre made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/93
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.1...v2.0.2
+
 ## v2.0.1 - 2023-08-20
 
 ### What's Changed
