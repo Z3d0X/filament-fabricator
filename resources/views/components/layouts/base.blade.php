@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @foreach (\Filament\Facades\Filament::getMeta() as $tag)
+        @foreach (\Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getMeta() as $tag)
             {{ $tag }}
         @endforeach
 
