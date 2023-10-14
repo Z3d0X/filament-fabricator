@@ -116,6 +116,11 @@ class FilamentFabricatorManager
         return $this->layouts->map(fn ($layout) => $layout::getLabel())->toArray();
     }
 
+    public function getDefaultLayoutName(): ?string
+    {
+        return $this->layouts->keys()->first();
+    }
+
     public function getPageBlocks(): array
     {
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
