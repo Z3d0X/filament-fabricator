@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v1.2.2 - 2023-10-14
+
+### What's Changed
+
+- fix: default layout resolving by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/103
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v1.2.1...v1.2.2
+
 ## v2.0.2 - 2023-09-25
 
 ### What's Changed
