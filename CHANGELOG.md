@@ -2,6 +2,15 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.3 - 2023-10-14
+
+### What's Changed
+
+- build(deps): bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/97
+- fix: default layout resolving by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/103
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.2...v2.0.3
+
 ## v1.2.2 - 2023-10-14
 
 ### What's Changed
