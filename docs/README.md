@@ -27,6 +27,10 @@ php artisan filament-fabricator:install
 Register a `FilamentFabricatorPlugin` instance in your Panel provider:
 
 ```php
+use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
+
+//..
+
 public function panel(Panel $panel): Panel
 {
     return $panel
