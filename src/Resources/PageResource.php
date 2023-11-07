@@ -71,7 +71,7 @@ class PageResource extends Resource
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
                                     ->afterStateUpdated(function (Get $get, Set $set, ?string $state, ?PageContract $record) {
                                         if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
-                                            $set('slug', Str::slug($state));
+                                            $set('slug', Str::slug($state, language: config('app.locale', 'en')));
                                         }
                                     })
                                     ->debounce('500ms')
