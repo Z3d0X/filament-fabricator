@@ -179,12 +179,12 @@ class PageResource extends Resource
             ->bulkActions([]);
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('filament-fabricator::page-resource.labels.page');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('filament-fabricator::page-resource.labels.pages');
     }
