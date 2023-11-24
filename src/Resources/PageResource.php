@@ -69,24 +69,19 @@ class PageResource extends Resource
 
                                 TextInput::make('title')
                                     ->label(__('filament-fabricator::page-resource.labels.title'))
-                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state, ?PageContract $record) {
-                                        if (! $get('is_slug_changed_manually') && filled($state) && blank($record)) {
-                                            $set('slug', Str::slug($state));
+                                    ->live(debounce: 500)
+                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                        if (($get('slug') ?? '') !== Str::slug($old)) {
+                                            return;
                                         }
-                                    })
-                                    ->debounce('500ms')
-                                    ->required(),
 
-                                Hidden::make('is_slug_changed_manually')
-                                    ->default(false)
-                                    ->dehydrated(false),
+                                        $set('slug', Str::slug($state));
+                                    })
+                                    ->required(),
 
                                 TextInput::make('slug')
                                     ->label(__('filament-fabricator::page-resource.labels.slug'))
                                     ->unique(ignoreRecord: true, modifyRuleUsing: fn (Unique $rule, Get $get) => $rule->where('parent_id', $get('parent_id')))
-                                    ->afterStateUpdated(function (Set $set) {
-                                        $set('is_slug_changed_manually', true);
-                                    })
                                     ->rule(function ($state) {
                                         return function (string $attribute, $value, Closure $fail) use ($state) {
                                             if ($state !== '/' && (Str::startsWith($value, '/') || Str::endsWith($value, '/'))) {
