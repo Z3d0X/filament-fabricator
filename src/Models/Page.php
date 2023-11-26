@@ -40,17 +40,17 @@ class Page extends Model implements Contract
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Page::class, 'parent_id');
+        return $this->belongsTo(static::class, 'parent_id');
     }
 
     public function children(): HasMany
     {
-        return $this->hasMany(Page::class, 'parent_id');
+        return $this->hasMany(static::class, 'parent_id');
     }
 
     public function allChildren(): HasMany
     {
-        return $this->hasMany(Page::class, 'parent_id')
+        return $this->hasMany(static::class, 'parent_id')
             ->select('id', 'slug', 'title', 'parent_id')
             ->with('allChildren:id,slug,title,parent_id');
     }
