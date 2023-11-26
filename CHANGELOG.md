@@ -2,6 +2,21 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.4 - 2023-11-26
+
+### What's Changed
+
+* Update README.md by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/105
+* Fix getLabel() and getPluralLabel() deprecation by @devhoussam1998 in https://github.com/Z3d0X/filament-fabricator/pull/113
+* Allow easier subclassing of the Page model by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/115
+
+### New Contributors
+
+* @devhoussam1998 made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/113
+* @Voltra made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/115
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.3...v2.0.4
+
 ## v2.0.3 - 2023-10-14
 
 ### What's Changed
