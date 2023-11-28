@@ -178,7 +178,7 @@ class FilamentFabricatorManager
     public function getPageUrls(): array
     {
         return Cache::rememberForever('filament-fabricator::page-urls', function () {
-            $this->getPageModel()::query()
+            $this->getPageModel()::withoutGlobalScopes()
                 ->select('id', 'slug', 'title')
                 ->whereNull('parent_id')
                 ->with(['allChildren'])
