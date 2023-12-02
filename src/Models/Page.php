@@ -11,7 +11,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as Contract;
 
 class Page extends Model implements Contract
 {
-    use HandlePageUrls;
+    use HandlesPageUrls;
 
     public function __construct(array $attributes = [])
     {

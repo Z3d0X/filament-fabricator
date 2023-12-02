@@ -1,6 +1,6 @@
 <?php
 
-namespace Z3d0X\FilamentFabricator\Models\Contracts;
+namespace Z3d0X\FilamentFabricator\Models\Concerns;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
