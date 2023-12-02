@@ -12,7 +12,9 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
+use Z3d0X\FilamentFabricator\Observers\PageRoutesObserver;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class FilamentFabricatorServiceProvider extends PackageServiceProvider
 {
@@ -69,17 +71,11 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     public function bootingPackage(): void
     {
         Route::bind('filamentFabricatorPage', function ($value) {
-            $pageModel = FilamentFabricator::getPageModel();
-
-            $pageUrls = FilamentFabricator::getPageUrls();
-
-            $value = Str::start($value, '/');
-
-            $pageId = array_search($value, $pageUrls);
-
-            return $pageModel::query()
-                ->where('id', $pageId)
-                ->firstOrFail();
+            /**
+             * @var PageRoutesService $routesService
+             */
+            $routesService = resolve(PageRoutesService::class);
+            return $routesService->findPageOrFail($value);
         });
 
         $this->registerComponentsFromDirectory(
@@ -95,6 +91,13 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
             config('filament-fabricator.page-blocks.path'),
             config('filament-fabricator.page-blocks.namespace')
         );
+    }
+
+    public function packageBooted()
+    {
+        parent::packageBooted();
+
+        FilamentFabricator::getPageModel()::observe(PageRoutesObserver::class);
     }
 
     protected function registerComponentsFromDirectory(string $baseClass, array $register, ?string $directory, ?string $namespace): void

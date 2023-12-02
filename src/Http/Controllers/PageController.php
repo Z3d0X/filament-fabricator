@@ -13,14 +13,13 @@ class PageController
     {
         // Handle root (home) page
         if (blank($filamentFabricatorPage)) {
-            $pageUrls = FilamentFabricator::getPageUrls();
-
-            $pageId = array_search('/', $pageUrls);
+            /**
+             * @var PageRoutesService $routesService
+             */
+            $routesService = resolve(PageRoutesService::class);
 
             /** @var Page $filamentFabricatorPage */
-            $filamentFabricatorPage = FilamentFabricator::getPageModel()::query()
-                ->where('id', $pageId)
-                ->firstOrFail();
+            $filamentFabricatorPage = $routesService->findPageOrFail('/');
         }
 
         /** @var ?class-string<Layout> $layout */
