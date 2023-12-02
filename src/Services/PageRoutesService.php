@@ -40,9 +40,11 @@ class PageRoutesService {
      */
     public function updateUrlsOf(Page $page): void
     {
-        $mapping = $this->getUriToIdMapping();
-        $this->updateUrlsAndDescendantsOf($page, $mapping);
-        $this->replaceUriToIdMapping($mapping);
+        FilamentFabricator::getPageModel()::withoutEvents(function() use($page) {
+            $mapping = $this->getUriToIdMapping();
+            $this->updateUrlsAndDescendantsOf($page, $mapping);
+            $this->replaceUriToIdMapping($mapping);
+        });
     }
 
     /**
