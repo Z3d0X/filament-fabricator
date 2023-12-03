@@ -58,6 +58,15 @@ class PageRoutesService {
     }
 
     /**
+     * Get the list of all the registered URLs
+     * @return string[]
+     */
+    public function getAllUrls(): array {
+        $mapping = $this->getUriToIdMapping();
+        return array_values(array_keys($mapping));
+    }
+
+    /**
      * Get the URI -> ID mapping
      * @return array<string, int>
      */
