@@ -4,6 +4,7 @@ namespace Z3d0X\FilamentFabricator\Models\Concerns;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 
 trait HandlesPageUrls {
     /**
@@ -28,17 +29,26 @@ trait HandlesPageUrls {
     public function getUrl(array $args = []): string {
         $cacheKey = $this->getUrlCacheKey($args);
 
+        //TODO: Clear and re-compute cached routes when the routing prefix changes
+
         return Cache::rememberForever($cacheKey, function () use($args) {
             /**
              * @var ?Page $parent
              */
             $parent = $this->parent;
-            $parentUri = is_null($parent) ? '/' : $parent->getUrl($args);
+            $parentUri = is_null($parent) ? (FilamentFabricator::getRoutingPrefix() ?? '/') : $parent->getUrl($args);
             $parentUri = Str::start($parentUri, '/');
 
             $selfUri = $this->slug;
             $selfUri = Str::start($selfUri, '/');
-            return $parentUri === '/' ? $selfUri : "{$parentUri}{$selfUri}";
+
+            if ($parentUri === '/') {
+                return $selfUri;
+            }
+
+            $parentUri = rtrim($parentUri, '/');
+
+            return "{$parentUri}{$selfUri}";
         });
     }
 
