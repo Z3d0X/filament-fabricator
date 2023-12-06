@@ -22,7 +22,7 @@ interface HasPageUrls {
      * Get all the available argument sets for the available cache keys
      * @return array[]
      */
-    public function getAllCacheKeyArgs(): array;
+    public function getAllUrlCacheKeysArgs(): array;
 
     /**
      * Get all the available URLs for this entity
