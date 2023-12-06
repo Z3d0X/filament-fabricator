@@ -171,8 +171,7 @@ class PageRoutesService {
      */
     protected function replaceIdToUriMapping(array $mapping): void
     {
-        Cache::forget(static::ID_TO_URI_MAPPING);
-        Cache::rememberForever(static::ID_TO_URI_MAPPING, fn() => $mapping);
+        Cache::forever(static::ID_TO_URI_MAPPING, $mapping);
     }
 
     /**
@@ -182,7 +181,6 @@ class PageRoutesService {
      */
     protected function replaceUriToIdMapping(array $mapping): void
     {
-        Cache::forget(static::URI_TO_ID_MAPPING);
-        Cache::rememberForever(static::URI_TO_ID_MAPPING, fn() => $mapping);
+        Cache::forever(static::URI_TO_ID_MAPPING, $mapping);
     }
 }
