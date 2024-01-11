@@ -75,6 +75,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
              * @var PageRoutesService $routesService
              */
             $routesService = resolve(PageRoutesService::class);
+
             return $routesService->findPageOrFail($value);
         });
 

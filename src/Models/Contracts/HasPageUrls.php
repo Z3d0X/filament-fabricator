@@ -2,7 +2,8 @@
 
 namespace Z3d0X\FilamentFabricator\Models\Contracts;
 
-interface HasPageUrls {
+interface HasPageUrls
+{
     /**
      * Get the default arguments for URL generation
      */
@@ -20,12 +21,14 @@ interface HasPageUrls {
 
     /**
      * Get all the available argument sets for the available cache keys
+     *
      * @return array[]
      */
     public function getAllUrlCacheKeysArgs(): array;
 
     /**
      * Get all the available URLs for this entity
+     *
      * @return string[]
      */
     public function getAllUrls(): array;

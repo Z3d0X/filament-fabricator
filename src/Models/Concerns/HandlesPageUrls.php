@@ -7,32 +7,37 @@ use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
-trait HandlesPageUrls {
+trait HandlesPageUrls
+{
     /**
      * Get the default arguments for URL generation
      */
-    public function getDefaultUrlCacheArgs(): array {
+    public function getDefaultUrlCacheArgs(): array
+    {
         return [];
     }
 
     /**
      * Get the cache key for the URL determined by this entity and the provided arguments
      */
-    public function getUrlCacheKey(array $args = []): string {
+    public function getUrlCacheKey(array $args = []): string
+    {
         // $keyArgs = collect($this->getDefaultUrlArgs())->merge($args)->all();
         $id = $this->id;
+
         return "filament-fabricator::page-url--$id";
     }
 
     /**
      * Get the URL determined by this entity and the provided arguments
      */
-    public function getUrl(array $args = []): string {
+    public function getUrl(array $args = []): string
+    {
         $cacheKey = $this->getUrlCacheKey($args);
 
         //TODO: Clear and re-compute cached routes when the routing prefix changes
 
-        return Cache::rememberForever($cacheKey, function () use($args) {
+        return Cache::rememberForever($cacheKey, function () use ($args) {
             /**
              * @var ?Page $parent
              */
@@ -55,9 +60,11 @@ trait HandlesPageUrls {
 
     /**
      * Get all the available argument sets for the available cache keys
+     *
      * @return array[]
      */
-    public function getAllUrlCacheKeysArgs(): array {
+    public function getAllUrlCacheKeysArgs(): array
+    {
         return [
             $this->getDefaultUrlCacheArgs(),
         ];
@@ -65,9 +72,11 @@ trait HandlesPageUrls {
 
     /**
      * Get all the available URLs for this entity
+     *
      * @return string[]
      */
-    public function getAllUrls(): array {
+    public function getAllUrls(): array
+    {
         return array_map([$this, 'getUrl'], $this->getAllUrlCacheKeysArgs());
     }
 }
