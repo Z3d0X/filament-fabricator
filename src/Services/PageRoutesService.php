@@ -2,10 +2,11 @@
 
 namespace Z3d0X\FilamentFabricator\Services;
 
-use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
-use Z3d0X\FilamentFabricator\Models\Contracts\Page;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
 class PageRoutesService {
     protected const URI_TO_ID_MAPPING = 'filament-fabricator::PageRoutesService::uri-to-id';
@@ -31,6 +32,12 @@ class PageRoutesService {
     public function getPageFromUri(string $uri): ?Page
     {
         $id = $this->getPageIdFromUri($uri);
+
+        if ($id === -1) {
+            return null;
+        }
+
+        /** @var Page&Model */
         return FilamentFabricator::getPageModel()::find($id);
     }
 
@@ -50,10 +57,12 @@ class PageRoutesService {
     /**
      * Get an instance of your Page model from a URI, or throw if there is none
      * @param string $uri
-     * @return Page
+     * @return Page&Model
      */
-    public function findPageOrFail(string $uri): Page {
+    public function findPageOrFail(string $uri): Page&Model {
         $id = $this->getPageIdFromUri($uri);
+
+        /** @var Page&Model */
         return FilamentFabricator::getPageModel()::findOrFail($id);
     }
 

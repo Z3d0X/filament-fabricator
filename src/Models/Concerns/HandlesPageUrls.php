@@ -5,6 +5,7 @@ namespace Z3d0X\FilamentFabricator\Models\Concerns;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
 trait HandlesPageUrls {
     /**

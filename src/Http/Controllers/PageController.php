@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class PageController
 {
