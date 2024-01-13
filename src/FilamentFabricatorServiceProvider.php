@@ -42,6 +42,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         $commands = [
             Commands\MakeLayoutCommand::class,
             Commands\MakePageBlockCommand::class,
+            Commands\ClearRoutesCacheCommand::class,
         ];
 
         $aliases = [];
