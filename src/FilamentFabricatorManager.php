@@ -33,8 +33,16 @@ class FilamentFabricatorManager
 
     protected array $pageUrls = [];
 
-    public function __construct(protected PageRoutesService $routesService)
+    /**
+     * @note It's only separated to not cause a major version change.
+     * In the next major release, feel free to make it a constructor promoted property
+     */
+    protected PageRoutesService $routesService;
+
+    public function __construct(PageRoutesService $routesService = null)
     {
+        $this->routesService = $routesService ?? resolve(PageRoutesService::class);
+
         /** @var Collection<string,string> */
         $pageBlocks = collect([]);
 
