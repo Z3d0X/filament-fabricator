@@ -35,7 +35,7 @@ trait HandlesPageUrls
     {
         $cacheKey = $this->getUrlCacheKey($args);
 
-        //TODO: Clear and re-compute cached routes when the routing prefix changes
+        //NOTE: Users must run the command that clears the routes cache if the routing prefix ever changes
 
         return Cache::rememberForever($cacheKey, function () use ($args) {
             /**
