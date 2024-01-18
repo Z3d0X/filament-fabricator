@@ -49,7 +49,7 @@ class ClearRoutesCacheCommand extends Command
 
         $childPages = $page->allChildren;
 
-        if (! empty($childPages)) {
+        if (filled($childPages)) {
             foreach ($childPages as $childPage) {
                 $this->clearPageCache($childPage, $shouldRefresh);
             }
