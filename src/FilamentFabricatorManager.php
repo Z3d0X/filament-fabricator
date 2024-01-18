@@ -54,8 +54,8 @@ class FilamentFabricatorManager
     }
 
     /**
-     *  @param  class-string  $class
-     *  @param  class-string  $baseClass
+     * @param  class-string  $class
+     * @param  class-string  $baseClass
      */
     public function registerComponent(string $class, string $baseClass): void
     {

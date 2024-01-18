@@ -2,6 +2,21 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.5 - 2024-01-18
+
+### What's Changed
+
+* Respect app locale for slug generation by @flolanger in https://github.com/Z3d0X/filament-fabricator/pull/109
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/124
+* [ar]: Add Arabic translations by @mohamedsabil83 in https://github.com/Z3d0X/filament-fabricator/pull/127
+
+### New Contributors
+
+* @flolanger made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/109
+* @mohamedsabil83 made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/127
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.4...v2.0.5
+
 ## v2.0.4 - 2023-11-26
 
 ### What's Changed
