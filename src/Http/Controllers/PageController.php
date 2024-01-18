@@ -9,7 +9,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
 class PageController
 {
-    public function __invoke(Page $filamentFabricatorPage = null): string
+    public function __invoke(?Page $filamentFabricatorPage = null): string
     {
         // Handle root (home) page
         if (blank($filamentFabricatorPage)) {
