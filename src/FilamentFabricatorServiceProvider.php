@@ -61,7 +61,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     {
         parent::packageRegistered();
 
-        $this->app->scoped('filament-fabricator', function () {
+        $this->app->singleton('filament-fabricator', function () {
             return new FilamentFabricatorManager();
         });
     }
