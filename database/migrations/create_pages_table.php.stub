@@ -11,10 +11,11 @@ return new class extends Migration
         Schema::create(config('filament-fabricator.table_name', 'pages'), function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('layout')->default('default')->index();
             $table->json('blocks');
             $table->foreignId('parent_id')->nullable()->constrained('pages')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unique(['slug', 'parent_id']);
             $table->timestamps();
         });
     }
