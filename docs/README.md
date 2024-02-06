@@ -208,7 +208,7 @@ public static function mutateData(array $data): array
 ```
 ```blade
 {{--- `my-block.blade.php` --}}
-@dump('foo') // 'bar'
+@dump($foo) // 'bar'
 ```
 
 ## Page Builder
