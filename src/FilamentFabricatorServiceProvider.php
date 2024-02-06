@@ -20,7 +20,10 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     {
         $package->name(FilamentFabricatorManager::ID)
             ->hasConfigFile()
-            ->hasMigration('create_pages_table')
+            ->hasMigrations(
+                'create_pages_table',
+                'fix_slug_unique_constraint_on_pages_table',
+            )
             ->hasRoute('web')
             ->hasViews()
             ->hasTranslations()
