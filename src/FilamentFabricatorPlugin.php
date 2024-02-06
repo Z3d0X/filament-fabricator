@@ -2,14 +2,18 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
+use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class FilamentFabricatorPlugin implements Plugin
 {
     const ID = 'filament-fabricator';
+
+    protected BlockPickerStyle|Closure|null $blockPickerStyle = null;
 
     public static function make(): static
     {
@@ -36,5 +40,25 @@ class FilamentFabricatorPlugin implements Plugin
     public function boot(Panel $panel): void
     {
         //
+    }
+
+    public function blockPickerStyle(BlockPickerStyle|Closure|null $style): static
+    {
+        $this->blockPickerStyle = $style;
+
+        return $this;
+    }
+
+    public function getBlockPickerStyle(): BlockPickerStyle|Closure|null
+    {
+        return $this->blockPickerStyle;
+    }
+
+    public static function get(): static
+    {
+        /** @var static $plugin */
+        $plugin = filament(app(static::class)->getId());
+
+        return $plugin;
     }
 }
