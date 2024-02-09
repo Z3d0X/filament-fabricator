@@ -43,7 +43,7 @@
 
             <button
                 type="button"
-                class="flex flex-col items-center border border-gray-200 dark:border-white/10 w-full gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
+                class="flex flex-col items-center justify-center border border-gray-200 dark:border-white/10 w-full h-full gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
                 x-on:click="close"
                 wire:click="{{ $wireClickAction }}"
             >
