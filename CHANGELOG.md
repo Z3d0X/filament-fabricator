@@ -2,6 +2,17 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.1.0 - 2024-02-09
+
+### What's Changed
+
+* Fix Slug Unique Constraint by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/135
+* Feature Block Picker Styles by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/136
+
+Note: to apply the fix for unique slug issue from #135 please publish the migrations using `php artisan vendor:publish --tag=filament-fabricator-migrations` & then run migrations
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.6...v2.1.0
+
 ## v2.0.6 - 2024-02-03
 
 ### What's Changed
