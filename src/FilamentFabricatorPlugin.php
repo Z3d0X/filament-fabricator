@@ -42,14 +42,14 @@ class FilamentFabricatorPlugin implements Plugin
         //
     }
 
-    public function blockPickerStyle(BlockPickerStyle|null $style): static
+    public function blockPickerStyle(?BlockPickerStyle $style): static
     {
         $this->blockPickerStyle = $style;
 
         return $this;
     }
 
-    public function getBlockPickerStyle(): BlockPickerStyle|null
+    public function getBlockPickerStyle(): ?BlockPickerStyle
     {
         return $this->blockPickerStyle;
     }

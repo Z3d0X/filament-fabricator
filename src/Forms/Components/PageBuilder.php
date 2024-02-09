@@ -2,7 +2,6 @@
 
 namespace Z3d0X\FilamentFabricator\Forms\Components;
 
-use Closure;
 use Filament\Forms\Components\Builder;
 use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
