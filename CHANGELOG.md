@@ -2,6 +2,18 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.0.6 - 2024-02-03
+
+### What's Changed
+
+* Fix octane issues change registering package from scoped to singleton by @ksimenic in https://github.com/Z3d0X/filament-fabricator/pull/130
+
+### New Contributors
+
+* @ksimenic made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/130
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.0.5...v2.0.6
+
 ## v2.0.5 - 2024-01-18
 
 ### What's Changed

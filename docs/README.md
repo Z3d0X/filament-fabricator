@@ -208,7 +208,7 @@ public static function mutateData(array $data): array
 ```
 ```blade
 {{--- `my-block.blade.php` --}}
-@dump('foo') // 'bar'
+@dump($foo) // 'bar'
 ```
 
 ## Page Builder
@@ -221,6 +221,45 @@ PageBuilder::configureUsing(function (PageBuilder $builder) {
     $builder->collapsible(); //You can use any method supported by the Builder field
 });
 ```
+
+### Block Picker Styles
+
+In addition to [customizations available in Filament's Builder](https://filamentphp.com/docs/3.x/forms/fields/builder#customizing-the-block-picker) `PageBuilder`, also includes a new method `blockPickerStyle()`.
+Currently there are two styles available:
+- `BlockPickerStyle::Dropdown` (default)
+- `BlockPickerStyle::Modal`
+
+
+```php
+use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
+use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
+
+PageBuilder::configureUsing(function (PageBuilder $builder) {
+    $builder->blockPickerStyle(BlockPickerStyle::Modal);
+});
+```
+
+an alternative one-liner way of changing block picker style is using `blockPickerStyle()` method when registering the `FilamentFabricatorPlugin` in your Panel provider:
+
+```php
+use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
+use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
+ 
+//..
+ 
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        // ...
+        ->plugins([
+            FilamentFabricatorPlugin::make()
+                ->blockPickerStyle(BlockPickerStyle::Modal), 
+        ]);
+}
+```
+
+> Pro Tip 💡: `BlockPickerStyle::Modal` works best when icons are assigned to blocks. https://filamentphp.com/docs/3.x/forms/fields/builder#setting-a-blocks-icon
+
 
 ## Page Resource
 

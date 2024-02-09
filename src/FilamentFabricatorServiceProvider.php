@@ -22,7 +22,10 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     {
         $package->name(FilamentFabricatorManager::ID)
             ->hasConfigFile()
-            ->hasMigration('create_pages_table')
+            ->hasMigrations(
+                'create_pages_table',
+                'fix_slug_unique_constraint_on_pages_table',
+            )
             ->hasRoute('web')
             ->hasViews()
             ->hasTranslations()
@@ -64,7 +67,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     {
         parent::packageRegistered();
 
-        $this->app->scoped('filament-fabricator', function () {
+        $this->app->singleton('filament-fabricator', function () {
             return resolve(FilamentFabricatorManager::class);
         });
     }
