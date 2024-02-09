@@ -34,27 +34,24 @@ class PageRoutesObserver
      */
     public function deleting(PageContract $page): void
     {
+        $this->pageRoutesService->removeUrlsOf($page);
+
         /*
             Doubly-linked list style deletion:
                 - Rattach the children to the parent of the page being deleted
                 - Promote the pages to a "root" page if the page being deleted has no parent
         */
 
-        $shouldAssociate = $page->parent_id !== null;
-
+        $page->load('children');
         $children = $page->children;
 
         foreach ($children as $childPage) {
             /**
              * @var Model|PageContract $childPage
              */
-            if ($shouldAssociate) {
-                $page->parent()->associate($childPage);
-            } else {
-                $childPage->update([
-                    'parent_id' => null,
-                ]);
-            }
+            $childPage->update([
+                'parent_id' => $page->parent_id,
+            ]);
         }
     }
 

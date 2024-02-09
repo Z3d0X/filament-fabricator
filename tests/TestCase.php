@@ -41,9 +41,12 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_filament-fabricator_table.php.stub';
+        
+        $migration = include __DIR__.'/../database/migrations/create_pages_table.php.stub';
         $migration->up();
-        */
+
+        $migration = include __DIR__.'/../database/migrations/fix_slug_unique_constraint_on_pages_table.php.stub';
+        $migration->up();
+       
     }
 }

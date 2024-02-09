@@ -55,6 +55,26 @@ class PageRoutesService
     }
 
     /**
+     * Remove the cached URLs for the given page
+     */
+    public function removeUrlsOf(Page $page): void
+    {
+        $this->forgetPageLocalCache($page);
+
+        $idToUrlsMapping = $this->getIdToUrisMapping();
+        $urls = $idToUrlsMapping[$page->id];
+        $idToUrlsMapping[$page->id] = [];
+        unset($idToUrlsMapping[$page->id]);
+        $this->replaceIdToUriMapping($idToUrlsMapping);
+
+        $uriToIdMapping = $this->getUriToIdMapping();
+        foreach ($urls as $uri) {
+            unset($uriToIdMapping[$uri]);
+        }
+        $this->replaceUriToIdMapping($uriToIdMapping);
+    }
+
+    /**
      * Get an instance of your Page model from a URI, or throw if there is none
      */
     public function findPageOrFail(string $uri): Page&Model
@@ -131,7 +151,7 @@ class PageRoutesService
     /**
      * Update routine for the given page
      *
-     * @param  array  $mapping - The URI -> ID mapping (as a reference, to be modified in-place)
+     * @param  array  $mapping  - The URI -> ID mapping (as a reference, to be modified in-place)
      * @return void
      */
     protected function updateUrlsAndDescendantsOf(Page $page, array &$mapping)
@@ -143,6 +163,7 @@ class PageRoutesService
             $id = $mapping[$uri] ?? -1;
 
             if ($id === $page->id) {
+                // Skip if the URI is already mapped to the right ID
                 continue;
             }
 
@@ -150,8 +171,8 @@ class PageRoutesService
             $mapping[$uri] = $page->id;
         }
 
-        // $page->load(['children:id,slug']);
-        foreach ($page->children as $childPage) {
+        $page->load(['allChildren']);
+        foreach ($page->allChildren as $childPage) {
             $this->updateUrlsAndDescendantsOf($childPage, $mapping);
         }
     }
@@ -159,23 +180,33 @@ class PageRoutesService
     /**
      * Remove old URLs of the given page from the cached mappings
      *
-     * @param  array  $mapping - The URI -> ID mapping (as a reference, to be modified in-place)
+     * @param  array  $mapping  - The URI -> ID mapping (as a reference, to be modified in-place)
      * @return void
      */
     protected function unsetOldUrlsOf(Page $page, array &$mapping)
     {
-        $oldUrlSet = collect($this->getUrisForPage($page))->lazy()->sort()->all();
-        $allUrlSet = collect($page->getAllUrls())->lazy()->sort()->all();
+        $this->forgetPageLocalCache($page);
 
-        $oldUrls = array_diff($oldUrlSet, $allUrlSet);
+        $oldUrlSet = collect($this->getUrisForPage($page))->lazy()->sort()->all();
+        $newUrlSet = collect($page->getAllUrls())->lazy()->sort()->all();
+
+        $oldUrls = array_diff($oldUrlSet, $newUrlSet);
 
         foreach ($oldUrls as $oldUrl) {
             unset($mapping[$oldUrl]);
         }
 
         $idToUrlsMapping = $this->getIdToUrisMapping();
-        $idToUrlsMapping[$page->id] = $allUrlSet;
+        $idToUrlsMapping[$page->id] = $newUrlSet;
         $this->replaceIdToUriMapping($idToUrlsMapping);
+    }
+
+    protected function forgetPageLocalCache(Page $page)
+    {
+        $cacheKeys = array_map([$page, 'getUrlCacheKey'], $page->getAllUrlCacheKeysArgs());
+        foreach ($cacheKeys as $cacheKey) {
+            Cache::forget($cacheKey);
+        }
     }
 
     /**
