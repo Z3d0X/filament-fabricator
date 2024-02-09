@@ -12,7 +12,7 @@ class PageBuilder extends Builder
 {
     protected string $view = 'filament-fabricator::components.forms.components.page-builder';
 
-    protected BlockPickerStyle|Closure $blockPickerStyle = BlockPickerStyle::Dropdown;
+    protected BlockPickerStyle $blockPickerStyle = BlockPickerStyle::Dropdown;
 
     protected function setUp(): void
     {
@@ -40,8 +40,12 @@ class PageBuilder extends Builder
         }
     }
 
-    public function blockPickerStyle(BlockPickerStyle|Closure $style): static
+    public function blockPickerStyle(BlockPickerStyle $style): static
     {
+        if ($style === BlockPickerStyle::Modal) {
+            $this->blockPickerColumns(3);
+        }
+
         $this->blockPickerStyle = $style;
 
         return $this;
@@ -49,6 +53,6 @@ class PageBuilder extends Builder
 
     public function getBlockPickerStyle(): BlockPickerStyle
     {
-        return $this->evaluate($this->blockPickerStyle);
+        return $this->blockPickerStyle;
     }
 }

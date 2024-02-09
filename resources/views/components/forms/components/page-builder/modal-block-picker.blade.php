@@ -40,13 +40,24 @@
                 $wireClickAction = "mountFormComponentAction('{$statePath}', '{$action->getName()}', {$wireClickActionArguments})";
             @endphp
 
-            <x-filament::dropdown.list.item
-                :icon="$block->getIcon()"
+
+            <button
+                type="button"
+                class="flex flex-col items-center border border-gray-200 dark:border-white/10 w-full gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
                 x-on:click="close"
-                :wire:click="$wireClickAction"
+                wire:click="{{ $wireClickAction }}"
             >
-                {{ $block->getLabel() }}
-            </x-filament::dropdown.list.item>
+                @if ($icon = $block->getIcon())
+                    <x-filament::icon
+                        :icon="$icon"
+                        class="h-10 w-10 text-gray-400 dark:text-gray-500"
+                    />
+                @endif
+                <div>
+                    {{ $block->getLabel() }}
+                </div>
+            </button>
         @endforeach
     </x-filament::grid>
 </x-filament::modal>
+
