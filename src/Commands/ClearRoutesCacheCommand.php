@@ -6,12 +6,18 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class ClearRoutesCacheCommand extends Command
 {
     protected $signature = 'filament-fabricator:clear-routes-cache {--R|refresh}';
 
     protected $description = 'Clear the routes\' cache';
+
+    public function __construct(protected PageRoutesService $pageRoutesService)
+    {
+        parent::__construct();
+    }
 
     public function handle(): int
     {
@@ -35,6 +41,7 @@ class ClearRoutesCacheCommand extends Command
 
     protected function clearPageCache(PageContract $page, bool $shouldRefresh = false)
     {
+        $this->pageRoutesService->removeUrlsOf($page);
         $argSets = $page->getAllUrlCacheKeysArgs();
 
         foreach ($argSets as $args) {
