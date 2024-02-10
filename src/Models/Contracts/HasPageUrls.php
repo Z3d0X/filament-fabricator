@@ -32,4 +32,11 @@ interface HasPageUrls
      * @return string[]
      */
     public function getAllUrls(): array;
+
+    /**
+     * Get all the cache keys for the available URLs for this entity
+     *
+     * @return string[]
+     */
+    public function getAllUrlCacheKeys(): array;
 }

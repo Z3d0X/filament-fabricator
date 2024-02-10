@@ -203,7 +203,7 @@ class PageRoutesService
 
     protected function forgetPageLocalCache(Page $page)
     {
-        $cacheKeys = array_map([$page, 'getUrlCacheKey'], $page->getAllUrlCacheKeysArgs());
+        $cacheKeys = $page->getAllUrlCacheKeys();
         foreach ($cacheKeys as $cacheKey) {
             Cache::forget($cacheKey);
         }

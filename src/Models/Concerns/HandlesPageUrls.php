@@ -79,4 +79,14 @@ trait HandlesPageUrls
     {
         return array_map([$this, 'getUrl'], $this->getAllUrlCacheKeysArgs());
     }
+
+    /**
+     * Get all the cache keys for the available URLs for this entity
+     *
+     * @return string[]
+     */
+    public function getAllUrlCacheKeys(): array
+    {
+        return array_map([$this, 'getUrlCacheKey'], $this->getAllUrlCacheKeysArgs());
+    }
 }
