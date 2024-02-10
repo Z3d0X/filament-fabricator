@@ -21,7 +21,7 @@ class ClearRoutesCacheCommand extends Command
 
     public function handle(): int
     {
-        $shouldRefresh = $this->option('refresh');
+        $shouldRefresh = (bool) $this->option('refresh');
 
         /**
          * @var PageContract[] $pages
@@ -34,6 +34,9 @@ class ClearRoutesCacheCommand extends Command
         foreach ($pages as $page) {
             $this->clearPageCache($page, $shouldRefresh);
 
+            if ($shouldRefresh) {
+                $this->pageRoutesService->updateUrlsOf($page);
+            }
         }
 
         return static::SUCCESS;

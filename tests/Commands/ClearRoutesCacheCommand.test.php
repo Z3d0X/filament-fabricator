@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Z3d0X\FilamentFabricator\Commands\ClearRoutesCacheCommand;
 use Z3d0X\FilamentFabricator\Models\Page;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 use function Pest\Laravel\artisan;
 
@@ -19,6 +20,11 @@ describe(ClearRoutesCacheCommand::class, function () {
     });
 
     it('clears all route caches', function () {
+        /**
+         * @var PageRoutesService $service
+         */
+        $service = resolve(PageRoutesService::class);
+
         /**
          * @var Page $page
          */
@@ -38,6 +44,8 @@ describe(ClearRoutesCacheCommand::class, function () {
             'blocks' => [],
             'parent_id' => $page->id,
         ]);
+
+        $service->getAllUrls(); // ensure everything is cached beforehand
 
         artisan('filament-fabricator:clear-routes-cache')
             ->assertSuccessful();
@@ -57,6 +65,11 @@ describe(ClearRoutesCacheCommand::class, function () {
 
     it('refreshes the cache properly', function (string $flag, string $newPrefix) {
         /**
+         * @var PageRoutesService $service
+         */
+        $service = resolve(PageRoutesService::class);
+
+        /**
          * @var Page $page
          */
         $page = Page::create([
@@ -76,10 +89,13 @@ describe(ClearRoutesCacheCommand::class, function () {
             'parent_id' => $page->id,
         ]);
 
-        $urls = [...$page->getAllUrls(), ...$child->getAllUrls()];
+        $urls = collect([...$page->getAllUrls(), ...$child->getAllUrls()])->sort()->toArray();
 
         $prevUTI = Cache::get('filament-fabricator::PageRoutesService::uri-to-id');
+        $prevUTI = collect($prevUTI)->sort()->toArray();
+
         $prevITU = Cache::get('filament-fabricator::PageRoutesService::id-to-uri');
+        $prevITU = collect($prevITU)->sort()->toArray();
 
         Config::set('filament-fabricator.routing.prefix', $newPrefix);
 
@@ -88,34 +104,33 @@ describe(ClearRoutesCacheCommand::class, function () {
         ])
             ->assertSuccessful();
 
-        $newUrls = [...$page->getAllUrls(), ...$child->getAllUrls()];
-
+        $newUrls = collect([...$page->getAllUrls(), ...$child->getAllUrls()])->sort()->toArray();
         expect($newUrls)->not->toEqualCanonicalizing($urls);
-
         expect($newUrls)->not->toBeEmpty();
-
         expect(
             collect($newUrls)
                 ->every(fn (string $url) => str_starts_with($url, "/$newPrefix"))
         )->toBeTrue();
 
         $newUTI = Cache::get('filament-fabricator::PageRoutesService::uri-to-id');
-
-        expect($newUTI)->not->toEqualCanonicalizing($prevUTI);
+        $newUTI = collect($newUTI)->sort()->toArray();
+        expect($newUTI)->not->toEqual($prevUTI);
+        expect($newUTI)->not->toBeEmpty();
         expect(
             collect($newUTI)
                 ->keys()
-                ->every(fn(string $uri) => str_starts_with($uri, "/$newPrefix"))
+                ->every(fn (string $uri) => str_starts_with($uri, "/$newPrefix"))
         );
 
         $newITU = Cache::get('filament-fabricator::PageRoutesService::id-to-uri');
-
-        expect($newITU)->not->toEqualCanonicalizing($prevITU);
+        $newITU = collect($newITU)->sort()->toArray();
+        expect($newITU)->not->toEqual($prevITU);
+        expect($newITU)->not->toBeEmpty();
         expect(
             collect($newITU)
                 ->values()
                 ->flatten()
-                ->every(fn(string $uri) => str_starts_with($uri, "/$newPrefix"))
+                ->every(fn (string $uri) => str_starts_with($uri, "/$newPrefix"))
         );
     })->with([
         ['--refresh', 'newprefix'],
