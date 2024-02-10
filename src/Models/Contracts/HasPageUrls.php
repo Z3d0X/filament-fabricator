@@ -6,6 +6,7 @@ interface HasPageUrls
 {
     /**
      * Get the default arguments for URL generation
+     * @invariant HasPageUrls#getDefaultUrlCacheArgs() must always return the same value, regardless of app/user configuration
      */
     public function getDefaultUrlCacheArgs(): array;
 
