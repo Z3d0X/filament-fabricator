@@ -2,7 +2,9 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -12,6 +14,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
+use Z3d0X\FilamentFabricator\Listeners\OptimizeWithLaravel;
 use Z3d0X\FilamentFabricator\Observers\PageRoutesObserver;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 use Z3d0X\FilamentFabricator\Services\PageRoutesService;
@@ -103,6 +106,10 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         parent::packageBooted();
 
         FilamentFabricator::getPageModel()::observe(PageRoutesObserver::class);
+
+        if ((bool) config('filament-fabricator.hook-to-commands')) {
+            Event::listen(CommandFinished::class, OptimizeWithLaravel::class);
+        }
     }
 
     protected function registerComponentsFromDirectory(string $baseClass, array $register, ?string $directory, ?string $namespace): void
