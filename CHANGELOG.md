@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.1.1 - 2024-02-19
+
+### What's Changed
+
+* Fix Resource Registration by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/140
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.1.0...v2.1.1
+
 ## v2.1.0 - 2024-02-09
 
 ### What's Changed
