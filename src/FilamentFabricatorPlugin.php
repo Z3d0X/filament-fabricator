@@ -7,7 +7,6 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Pboivin\FilamentPeek\FilamentPeekPlugin;
 use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
-use Z3d0X\FilamentFabricator\Resources\PageResource;
 
 class FilamentFabricatorPlugin implements Plugin
 {
@@ -27,9 +26,10 @@ class FilamentFabricatorPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([
-            config('filament-fabricator.page-resource') ?? PageResource::class,
-        ]);
+        $panel->resources(array_filter([
+            config('filament-fabricator.page-resource'),
+        ]));
+
 
         if (! $panel->hasPlugin(FilamentPeekPlugin::ID)) {
             //Automatically register FilamentPeekPlugin if it is not already registered
