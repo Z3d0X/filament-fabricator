@@ -30,7 +30,6 @@ class FilamentFabricatorPlugin implements Plugin
             config('filament-fabricator.page-resource'),
         ]));
 
-
         if (! $panel->hasPlugin(FilamentPeekPlugin::ID)) {
             //Automatically register FilamentPeekPlugin if it is not already registered
             $panel->plugin(FilamentPeekPlugin::make());
