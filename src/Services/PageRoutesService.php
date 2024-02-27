@@ -47,7 +47,7 @@ class PageRoutesService
      *
      * @return null|(Page&Model)
      */
-    public function getPageFromUri(string $uri): null|(Page&Model)
+    public function getPageFromUri(string $uri): ?Page
     {
         $id = $this->getPageIdFromUri($uri);
 
