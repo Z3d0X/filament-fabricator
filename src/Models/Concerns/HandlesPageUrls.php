@@ -19,6 +19,8 @@ trait HandlesPageUrls
 
     /**
      * Get the cache key for the URL determined by this entity and the provided arguments
+     *
+     * @param  array<string, mixed>  $args
      */
     public function getUrlCacheKey(array $args = []): string
     {
@@ -30,6 +32,8 @@ trait HandlesPageUrls
 
     /**
      * Get the URL determined by this entity and the provided arguments
+     *
+     * @param  array<string, mixed>  $args
      */
     public function getUrl(array $args = []): string
     {
@@ -42,16 +46,29 @@ trait HandlesPageUrls
              * @var ?Page $parent
              */
             $parent = $this->parent;
+
+            // If there's no parent page, then the "parent" URI is just the routing prefix.
             $parentUri = is_null($parent) ? (FilamentFabricator::getRoutingPrefix() ?? '/') : $parent->getUrl($args);
+
+            // Every URI in cache has a leading slash, this ensures it's
+            // present even if the prefix doesn't have it set explicitly
             $parentUri = Str::start($parentUri, '/');
 
+            // This page's part of the URL (i.e. its URI) is defined as the slug.
+            // For the same reasons as above, we need to add a leading slash.
             $selfUri = $this->slug;
             $selfUri = Str::start($selfUri, '/');
 
+            // If the parent URI is the root, then we have nothing to glue on.
+            // Therefore the page's URL is simply its URI.
+            // This avoids having two consecutive slashes.
             if ($parentUri === '/') {
                 return $selfUri;
             }
 
+            // Remove any trailing slash in the parent URI since
+            // every URIs we'll use has a leading slash.
+            // This avoids having two consecutive slashes.
             $parentUri = rtrim($parentUri, '/');
 
             return "{$parentUri}{$selfUri}";
@@ -61,10 +78,13 @@ trait HandlesPageUrls
     /**
      * Get all the available argument sets for the available cache keys
      *
-     * @return array[]
+     * @return array<string, mixed>[]
      */
     public function getAllUrlCacheKeysArgs(): array
     {
+        // By default, the entire list of available URL cache keys
+        // is simply a list containing the default one since we can't
+        // magically infer all the possible state for the library user's customizations.
         return [
             $this->getDefaultUrlCacheArgs(),
         ];

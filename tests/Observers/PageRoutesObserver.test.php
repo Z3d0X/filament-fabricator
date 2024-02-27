@@ -237,6 +237,283 @@ describe(PageRoutesObserver::class, function () {
                 ->values()
                 ->toArray();
         });
+
+        it('properly updates itself and descendants when changing which page is the parent (BelongsTo#associate and BelongsTo#dissociate)', function () {
+            /**
+             * @var Page $page
+             */
+            $page = Page::create([
+                'title' => 'My title',
+                'slug' => 'my-slug',
+                'blocks' => [],
+                'parent_id' => null,
+            ]);
+
+            /**
+             * @var Page $child1
+             */
+            $child1 = Page::create([
+                'title' => 'My child 1',
+                'slug' => 'child-1',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child2
+             */
+            $child2 = Page::create([
+                'title' => 'My child 2',
+                'slug' => 'child-2',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child3
+             */
+            $child3 = Page::create([
+                'title' => 'My child 3',
+                'slug' => 'child-3',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $childOfChild
+             */
+            $childOfChild = Page::create([
+                'title' => 'Subchild 1',
+                'slug' => 'subchild-1',
+                'blocks' => [],
+                'parent_id' => $child2->id,
+            ]);
+
+            /**
+             * @var Page[] $descendants
+             */
+            $descendants = [$child1, $child2, $child3, $childOfChild];
+            $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            // $child2->parent_id = $child1->id;
+            $child2->parent()->associate($child1);
+            /* $child2->update([
+                'parent_id' => $child1->id,
+            ]); */
+            $child2->save();
+
+            // $child3->parent_id = null;
+            $child3->parent()->dissociate();
+            /* $child2->update([
+                'parent_id' => null,
+            ]); */
+            $child3->save();
+
+            foreach ($descendants as $descendant) {
+                $descendant->refresh();
+            }
+
+            $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            expect($newUrlSets)->not->toEqual($oldUrlSets);
+
+            $allUrls = FilamentFabricator::getPageUrls();
+            $allUrls = collect($allUrls)
+                ->sort()
+                ->values()
+                ->toArray();
+
+            $expectedUrls = collect([
+                '/my-slug',
+                '/my-slug/child-1',
+                '/my-slug/child-1/child-2',
+                '/child-3',
+                '/my-slug/child-1/child-2/subchild-1',
+            ])->sort()
+                ->values()
+                ->toArray();
+
+            expect($allUrls)->toEqual($expectedUrls);
+        });
+
+        it('properly updates itself and descendants when changing which page is the parent (Model#update)', function () {
+            /**
+             * @var Page $page
+             */
+            $page = Page::create([
+                'title' => 'My title',
+                'slug' => 'my-slug',
+                'blocks' => [],
+                'parent_id' => null,
+            ]);
+
+            /**
+             * @var Page $child1
+             */
+            $child1 = Page::create([
+                'title' => 'My child 1',
+                'slug' => 'child-1',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child2
+             */
+            $child2 = Page::create([
+                'title' => 'My child 2',
+                'slug' => 'child-2',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child3
+             */
+            $child3 = Page::create([
+                'title' => 'My child 3',
+                'slug' => 'child-3',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $childOfChild
+             */
+            $childOfChild = Page::create([
+                'title' => 'Subchild 1',
+                'slug' => 'subchild-1',
+                'blocks' => [],
+                'parent_id' => $child2->id,
+            ]);
+
+            /**
+             * @var Page[] $descendants
+             */
+            $descendants = [$child1, $child2, $child3, $childOfChild];
+            $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            $child2->update([
+                'parent_id' => $child1->id,
+            ]);
+
+            $child3->update([
+                'parent_id' => null,
+            ]);
+
+            foreach ($descendants as $descendant) {
+                $descendant->refresh();
+            }
+
+            $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            expect($newUrlSets)->not->toEqual($oldUrlSets);
+
+            $allUrls = FilamentFabricator::getPageUrls();
+            $allUrls = collect($allUrls)
+                ->sort()
+                ->values()
+                ->toArray();
+
+            $expectedUrls = collect([
+                '/my-slug',
+                '/my-slug/child-1',
+                '/my-slug/child-1/child-2',
+                '/child-3',
+                '/my-slug/child-1/child-2/subchild-1',
+            ])->sort()
+                ->values()
+                ->toArray();
+
+            expect($allUrls)->toEqual($expectedUrls);
+        });
+
+        it('properly updates itself and descendants when changing which page is the parent (manual change and Model#save)', function () {
+            /**
+             * @var Page $page
+             */
+            $page = Page::create([
+                'title' => 'My title',
+                'slug' => 'my-slug',
+                'blocks' => [],
+                'parent_id' => null,
+            ]);
+
+            /**
+             * @var Page $child1
+             */
+            $child1 = Page::create([
+                'title' => 'My child 1',
+                'slug' => 'child-1',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child2
+             */
+            $child2 = Page::create([
+                'title' => 'My child 2',
+                'slug' => 'child-2',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $child3
+             */
+            $child3 = Page::create([
+                'title' => 'My child 3',
+                'slug' => 'child-3',
+                'blocks' => [],
+                'parent_id' => $page->id,
+            ]);
+
+            /**
+             * @var Page $childOfChild
+             */
+            $childOfChild = Page::create([
+                'title' => 'Subchild 1',
+                'slug' => 'subchild-1',
+                'blocks' => [],
+                'parent_id' => $child2->id,
+            ]);
+
+            $descendants = [$child1, $child2, $child3, $childOfChild];
+            $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            $child2->parent_id = $child1->id;
+            $child2->save();
+
+            $child3->parent_id = null;
+            $child3->save();
+
+            foreach ($descendants as $descendant) {
+                $descendant->refresh();
+            }
+
+            $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
+
+            expect($newUrlSets)->not->toEqual($oldUrlSets);
+
+            $allUrls = FilamentFabricator::getPageUrls();
+            $allUrls = collect($allUrls)
+                ->sort()
+                ->values()
+                ->toArray();
+
+            $expectedUrls = collect([
+                '/my-slug',
+                '/my-slug/child-1',
+                '/my-slug/child-1/child-2',
+                '/child-3',
+                '/my-slug/child-1/child-2/subchild-1',
+            ])->sort()
+                ->values()
+                ->toArray();
+
+            expect($allUrls)->toEqual($expectedUrls);
+        });
     });
 
     describe('#deleting($page)', function () {
