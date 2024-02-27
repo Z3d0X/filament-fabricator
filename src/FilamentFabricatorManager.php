@@ -39,7 +39,7 @@ class FilamentFabricatorManager
      */
     protected PageRoutesService $routesService;
 
-    public function __construct(PageRoutesService $routesService = null)
+    public function __construct(?PageRoutesService $routesService = null)
     {
         $this->routesService = $routesService ?? resolve(PageRoutesService::class);
 

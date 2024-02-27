@@ -24,13 +24,18 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => null,
             ]);
 
-            $afterUrls = FilamentFabricator::getPageUrls();
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
+            $afterUrls = $sortUrls(FilamentFabricator::getPageUrls());
 
             expect($afterUrls)->not->toEqual($beforeUrls);
 
-            $pageUrls = $page->getAllUrls();
+            $pageUrls = $sortUrls($page->getAllUrls());
 
-            expect($afterUrls)->toContain(...$pageUrls);
+            expect($afterUrls)->toEqual($pageUrls);
         });
 
         it('properly works on child pages', function () {
@@ -54,20 +59,26 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $page->id,
             ]);
 
-            $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
+            $sortUrls = fn (array $urls) => collect($urls)
                 ->sort()
                 ->values()
                 ->toArray();
 
-            $expectedUrls = collect([
+            $allUrls = FilamentFabricator::getPageUrls();
+            $allUrls = $sortUrls($allUrls);
+
+            $fromPages = $sortUrls([
+                ...$page->getAllUrls(),
+                ...$child->getAllUrls(),
+            ]);
+
+            $expectedUrls = $sortUrls([
                 '/my-slug',
                 '/my-slug/my-stuff',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
 
             /**
              * @var Page $page
@@ -80,20 +91,22 @@ describe(PageRoutesObserver::class, function () {
             ]);
 
             $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls($allUrls);
 
-            $expectedUrls = collect([
+            $fromPages = $sortUrls([
+                ...$page->getAllUrls(),
+                ...$child->getAllUrls(),
+                ...$descendant->getAllUrls(),
+            ]);
+
+            $expectedUrls = $sortUrls([
                 '/my-slug',
                 '/my-slug/my-stuff',
                 '/my-slug/my-stuff/abc-xyz',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
         });
     });
 
@@ -133,11 +146,19 @@ describe(PageRoutesObserver::class, function () {
             $page->slug = 'not-my-slug';
             $page->save();
 
-            $newUrls = $page->getAllUrls();
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
 
-            $allUrls = FilamentFabricator::getPageUrls();
+            $expected = $sortUrls(['/not-my-slug']);
 
-            expect($allUrls)->toContain(...$newUrls);
+            $newUrls = $sortUrls($page->getAllUrls());
+
+            $allUrls = $sortUrls(FilamentFabricator::getPageUrls());
+
+            expect($allUrls)->toEqual($expected);
+            expect($newUrls)->toEqual($expected);
         });
 
         it('properly updates all child (and descendant) routes', function () {
@@ -179,10 +200,16 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $child2->id,
             ]);
 
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
             /**
              * @var Page[] $descendants
              */
             $descendants = [$child1, $child2, $child3, $childOfChild];
+            $pages = [$page, ...$descendants];
             $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
             $page->slug = 'not-my-slug';
@@ -196,23 +223,20 @@ describe(PageRoutesObserver::class, function () {
 
             expect($newUrlSets)->not->toEqual($oldUrlSets);
 
-            $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls(FilamentFabricator::getPageUrls());
 
-            $expectedUrls = collect([
+            $fromPages = $sortUrls(collect($pages)->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
+
+            $expectedUrls = $sortUrls([
                 '/not-my-slug',
                 '/not-my-slug/child-1',
                 '/not-my-slug/child-2',
                 '/not-my-slug/child-3',
                 '/not-my-slug/child-2/subchild-1',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
 
             $child2->slug = 'not-child-2-xyz';
             $child2->save();
@@ -221,21 +245,19 @@ describe(PageRoutesObserver::class, function () {
                 $descendant->refresh();
             }
 
-            $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls(FilamentFabricator::getPageUrls());
+            $fromPages = $sortUrls(collect($pages)->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
 
-            $expectedUrls = collect([
+            $expectedUrls = $sortUrls([
                 '/not-my-slug',
                 '/not-my-slug/child-1',
                 '/not-my-slug/not-child-2-xyz',
                 '/not-my-slug/child-3',
                 '/not-my-slug/not-child-2-xyz/subchild-1',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
+
+            expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
         });
 
         it('properly updates itself and descendants when changing which page is the parent (BelongsTo#associate and BelongsTo#dissociate)', function () {
@@ -289,24 +311,22 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $child2->id,
             ]);
 
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
             /**
              * @var Page[] $descendants
              */
             $descendants = [$child1, $child2, $child3, $childOfChild];
+            $pages = [$page, ...$descendants];
             $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
-            // $child2->parent_id = $child1->id;
             $child2->parent()->associate($child1);
-            /* $child2->update([
-                'parent_id' => $child1->id,
-            ]); */
             $child2->save();
 
-            // $child3->parent_id = null;
             $child3->parent()->dissociate();
-            /* $child2->update([
-                'parent_id' => null,
-            ]); */
             $child3->save();
 
             foreach ($descendants as $descendant) {
@@ -315,25 +335,22 @@ describe(PageRoutesObserver::class, function () {
 
             $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
+            $fromPages = $sortUrls(collect($pages)->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
+
             expect($newUrlSets)->not->toEqual($oldUrlSets);
 
-            $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls(FilamentFabricator::getPageUrls());
 
-            $expectedUrls = collect([
+            $expectedUrls = $sortUrls([
                 '/my-slug',
                 '/my-slug/child-1',
                 '/my-slug/child-1/child-2',
                 '/child-3',
                 '/my-slug/child-1/child-2/subchild-1',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
         });
 
         it('properly updates itself and descendants when changing which page is the parent (Model#update)', function () {
@@ -387,10 +404,16 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $child2->id,
             ]);
 
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
             /**
              * @var Page[] $descendants
              */
             $descendants = [$child1, $child2, $child3, $childOfChild];
+            $pages = [$page, ...$descendants];
             $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
             $child2->update([
@@ -407,25 +430,22 @@ describe(PageRoutesObserver::class, function () {
 
             $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
+            $fromPages = $sortUrls(collect($pages)->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
+
             expect($newUrlSets)->not->toEqual($oldUrlSets);
 
-            $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls(FilamentFabricator::getPageUrls());
 
-            $expectedUrls = collect([
+            $expectedUrls = $sortUrls([
                 '/my-slug',
                 '/my-slug/child-1',
                 '/my-slug/child-1/child-2',
                 '/child-3',
                 '/my-slug/child-1/child-2/subchild-1',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
         });
 
         it('properly updates itself and descendants when changing which page is the parent (manual change and Model#save)', function () {
@@ -479,7 +499,13 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $child2->id,
             ]);
 
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
             $descendants = [$child1, $child2, $child3, $childOfChild];
+            $pages = [$page, ...$descendants];
             $oldUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
             $child2->parent_id = $child1->id;
@@ -494,25 +520,23 @@ describe(PageRoutesObserver::class, function () {
 
             $newUrlSets = array_map(fn (Page $page) => $page->getAllUrls(), $descendants);
 
+            $fromPages = $sortUrls(collect($pages)->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
+
             expect($newUrlSets)->not->toEqual($oldUrlSets);
 
             $allUrls = FilamentFabricator::getPageUrls();
-            $allUrls = collect($allUrls)
-                ->sort()
-                ->values()
-                ->toArray();
+            $allUrls = $sortUrls($allUrls);
 
-            $expectedUrls = collect([
+            $expectedUrls = $sortUrls([
                 '/my-slug',
                 '/my-slug/child-1',
                 '/my-slug/child-1/child-2',
                 '/child-3',
                 '/my-slug/child-1/child-2/subchild-1',
-            ])->sort()
-                ->values()
-                ->toArray();
+            ]);
 
             expect($allUrls)->toEqual($expectedUrls);
+            expect($fromPages)->toEqual($expectedUrls);
         });
     });
 
@@ -550,6 +574,9 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => null,
             ]);
 
+            /**
+             * @var Page $child
+             */
             $child = Page::create([
                 'title' => 'My child page',
                 'slug' => 'my-child-page',
@@ -565,7 +592,10 @@ describe(PageRoutesObserver::class, function () {
 
             $urls = FilamentFabricator::getPageUrls();
 
-            expect($urls)->toEqual(['/my-child-page']);
+            $expected = ['/my-child-page'];
+
+            expect($urls)->toEqual($expected);
+            expect($child->getAllUrls())->toEqual($expected);
         });
 
         it('attaches the children to $page\'s parent if it had one', function () {
@@ -599,26 +629,28 @@ describe(PageRoutesObserver::class, function () {
                 'parent_id' => $child->id,
             ]);
 
+            $sortUrls = fn (array $urls) => collect($urls)
+                ->sort()
+                ->values()
+                ->toArray();
+
             $child->delete();
             $descendant->refresh();
             $page->refresh();
 
             expect($descendant->parent_id)->toBe($page->id);
 
-            $urls = collect(FilamentFabricator::getPageUrls())
-                ->sort()
-                ->values()
-                ->toArray();
+            $urls = $sortUrls(FilamentFabricator::getPageUrls());
 
-            $expected = collect([
+            $expected = $sortUrls([
                 '/my-slug',
                 '/my-slug/my-sub-page',
-            ])
-                ->sort()
-                ->values()
-                ->toArray();
+            ]);
+
+            $fromPages = $sortUrls(collect([$page, $descendant])->flatMap(fn (Page $page) => $page->getAllUrls())->toArray());
 
             expect($urls)->toEqual($expected);
+            expect($fromPages)->toEqual($expected);
         });
     });
 });

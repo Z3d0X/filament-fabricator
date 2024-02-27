@@ -14,8 +14,8 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 // - PageRoutesService::ID_TO_URI_MAPPING that maps from ID to URIS (one-to-many)
 // - Page::getUrl (and thus Page::getAllUrl)
 //
-// Syncinc and consistencies should be handle via the service.
-// As such, it's responsible for maintaining internale consistency
+// Syncing and consistency should be handle via the service.
+// As such, it's responsible for maintaining internal consistency
 // and hiding/encapsulating implementation details.
 //
 // It relies on the extension points defined by Z3d0X\FilamentFabricator\Models\Contracts\HasPageUrls
@@ -63,7 +63,7 @@ class PageRoutesService
     /**
      * Update the cached URLs for the given page (as well as all its descendants')
      */
-    public function updateUrlsOf(Page $page): void
+    public function updateUrlsOf(Page&Model $page): void
     {
         // We mutate the mapping without events to ensure we don't have "concurrent"
         // modifications of the same mapping. This allows us to skip the use of locks
@@ -110,7 +110,7 @@ class PageRoutesService
         $id = $this->getPageIdFromUri($uri);
 
         // If the page doesn't exists, we know getPageIdFromUri
-        // will return -1. Thus findOrFail will fail as expected.
+        // will return -1. Thus, findOrFail will fail as expected.
         return FilamentFabricator::getPageModel()::findOrFail($id);
     }
 
@@ -205,7 +205,7 @@ class PageRoutesService
      * @param  array  $uriToIdMapping  - The URI -> ID mapping (as a reference, to be modified in-place)
      * @return void
      */
-    protected function updateUrlsAndDescendantsOf(Page $page, array &$uriToIdMapping)
+    protected function updateUrlsAndDescendantsOf(Page&Model $page, array &$uriToIdMapping)
     {
         // First ensure consistency by removing any trace of the old URLs
         // for the given page. Whether local or in the URI to ID mapping.
@@ -237,6 +237,10 @@ class PageRoutesService
         // TODO: Make it work with loadMissing instead of load to reduce the number of useless DB queries
         $page->load(['allChildren']);
         foreach ($page->allChildren as $childPage) {
+            /**
+             * @var Page&Model $childPage
+             */
+
             // A change in a parent page will always result
             // in a change to its descendant. As such,
             // we need to recompute everything that's
@@ -254,7 +258,7 @@ class PageRoutesService
     protected function unsetOldUrlsOf(Page $page, array &$uriToIdMapping)
     {
         // When we're hitting this path, caches haven't been invalidated yet.
-        // Thus we don't need to query the mappings to get the old URLs.
+        // Thus, we don't need to query the mappings to get the old URLs.
         $oldUrlSet = collect($page->getAllUrls())->lazy()->sort()->all();
 
         // Once we're done collecting the previous URLs, and since we want
