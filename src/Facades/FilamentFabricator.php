@@ -2,6 +2,7 @@
 
 namespace Z3d0X\FilamentFabricator\Facades;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 
@@ -25,8 +26,8 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static array getScripts()
  * @method static array getStyles()
  * @method static ?string getFavicon()
- * @method static class-string<PageContract> getPageModel()
- * @method static string getRoutingPrefix()
+ * @method static class-string<PageContract&Model> getPageModel()
+ * @method static ?string getRoutingPrefix()
  * @method static array getPageUrls()
  * @method static ?string getPageUrlFromId(int $id, bool $prefixSlash = false)
  *

@@ -5,11 +5,13 @@ namespace Z3d0X\FilamentFabricator\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Cache;
+use Z3d0X\FilamentFabricator\Models\Concerns\HandlesPageUrls;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as Contract;
 
 class Page extends Model implements Contract
 {
+    use HandlesPageUrls;
+
     public function __construct(array $attributes = [])
     {
         if (blank($this->table)) {
@@ -32,12 +34,6 @@ class Page extends Model implements Contract
         'parent_id' => 'integer',
     ];
 
-    protected static function booted()
-    {
-        static::saved(fn () => Cache::forget('filament-fabricator::page-urls'));
-        static::deleted(fn () => Cache::forget('filament-fabricator::page-urls'));
-    }
-
     public function parent(): BelongsTo
     {
         return $this->belongsTo(static::class, 'parent_id');
@@ -50,7 +46,7 @@ class Page extends Model implements Contract
 
     public function allChildren(): HasMany
     {
-        return $this->hasMany(static::class, 'parent_id')
+        return $this->children()
             ->select('id', 'slug', 'title', 'parent_id')
             ->with('allChildren:id,slug,title,parent_id');
     }

@@ -4,12 +4,12 @@ namespace Z3d0X\FilamentFabricator;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Models\Page;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class FilamentFabricatorManager
 {
@@ -33,8 +33,16 @@ class FilamentFabricatorManager
 
     protected array $pageUrls = [];
 
-    public function __construct()
+    /**
+     * @note It's only separated to not cause a major version change.
+     * In the next major release, feel free to make it a constructor promoted property
+     */
+    protected PageRoutesService $routesService;
+
+    public function __construct(?PageRoutesService $routesService = null)
     {
+        $this->routesService = $routesService ?? resolve(PageRoutesService::class);
+
         /** @var Collection<string,string> */
         $pageBlocks = collect([]);
 
@@ -172,44 +180,25 @@ class FilamentFabricatorManager
             return null;
         }
 
-        return Str::start(config('filament-fabricator.routing.prefix'), '/');
+        $prefix = Str::start($prefix, '/');
+
+        if ($prefix === '/') {
+            return $prefix;
+        }
+
+        return rtrim($prefix, '/');
     }
 
     public function getPageUrls(): array
     {
-        return Cache::rememberForever('filament-fabricator::page-urls', function () {
-            $this->getPageModel()::query()
-                ->select('id', 'slug', 'title')
-                ->whereNull('parent_id')
-                ->with(['allChildren'])
-                ->get()
-                ->each(fn (PageContract $page) => $this->setPageUrl($page)); // @phpstan-ignore-line
-
-            return $this->pageUrls;
-        });
+        return $this->routesService->getAllUrls();
     }
 
-    public function getPageUrlFromId(int $id, bool $prefixSlash = false): ?string
+    public function getPageUrlFromId(int $id, bool $prefixSlash = false, array $args = []): ?string
     {
-        $url = $this->getPageUrls()[$id];
+        /** @var ?PageContract $page */
+        $page = $this->getPageModel()::query()->find($id);
 
-        if ($routingPrefix = $this->getRoutingPrefix()) {
-            $url = Str::start($url, $routingPrefix);
-        }
-
-        return $url;
-    }
-
-    protected function setPageUrl(PageContract $page, ?string $parentUrl = null): string
-    {
-        $pageUrl = $parentUrl ? $parentUrl . '/' . trim($page->slug, " \n\r\t\v\x00/") : trim($page->slug);
-
-        if (filled($page->allChildren)) {
-            foreach ($page->allChildren as $child) {
-                $this->setPageUrl($child, $pageUrl);
-            }
-        }
-
-        return $this->pageUrls[$page->id] = Str::start($pageUrl, '/');
+        return $page?->getUrl($args);
     }
 }

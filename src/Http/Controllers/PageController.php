@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Blade;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page;
+use Z3d0X\FilamentFabricator\Services\PageRoutesService;
 
 class PageController
 {
@@ -13,14 +14,13 @@ class PageController
     {
         // Handle root (home) page
         if (blank($filamentFabricatorPage)) {
-            $pageUrls = FilamentFabricator::getPageUrls();
-
-            $pageId = array_search('/', $pageUrls);
+            /**
+             * @var PageRoutesService $routesService
+             */
+            $routesService = resolve(PageRoutesService::class);
 
             /** @var Page $filamentFabricatorPage */
-            $filamentFabricatorPage = FilamentFabricator::getPageModel()::query()
-                ->where('id', $pageId)
-                ->firstOrFail();
+            $filamentFabricatorPage = $routesService->findPageOrFail('/');
         }
 
         /** @var ?class-string<Layout> $layout */
