@@ -2,6 +2,17 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.2.0 - 2024-03-12
+
+### Laravel 11.x compatibility added
+
+#### What's Changed
+
+* build(deps): bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/143
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/Z3d0X/filament-fabricator/pull/142
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.1.1...v2.2.0
+
 ## v2.1.1 - 2024-02-19
 
 ### What's Changed
