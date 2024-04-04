@@ -40,6 +40,12 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+Then, publish the registered plugin assets:
+
+```
+php artisan filament:assets
+```
+
 ## Compatibility
 | Fabricator | Filament | PHP |
 |------|----------|--------|
