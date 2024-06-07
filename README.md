@@ -9,6 +9,12 @@
 
 ***What is Filament Fabricator?*** Filament Fabricator is simply said a block-based page builder skeleton. Filament Fabricator takes care of the PageResource & frontend routing, so you can focus on what really matters: your [Layouts](https://filamentphp.com/plugins/z3d0x-fabricator#layouts) & [Page Blocks](https://filamentphp.com/plugins/z3d0x-fabricator#page-blocks).
 
+## Compatibility
+| Fabricator | Filament | PHP |
+|------|----------|--------|
+| [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
+| [2.x](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^3.0 | ^8.1 |
+
 ## Installation
 
 You can install the package via composer:
@@ -40,11 +46,11 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-## Compatibility
-| Fabricator | Filament | PHP |
-|------|----------|--------|
-| [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
-| [2.x](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^3.0 | ^8.1 |
+Then, publish the registered plugin assets:
+
+```
+php artisan filament:assets
+```
 
 ## Documentation
 

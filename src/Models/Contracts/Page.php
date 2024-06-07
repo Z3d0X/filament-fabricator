@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property-read int $id
+ * @property-read int|string $id
  * @property-read string $title
  * @property-read string $slug
  * @property-read string $layout
  * @property-read array $blocks
- * @property-read int|null $parent_id
+ * @property-read int|string|null $parent_id
  * @property-read \Z3d0X\FilamentFabricator\Models\Contracts\Page|null $parent
  * @property-read \Illuminate\Database\Eloquent\Collection|\Z3d0X\FilamentFabricator\Models\Contracts\Page[] $children
  * @property-read \Illuminate\Database\Eloquent\Collection|\Z3d0X\FilamentFabricator\Models\Contracts\Page[] $allChildren

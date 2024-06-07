@@ -2,6 +2,54 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.2.2 - 2024-05-12
+
+### What's Changed
+
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/152
+* build(deps): bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/156
+* Allow string IDs by @rojtjo in https://github.com/Z3d0X/filament-fabricator/pull/158
+
+### New Contributors
+
+* @rojtjo made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/158
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.2.1...v2.2.2
+
+## v2.2.1 - 2024-04-15
+
+### What's Changed
+
+* build(deps): bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/148
+* Add note to README regarding the plugin assets by @pboivin in https://github.com/Z3d0X/filament-fabricator/pull/149
+* Fixed incorrect table name during migration by @witaway in https://github.com/Z3d0X/filament-fabricator/pull/151
+
+### New Contributors
+
+* @pboivin made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/149
+* @witaway made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/151
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.2.0...v2.2.1
+
+## v2.2.0 - 2024-03-12
+
+### Laravel 11.x compatibility added
+
+#### What's Changed
+
+* build(deps): bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/Z3d0X/filament-fabricator/pull/143
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/Z3d0X/filament-fabricator/pull/142
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.1.1...v2.2.0
+
+## v2.1.1 - 2024-02-19
+
+### What's Changed
+
+* Fix Resource Registration by @Z3d0X in https://github.com/Z3d0X/filament-fabricator/pull/140
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.1.0...v2.1.1
+
 ## v2.1.0 - 2024-02-09
 
 ### What's Changed
