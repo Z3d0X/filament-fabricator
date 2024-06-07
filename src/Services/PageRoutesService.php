@@ -28,9 +28,9 @@ class PageRoutesService
     /**
      * Get the ID of the Page model to which the given URI is associated, -1 if non matches
      *
-     * @return int The page's ID, or -1 on failure
+     * @return int|string The page's ID, or -1 on failure
      */
-    public function getPageIdFromUri(string $uri): int
+    public function getPageIdFromUri(string $uri): int|string
     {
         // Query the (URI -> ID) mapping based on the user provided URI.
         // The mapping expect a URI that starts with a /
@@ -135,7 +135,7 @@ class PageRoutesService
     /**
      * Get the URI -> ID mapping
      *
-     * @return array<string, int>
+     * @return array<string, int|string>
      */
     protected function getUriToIdMapping(): array
     {
@@ -164,7 +164,7 @@ class PageRoutesService
     /**
      * Get the ID -> URI[] mapping
      *
-     * @return array<int, string[]>
+     * @return array<int|string, string[]>
      */
     protected function getIdToUrisMapping(): array
     {
@@ -305,7 +305,7 @@ class PageRoutesService
     /**
      * Completely replaced the cached ID -> URI[] mapping
      *
-     * @param  array<int, string[]>  $idToUriMapping
+     * @param  array<int|string, string[]>  $idToUriMapping
      */
     protected function replaceIdToUriMapping(array $idToUriMapping): void
     {
@@ -319,7 +319,7 @@ class PageRoutesService
     /**
      * Completely replace the cached URI -> ID mapping
      *
-     * @param  array<string, int>  $uriToIdMapping
+     * @param  array<string, int|string>  $uriToIdMapping
      */
     protected function replaceUriToIdMapping(array $uriToIdMapping): void
     {

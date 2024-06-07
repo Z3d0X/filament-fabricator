@@ -195,7 +195,7 @@ class FilamentFabricatorManager
         return $this->routesService->getAllUrls();
     }
 
-    public function getPageUrlFromId(int $id, bool $prefixSlash = false, array $args = []): ?string
+    public function getPageUrlFromId(int|string $id, bool $prefixSlash = false, array $args = []): ?string
     {
         /** @var ?PageContract $page */
         $page = $this->getPageModel()::query()->find($id);
