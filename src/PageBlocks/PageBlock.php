@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator\PageBlocks;
 
 use Filament\Forms\Components\Builder\Block;
+use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
 abstract class PageBlock
 {
@@ -28,4 +29,15 @@ abstract class PageBlock
     {
         return $data;
     }
+
+    /**
+     * Hook used to mass-preload related data to reduce the number of DB queries.
+     * For instance, to load model objects/data from their IDs
+     *
+     * @param  (array{
+     *     type: string,
+     *     data: array,
+     * })[]  $blocks  - The array of blocks' data for the given page and the given block type
+     */
+    public static function preloadRelatedData(Page $page, array &$blocks): void {}
 }
