@@ -2,6 +2,7 @@
 
 namespace Z3d0X\FilamentFabricator;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -14,7 +15,7 @@ use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
-class FilamentFabricatorServiceProvider extends PackageServiceProvider
+class FilamentFabricatorServiceProvider extends PackageServiceProvider implements DeferrableProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -58,6 +59,11 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         }
 
         return array_merge($commands, $aliases);
+    }
+
+    public function provides(): array
+    {
+        return [FilamentFabricatorManager::ID];
     }
 
     public function packageRegistered(): void
