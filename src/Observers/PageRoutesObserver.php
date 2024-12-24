@@ -10,8 +10,7 @@ class PageRoutesObserver
 {
     public function __construct(
         protected PageRoutesService $pageRoutesService
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the Page "created" event.

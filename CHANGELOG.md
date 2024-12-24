@@ -2,6 +2,21 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.3.0 - 2024-12-22
+
+### What's Changed
+
+* allow layout live switching by @phpsa in https://github.com/Z3d0X/filament-fabricator/pull/188
+* Add exception for runningInConsole in FilamentFabricatorServiceProvid… by @yolanmees in https://github.com/Z3d0X/filament-fabricator/pull/160
+* Add a hook to allow mass-preload/batch-load of related data when rendering a page's blocks by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/166
+
+### New Contributors
+
+* @phpsa made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/188
+* @yolanmees made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/160
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.2.2...v2.3.0
+
 ## v2.2.2 - 2024-05-12
 
 ### What's Changed

@@ -100,6 +100,7 @@ class PageResource extends Resource
                                     ->label(__('filament-fabricator::page-resource.labels.layout'))
                                     ->options(FilamentFabricator::getLayouts())
                                     ->default(fn () => FilamentFabricator::getDefaultLayoutName())
+                                    ->live()
                                     ->required(),
 
                                 Select::make('parent_id')

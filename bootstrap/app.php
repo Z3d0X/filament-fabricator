@@ -7,7 +7,7 @@ use Orchestra\Testbench\Concerns\CreatesApplication;
 use Orchestra\Testbench\Foundation\Application;
 use Z3d0X\FilamentFabricator\FilamentFabricatorServiceProvider;
 
-$basePathLocator = new class()
+$basePathLocator = new class
 {
     use CreatesApplication;
 };

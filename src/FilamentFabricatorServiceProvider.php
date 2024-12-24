@@ -77,28 +77,30 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
     public function bootingPackage(): void
     {
-        Route::bind('filamentFabricatorPage', function ($value) {
-            /**
-             * @var PageRoutesService $routesService
-             */
-            $routesService = resolve(PageRoutesService::class);
+        if (! $this->app->runningInConsole()) {
+            Route::bind('filamentFabricatorPage', function ($value) {
+                /**
+                 * @var PageRoutesService $routesService
+                 */
+                $routesService = resolve(PageRoutesService::class);
 
-            return $routesService->findPageOrFail($value);
-        });
+                return $routesService->findPageOrFail($value);
+            });
 
-        $this->registerComponentsFromDirectory(
-            Layout::class,
-            config('filament-fabricator.layouts.register'),
-            config('filament-fabricator.layouts.path'),
-            config('filament-fabricator.layouts.namespace')
-        );
-
-        $this->registerComponentsFromDirectory(
-            PageBlock::class,
-            config('filament-fabricator.page-blocks.register'),
-            config('filament-fabricator.page-blocks.path'),
-            config('filament-fabricator.page-blocks.namespace')
-        );
+            $this->registerComponentsFromDirectory(
+                Layout::class,
+                config('filament-fabricator.layouts.register'),
+                config('filament-fabricator.layouts.path'),
+                config('filament-fabricator.layouts.namespace')
+            );
+    
+            $this->registerComponentsFromDirectory(
+                PageBlock::class,
+                config('filament-fabricator.page-blocks.register'),
+                config('filament-fabricator.page-blocks.path'),
+                config('filament-fabricator.page-blocks.namespace')
+            );
+        }
     }
 
     public function packageBooted()

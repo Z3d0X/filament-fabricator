@@ -4,7 +4,6 @@ namespace Z3d0X\FilamentFabricator;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
