@@ -126,6 +126,8 @@ Apart from these this plugin also adds the following [Filament's Render Hooks](h
 
 > Pro Tip 💡:  Using a base layout is completely optional, if you don't need it you may just remove it from the generated layout blade file. If you prefer, You may also use your own base layout.
 
+> Pro Tip 💡:  You might prefer using the corresponding constants defined in `\Z3d0X\FilamentFabricator\View\LayoutRenderHook` instead of hard-coded strings.
+
 ## Page Blocks
 
 ### Creating a Page Block
