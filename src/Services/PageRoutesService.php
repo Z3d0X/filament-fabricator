@@ -313,7 +313,11 @@ class PageRoutesService
         // This is done "atomically" with regards to the cache.
         // Note that concurrent read and writes can result in lost updates.
         // And thus in an invalid state.
-        Cache::forever(static::ID_TO_URI_MAPPING, $idToUriMapping);
+        if (empty($idToUriMapping)) {
+            Cache::forget(static::ID_TO_URI_MAPPING);
+        } else {
+            Cache::forever(static::ID_TO_URI_MAPPING, $idToUriMapping);
+        }
     }
 
     /**
@@ -327,6 +331,10 @@ class PageRoutesService
         // This is done "atomically" with regards to the cache.
         // Note that concurrent read and writes can result in lost updates.
         // And thus in an invalid state.
-        Cache::forever(static::URI_TO_ID_MAPPING, $uriToIdMapping);
+        if (empty($uriToIdMapping)) {
+            Cache::forget(static::URI_TO_ID_MAPPING);
+        } else {
+            Cache::forever(static::URI_TO_ID_MAPPING, $uriToIdMapping);
+        }
     }
 }
