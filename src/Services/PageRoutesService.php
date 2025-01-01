@@ -57,6 +57,7 @@ class PageRoutesService
             return null;
         }
 
+        /** @var null|(Page&Model) */
         return FilamentFabricator::getPageModel()::find($id);
     }
 
@@ -111,6 +112,7 @@ class PageRoutesService
 
         // If the page doesn't exists, we know getPageIdFromUri
         // will return -1. Thus, findOrFail will fail as expected.
+        /** @var Page&Model */
         return FilamentFabricator::getPageModel()::findOrFail($id);
     }
 

@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
@@ -24,7 +25,7 @@ class ClearRoutesCacheCommand extends Command
         $shouldRefresh = (bool) $this->option('refresh');
 
         /**
-         * @var PageContract[] $pages
+         * @var array<array-key,PageContract&Model> $pages
          */
         $pages = FilamentFabricator::getPageModel()::query()
             ->whereNull('parent_id')
