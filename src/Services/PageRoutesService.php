@@ -175,7 +175,10 @@ class PageRoutesService
         // Any optimization to this can greatly improve the entire package's performances
         // in one fell swoop.
         return Cache::rememberForever(static::ID_TO_URI_MAPPING, function () {
-            $pages = FilamentFabricator::getPageModel()::all();
+            $pages = FilamentFabricator::getPageModel()::query()
+                ->with('parent')
+                ->get();
+
             $mapping = [];
             $pages->each(function (Page $page) use (&$mapping) {
                 // Note that this also has the benefits of computing
