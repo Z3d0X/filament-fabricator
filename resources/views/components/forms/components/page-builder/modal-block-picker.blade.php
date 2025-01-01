@@ -18,15 +18,7 @@
         </div>
     </x-slot>
 
-    <x-filament::grid
-        :default="$columns['default'] ?? 1"
-        :sm="$columns['sm'] ?? null"
-        :md="$columns['md'] ?? null"
-        :lg="$columns['lg'] ?? null"
-        :xl="$columns['xl'] ?? null"
-        :two-xl="$columns['2xl'] ?? null"
-        direction="column"
-    >
+    <div class="grid gap-4" style="grid-template-columns: repeat({{ $columns['lg'] ?? $columns['default'] ?? 3 }}, minmax(0, 1fr));">
         @foreach ($blocks as $block)
             @php
                 $wireClickActionArguments = ['block' => $block->getName()];
@@ -43,14 +35,14 @@
 
             <button
                 type="button"
-                class="flex flex-col items-center justify-center border border-gray-200 dark:border-white/10 w-full h-full gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
+                class="flex flex-col items-center justify-center border border-gray-200 dark:border-white/10 w-full h-full gap-4 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
                 x-on:click="close"
                 wire:click="{{ $wireClickAction }}"
             >
                 @if ($icon = $block->getIcon())
                     <x-filament::icon
                         :icon="$icon"
-                        class="h-10 w-10 text-gray-400 dark:text-gray-500"
+                        class="h-8 w-8 text-gray-400 dark:text-gray-500"
                     />
                 @endif
                 <div>
@@ -58,6 +50,6 @@
                 </div>
             </button>
         @endforeach
-    </x-filament::grid>
+    </div>
 </x-filament::modal>
 
