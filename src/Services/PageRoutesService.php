@@ -181,7 +181,7 @@ class PageRoutesService
                 ->with('parent')
                 ->get()
                 ->toBase()
-                ->mapWithKeys(function (Page $page):array {
+                ->mapWithKeys(function (Page $page): array {
                     // Note that this also has the benefits of computing
                     // the page's local caches.
                     // @phpstan-ignore-next-line
