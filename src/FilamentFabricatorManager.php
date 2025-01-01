@@ -3,6 +3,7 @@
 namespace Z3d0X\FilamentFabricator;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
