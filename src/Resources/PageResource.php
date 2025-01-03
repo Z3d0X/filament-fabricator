@@ -27,6 +27,7 @@ use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
+use Z3d0X\FilamentFabricator\View\ResourceSchemaSlot;
 
 class PageResource extends Resource
 {
@@ -46,19 +47,19 @@ class PageResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-                        Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.before')),
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::BLOCKS_BEFORE)),
 
                         PageBuilder::make('blocks')
                             ->label(__('filament-fabricator::page-resource.labels.blocks')),
 
-                        Group::make()->schema(FilamentFabricator::getSchemaSlot('blocks.after')),
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::BLOCKS_AFTER)),
                     ])
                     ->columnSpan(2),
 
                 Group::make()
                     ->columnSpan(1)
                     ->schema([
-                        Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.before')),
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::SIDEBAR_BEFORE)),
 
                         Section::make()
                             ->schema([
@@ -126,7 +127,7 @@ class PageResource extends Resource
                                     ),
                             ]),
 
-                        Group::make()->schema(FilamentFabricator::getSchemaSlot('sidebar.after')),
+                        Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::SIDEBAR_AFTER)),
                     ]),
 
             ]);
