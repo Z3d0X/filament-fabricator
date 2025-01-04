@@ -309,11 +309,19 @@ class PageRoutesService
      */
     protected function replaceIdToUriMapping(array $idToUriMapping): void
     {
-        // Replace the ID -> URI[] mapping with the given one.
-        // This is done "atomically" with regards to the cache.
-        // Note that concurrent read and writes can result in lost updates.
-        // And thus in an invalid state.
-        Cache::forever(static::ID_TO_URI_MAPPING, $idToUriMapping);
+        if (empty($idToUriMapping)) {
+            // If the new mapping is empty, that means we've been
+            // cleaning the last entries. Therefore we must
+            // forget the cached data to properly clear it out
+            // and also allow proper cache invalidation
+            Cache::forget(static::ID_TO_URI_MAPPING);
+        } else {
+            // Replace the ID -> URI[] mapping with the given one.
+            // This is done "atomically" with regards to the cache.
+            // Note that concurrent read and writes can result in lost updates.
+            // And thus in an invalid state.
+            Cache::forever(static::ID_TO_URI_MAPPING, $idToUriMapping);
+        }
     }
 
     /**
@@ -323,10 +331,18 @@ class PageRoutesService
      */
     protected function replaceUriToIdMapping(array $uriToIdMapping): void
     {
-        // Replace the URI -> ID mapping with the given one.
-        // This is done "atomically" with regards to the cache.
-        // Note that concurrent read and writes can result in lost updates.
-        // And thus in an invalid state.
-        Cache::forever(static::URI_TO_ID_MAPPING, $uriToIdMapping);
+        if (empty($uriToIdMapping)) {
+            // If the new mapping is empty, that means we've been
+            // cleaning the last entries. Therefore we must
+            // forget the cached data to properly clear it out
+            // and also allow proper cache invalidation
+            Cache::forget(static::URI_TO_ID_MAPPING);
+        } else {
+            // Replace the URI -> ID mapping with the given one.
+            // This is done "atomically" with regards to the cache.
+            // Note that concurrent read and writes can result in lost updates.
+            // And thus in an invalid state.
+            Cache::forever(static::URI_TO_ID_MAPPING, $uriToIdMapping);
+        }
     }
 }
