@@ -10,7 +10,7 @@
          */
         $blockClass = FilamentFabricator::getPageBlockFromName($blockType);
 
-        if (!empty($blockClass)) {
+        if (!empty($blockClass) && $page !== null) {
             $blockClass::preloadRelatedData($page, $group);
         }
     }
