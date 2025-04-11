@@ -85,6 +85,9 @@ class PageRoutesService
     {
         // First remove the entries from the (ID -> URI) mapping
         $idToUrlsMapping = $this->getIdToUrisMapping();
+        if(!array_key_exists($page->id, $idToUrlsMapping)){
+            return;
+        }
         $urls = $idToUrlsMapping[$page->id];
         $idToUrlsMapping[$page->id] = null;
         unset($idToUrlsMapping[$page->id]);
