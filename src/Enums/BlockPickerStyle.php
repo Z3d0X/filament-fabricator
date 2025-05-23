@@ -6,4 +6,6 @@ enum BlockPickerStyle
 {
     case Dropdown;
     case Modal;
+
+    case Preview;
 }

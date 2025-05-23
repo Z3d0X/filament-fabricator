@@ -43,4 +43,29 @@ class PageController
             ['component' => $component, 'page' => $filamentFabricatorPage]
         );
     }
+
+    public function preview($blockName){
+
+        $pageBlock = \Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getPageBlockFromName($blockName);
+
+        $layout = FilamentFabricator::getLayoutFromName('preview');
+
+        if (! isset($layout)) {
+            throw new \Exception("Filament Fabricator: Preview Layout not found");
+        }
+
+        $component = $layout::getComponent();
+
+        echo Blade::render(
+            <<<'BLADE'
+            <x-dynamic-component
+                :component="$component"
+                :attributes="$attributes"
+                :block="$block"
+            />
+            BLADE,
+            ['component' => $component,'block'=>$pageBlock,'attributes'=>['firstText']]
+        );
+
+    }
 }

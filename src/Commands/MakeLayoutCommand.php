@@ -5,24 +5,30 @@ namespace Z3d0X\FilamentFabricator\Commands;
 use Filament\Support\Commands\Concerns\CanManipulateFiles;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-
 use function Laravel\Prompts\text;
 
 class MakeLayoutCommand extends Command
 {
     use CanManipulateFiles;
 
-    protected $signature = 'filament-fabricator:layout {name?} {--F|force}';
+    protected $signature = 'filament-fabricator:layout {name?} {--F|force} {--preview}';
 
     protected $description = 'Create a new filament-fabricator layout';
 
     public function handle(): int
     {
-        $layout = (string) Str::of($this->argument('name') ?? text(
-            label: 'What is the layout name?',
-            placeholder: 'DefaultLayout',
-            required: true,
-        ))
+       
+        if ($this->option('preview')) {
+            $layout = 'PreviewLayout';
+        } else {
+            $layout = (string) Str::of($this->argument('name') ?? text(
+                label: 'What is the layout name?',
+                placeholder: 'DefaultLayout',
+                required: true,
+            ));
+        }
+
+        $layout = (string) Str::of($layout)
             ->trim('/')
             ->trim('\\')
             ->trim(' ')
@@ -30,9 +36,9 @@ class MakeLayoutCommand extends Command
 
         $layoutClass = (string) Str::of($layout)->afterLast('\\');
 
-        $layoutNamespace = Str::of($layout)->contains('\\') ?
-            (string) Str::of($layout)->beforeLast('\\') :
-            '';
+        $layoutNamespace = Str::of($layout)->contains('\\')
+            ? (string) Str::of($layout)->beforeLast('\\')
+            : '';
 
         $shortName = Str::of($layout)
             ->beforeLast('Layout')
@@ -73,7 +79,9 @@ class MakeLayoutCommand extends Command
             'shortName' => $shortName,
         ]);
 
-        $this->copyStubToApp('LayoutView', $viewPath);
+      
+        $viewStub = $this->option('preview') ? 'PreviewLayoutView' : 'LayoutView';
+        $this->copyStubToApp($viewStub, $viewPath);
 
         $this->info("Successfully created {$layout}!");
 

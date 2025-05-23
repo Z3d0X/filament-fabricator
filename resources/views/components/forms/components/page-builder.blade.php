@@ -229,6 +229,20 @@
                                                     {{ $addBetweenAction }}
                                                 </x-slot>
                                             </x-filament-fabricator::forms.components.page-builder.modal-block-picker>
+
+                                        @elseif ($blockPickerStyle === BlockPickerStyle::Preview)
+                                            <x-filament-fabricator::forms.components.page-builder.preview-block-picker
+                                                :action="$addBetweenAction"
+                                                :after-item="$uuid"
+                                                :columns="$blockPickerColumns"
+                                                :blocks="$blockPickerBlocks"
+                                                :state-path="$statePath"
+                                                :width="$blockPickerWidth"
+                                            >
+                                                <x-slot name="trigger">
+                                                    {{ $addBetweenAction }}
+                                                </x-slot>
+                                            </x-filament-fabricator::forms.components.page-builder.preview-block-picker>
                                         @endif
                                     </div>
                                 </div>
@@ -276,6 +290,19 @@
                         {{ $addAction }}
                     </x-slot>
                 </x-filament-fabricator::forms.components.page-builder.modal-block-picker>
+                @elseif ($blockPickerStyle === BlockPickerStyle::Preview)
+                    <x-filament-fabricator::forms.components.page-builder.preview-block-picker
+                        :action="$addAction"
+                        :blocks="$blockPickerBlocks"
+                        :columns="$blockPickerColumns"
+                        :state-path="$statePath"
+                        :width="$blockPickerWidth"
+                        class="flex justify-center"
+                    >
+                        <x-slot name="trigger">
+                            {{ $addAction }}
+                        </x-slot>
+                    </x-filament-fabricator::forms.components.page-builder.preview-block-picker>
             @endif
         @endif
     </div>

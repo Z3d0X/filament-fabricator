@@ -1,0 +1,15 @@
+@props(['block'])
+
+  <style>
+
+        *{
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+
+    </style>
+    
+    <x-filament-fabricator::page-block :block="$block" />

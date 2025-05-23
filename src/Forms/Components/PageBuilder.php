@@ -45,6 +45,10 @@ class PageBuilder extends Builder
             $this->blockPickerColumns(3);
         }
 
+         if ($style === BlockPickerStyle::Preview) {
+            $this->blockPickerColumns(3);
+        }
+
         $this->blockPickerStyle = $style;
 
         return $this;

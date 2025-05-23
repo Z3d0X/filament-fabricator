@@ -237,6 +237,7 @@ In addition to [customizations available in Filament's Builder](https://filament
 Currently there are two styles available:
 - `BlockPickerStyle::Dropdown` (default)
 - `BlockPickerStyle::Modal`
+- `BlockPickerStyle::Preview` (new)
 
 
 ```php
@@ -269,7 +270,78 @@ public function panel(Panel $panel): Panel
 
 > Pro Tip 💡: `BlockPickerStyle::Modal` works best when icons are assigned to blocks. https://filamentphp.com/docs/3.x/forms/fields/builder#setting-a-blocks-icon
 
+### Preview Style
 
+The **Preview style** allows you to see a visual representation of the blocks before selecting them. To use the preview style, follow these steps:
+
+#### Preview Layout
+
+Use the following command to create a new Preview Layout.
+
+```bash
+php artisan filament-fabricator:layout --preview
+```
+
+In this layout, ensure that only the necessary CSS and JS files for proper block display are included.
+
+#### Preview Data
+
+To ensure your blocks appear correctly in the preview, you must return an array of mock data that matches the components defined in your schema.
+
+For example, given the following schema:
+
+```php
+public static function getBlockSchema(): Block
+{
+    return Block::make('process')
+        ->schema([
+            TextInput::make('subTitle'),
+            TextInput::make('title'),
+            Repeater::make('items')->schema([
+                TextInput::make('title'),
+                Textarea::make('description')->rows(3),
+            ]),
+        ]);
+}
+```
+
+You should define your `previewData()` method as follows:
+
+```php
+public static function previewData(): array
+{
+    return [
+        'subTitle' => 'UX Process',
+        'title' => 'Working UX Process',
+        'items' => [
+            [
+                "title" => "User Research",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+            [
+                "title" => "Story Board",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+            [
+                "title" => "Wireframing",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+            [
+                "title" => "Prototyping",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+            [
+                "title" => "Usability Testing",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+            [
+                "title" => "UI Design",
+                "description" => "To deliver the best experience, we thoroughly research and evaluate your product and its users to create a strategic foundation for the brand.",
+            ],
+        ],
+    ];
+}
+```
 ## Page Resource
 
 ### Customize Navigation
