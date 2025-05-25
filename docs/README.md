@@ -234,7 +234,7 @@ PageBuilder::configureUsing(function (PageBuilder $builder) {
 ### Block Picker Styles
 
 In addition to [customizations available in Filament's Builder](https://filamentphp.com/docs/3.x/forms/fields/builder#customizing-the-block-picker) `PageBuilder`, also includes a new method `blockPickerStyle()`.
-Currently there are two styles available:
+Currently there are three styles available:
 - `BlockPickerStyle::Dropdown` (default)
 - `BlockPickerStyle::Modal`
 - `BlockPickerStyle::Preview` (new)
