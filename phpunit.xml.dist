@@ -18,6 +18,11 @@
     beStrictAboutOutputDuringTests="true"
     verbose="true"
 >
+	<source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
+		<include>
+            <directory suffix=".php">./src</directory>
+        </include>
+	</source>
     <testsuites>
         <testsuite name="Z3d0X Test Suite">
             <directory suffix=".test.php">tests/</directory>

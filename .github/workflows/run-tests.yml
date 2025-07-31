@@ -18,20 +18,20 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.1, '8.2']
+        php: [8.1, '8.2', '8.3']
         laravel: ['10.*', '11.*', '12.*']
-        stability: [prefer-lowest, prefer-stable]
+        stability: [prefer-stable]
         include:
-          - laravel: 10.*
-            testbench: 8.*
-          - laravel: 11.*
-            testbench: 9.*
           - laravel: 12.*
             testbench: 10.*
-        exclude:
           - laravel: 11.*
-            php: 8.1
+            testbench: 9.*
+          - laravel: 10.*
+            testbench: 8.*
+        exclude:
           - laravel: 12.*
+            php: 8.1
+          - laravel: 11.*
             php: 8.1
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -39,6 +39,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-laravel-${{ matrix.laravel }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -58,4 +64,4 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: ./vendor/bin/pest
