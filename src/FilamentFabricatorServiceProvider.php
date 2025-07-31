@@ -142,7 +142,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
                     return (string) $namespace
                         ->append('\\', $file->getRelativePathname())
-                        ->replace('*', $variableNamespace)
+                        ->when($variableNamespace, fn ($namespace) => $namespace->replace('*', $variableNamespace))
                         ->replace(['/', '.php'], ['\\', '']);
                 })
                 ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
