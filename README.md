@@ -14,6 +14,7 @@
 |------|----------|--------|
 | [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
 | [2.x](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^3.0 | ^8.1 |
+| [^2.6](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^4.0 | ^8.2 |
 
 ## Installation
 
@@ -51,6 +52,22 @@ Then, publish the registered plugin assets:
 ```
 php artisan filament:assets
 ```
+
+## Migration
+
+### Filament v3 to Filament v4
+
+Since v2.6.0, this package is compatible with both Filament v3 and Filament v4.
+
+To migrate your project that uses this package from Filament v3 to Filament v4, please follow the [Filament upgrade guide](https://filamentphp.com/docs/4.x/upgrade-guide).
+
+Should you encounter an error related to this package during that process, you can also try the following command:
+```bash
+composer require filament/filament:"^4.0" -W --no-update
+composer require z3d0x/filament-fabricator:"^2.6" -W --no-update
+composer update
+```
+
 
 ## Documentation
 

@@ -2,6 +2,35 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.6.0 (Filament v4 Support) - 2025-08-23
+
+### What's Changed
+
+* build(deps): bump actions/cache from 3 to 4 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/232
+* Add compatibility with Filament v4 by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/235
+* build(deps): bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/234
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.5.1...v2.6.0
+
+## v2.5.1 - 2025-08-03
+
+### What's Changed
+
+* build(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/225
+* build(deps): bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/231
+* Fix: bind page route when runnning unit tests by @thecrazybob in https://github.com/Z3d0X/filament-fabricator/pull/224
+* Fix: resolve PHP 8 deprecation warning in namespace handling by @thecrazybob in https://github.com/Z3d0X/filament-fabricator/pull/219
+* Add dutch translations by @lbovit in https://github.com/Z3d0X/filament-fabricator/pull/220
+* build(deps): bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/229
+* Fix issue when removing old urls from uncached pages by @Voltra in https://github.com/Z3d0X/filament-fabricator/commit/2e09ce5d6b5a9cb04c9d1c9a17f519e76febb7e4
+
+### New Contributors
+
+* @thecrazybob made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/224
+* @lbovit made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/220
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.5...v2.5.1
+
 ## v2.5 - 2025-03-04
 
 ### What's Changed

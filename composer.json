@@ -16,14 +16,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "filament/filament": "^3.0",
+        "php": "^8.1 | ^8.2",
+        "filament/filament": "^3.0 | ^4.0",
+        "filament/support": "^3.0 | ^4.0",
         "illuminate/contracts": "^9.0 | ^10.0 | ^11.0 | ^12.0",
-        "pboivin/filament-peek": "^2.0",
+        "pboivin/filament-peek": "^2.0 | ^3.0 | ^3.0.0-beta1 | ^3.x-dev",
         "spatie/laravel-package-tools": "^1.13.5"
     },
     "require-dev": {
-        "larastan/larastan": "^2.9",
+        "larastan/larastan": "^2.9 | ^3.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^7.0 | ^8.0",
         "orchestra/testbench": "^8.0 | ^9.0 | ^10.0",

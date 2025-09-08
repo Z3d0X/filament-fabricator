@@ -1,0 +1,6 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/php:8.2",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+  }
+}

@@ -77,7 +77,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
     public function bootingPackage(): void
     {
-        if (! $this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole() || $this->app->runningUnitTests()) {
             Route::bind('filamentFabricatorPage', function ($value) {
                 /**
                  * @var PageRoutesService $routesService
@@ -142,7 +142,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
                     return (string) $namespace
                         ->append('\\', $file->getRelativePathname())
-                        ->replace('*', $variableNamespace)
+                        ->when($variableNamespace, fn ($namespace) => $namespace->replace('*', $variableNamespace))
                         ->replace(['/', '.php'], ['\\', '']);
                 })
                 ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
