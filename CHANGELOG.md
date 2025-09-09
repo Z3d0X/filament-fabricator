@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.6.1 - 2025-09-09
+
+### What's Changed
+
+* hotfix: Revert changes made in v2.6.0 by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/236
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.6.0...v2.6.1
+
 ## v2.5.1 - 2025-08-03
 
 ### What's Changed
