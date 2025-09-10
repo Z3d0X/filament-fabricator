@@ -12,6 +12,9 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Symfony\Component\Finder\SplFileInfo;
+use Z3d0X\FilamentFabricator\Commands\ClearRoutesCacheCommand;
+use Z3d0X\FilamentFabricator\Commands\MakeLayoutCommand;
+use Z3d0X\FilamentFabricator\Commands\MakePageBlockCommand;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Layouts\Layout;
 use Z3d0X\FilamentFabricator\Listeners\OptimizeWithLaravel;
@@ -46,9 +49,9 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         $commands = [
-            Commands\MakeLayoutCommand::class,
-            Commands\MakePageBlockCommand::class,
-            Commands\ClearRoutesCacheCommand::class,
+            MakeLayoutCommand::class,
+            MakePageBlockCommand::class,
+            ClearRoutesCacheCommand::class,
         ];
 
         $aliases = [];
