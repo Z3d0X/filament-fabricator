@@ -14,6 +14,7 @@
 |------|----------|--------|
 | [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
 | [2.x](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^3.0 | ^8.1 |
+| [3.x](https://github.com/z3d0x/filament-fabricator/tree/3.x) | ^3.0 | ^8.2 |
 
 ## Installation
 
@@ -61,6 +62,23 @@ Documentation can be viewed at: https://filamentphp.com/plugins/z3d0x-fabricator
 <img alt="fabricator-index" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/list-screenshot.png">
 <img alt="fabricator-edit-1" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-1.png">
 <img alt="fabricator-edit-2" src="https://raw.githubusercontent.com/z3d0x/filament-fabricator/2.x/art/edit-screenshot-2.png">
+
+## Migrate
+
+### From Filament v3 to Filament v4
+
+Following [the upgrade guide from Filament](https://filamentphp.com/docs/4.x/upgrade-guide) should be enough.
+
+In case it isn't, you can run the following commands:
+```bash
+composer require filament/upgrade:"^4.0" -W --dev
+
+vendor/bin/filament-v4
+
+# Run the commands output by the upgrade script, they are unique to your app
+composer require filament/filament:"^4.0" z3d0x/filament-fabricator:"^4.0" -W --no-update
+composer update
+```
 
 ## Changelog
 
