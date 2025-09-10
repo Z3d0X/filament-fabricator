@@ -9,11 +9,11 @@ use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/bootstrap',
-        __DIR__.'/config',
-        __DIR__.'/routes',
-        __DIR__.'/src',
-        __DIR__.'/tests',
+        __DIR__ . '/bootstrap',
+        __DIR__ . '/config',
+        __DIR__ . '/routes',
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
     ])
     ->withCache()
     ->withParallel()
