@@ -1,6 +1,6 @@
 {
     "image": "mcr.microsoft.com/devcontainers/php:8.2",
-    "postStartCommand": "sudo echo 'xdebug.mode=develop,debug,profile,trace,gcstats' >> /usr/local/etc/php/conf.d/xdebug.ini && sudo echo 'xdebug.client_port=9003' >> /usr/local/etc/php/conf.d/xdebug.ini",
+    "postCreateCommand": "sudo echo 'xdebug.mode=develop,debug,profile,trace,gcstats' >> /usr/local/etc/php/conf.d/xdebug.ini && sudo echo 'xdebug.client_port=9003' >> /usr/local/etc/php/conf.d/xdebug.ini",
     "features": {
         "ghcr.io/devcontainers/features/node:1": {}
     },
