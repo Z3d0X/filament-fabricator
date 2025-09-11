@@ -7,17 +7,13 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page;
 
 abstract class PageBlock
 {
-    protected static ?string $component;
+    protected static ?string $component = null;
 
     abstract public static function getBlockSchema(): Block;
 
     public static function getComponent(): string
     {
-        if (isset(static::$component)) {
-            return static::$component;
-        }
-
-        return 'filament-fabricator.page-blocks.' . static::getName();
+        return static::$component ?? ('filament-fabricator.page-blocks.' . static::getName());
     }
 
     public static function getName(): string

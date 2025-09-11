@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use RectorLaravel\Set\LaravelLevelSetList;
-use RectorLaravel\Set\LaravelSetProvider;
 use Rector\CodeQuality\Rector\Empty_\SimplifyEmptyCheckOnEmptyArrayRector;
 use Rector\CodeQuality\Rector\FunctionLike\SimplifyUselessVariableRector;
 use Rector\Config\RectorConfig;
@@ -13,6 +11,8 @@ use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use Rector\Strict\Rector\Empty_\DisallowedEmptyRuleFixerRector;
 use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
+use RectorLaravel\Set\LaravelLevelSetList;
+use RectorLaravel\Set\LaravelSetProvider;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -28,15 +28,15 @@ return RectorConfig::configure()
         AddOverrideAttributeToOverriddenMethodsRector::class,
         TypedPropertyFromStrictConstructorRector::class,
     ])
-	->withSkip([
-		// Only add classes that give false positives here
-		ClosureToArrowFunctionRector::class,
-		DisallowedEmptyRuleFixerRector::class,
-		RemoveAlwaysTrueIfConditionRector::class,
-		RemoveUnreachableStatementRector::class,
-		SimplifyEmptyCheckOnEmptyArrayRector::class,
-		SimplifyUselessVariableRector::class,
-	])
+    ->withSkip([
+        // Only add classes that give false positives here
+        ClosureToArrowFunctionRector::class,
+        DisallowedEmptyRuleFixerRector::class,
+        RemoveAlwaysTrueIfConditionRector::class,
+        RemoveUnreachableStatementRector::class,
+        SimplifyEmptyCheckOnEmptyArrayRector::class,
+        SimplifyUselessVariableRector::class,
+    ])
     ->withPhpSets()
     ->withPreparedSets(
         deadCode: true,

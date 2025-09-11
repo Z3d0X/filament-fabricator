@@ -20,16 +20,16 @@ trait HasPreviewModal
         return 'page';
     }
 
-    protected function mutatePreviewModalData($data): array
+    protected function mutatePreviewModalData(array $data): array
     {
         $layoutName = $this->data['layout'] ?? null;
-        if (! isset($layoutName)) {
+        if (empty($layoutName)) {
             return [];
         }
 
         $layout = FilamentFabricator::getLayoutFromName($layoutName);
 
-        if (! isset($layout)) {
+        if (empty($layout)) {
             throw new Exception("Filament Fabricator: Layout \"{$layoutName}\" not found");
         }
 

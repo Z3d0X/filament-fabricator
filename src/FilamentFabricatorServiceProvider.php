@@ -131,7 +131,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
         $namespace = Str::of($namespace);
 
-        $register = array_merge(
+        array_merge(
             $register,
             collect($filesystem->allFiles($directory))
                 ->map(function (SplFileInfo $file) use ($namespace): string {

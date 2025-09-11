@@ -6,9 +6,9 @@ use Illuminate\Support\Str;
 
 abstract class Layout
 {
-    protected static ?string $component;
+    protected static ?string $component = null;
 
-    protected static ?string $name;
+    protected static ?string $name = null;
 
     public static function getName(): string
     {
@@ -22,10 +22,6 @@ abstract class Layout
 
     public static function getComponent(): string
     {
-        if (isset(static::$component)) {
-            return static::$component;
-        }
-
-        return 'filament-fabricator.layouts.' . static::getName();
+        return static::$component ?? ('filament-fabricator.layouts.' . static::getName());
     }
 }
