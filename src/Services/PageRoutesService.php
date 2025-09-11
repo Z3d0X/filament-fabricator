@@ -134,6 +134,8 @@ class PageRoutesService
         // we simply get its array_values to have a truly regular array
         // instead of an associative array where the keys are all numbers
         // but possibly non-sorted.
+
+        /* @phpstan-ignore arrayValues.list (This ensures the keys in the array are numerical and sorted) */
         return array_values(array_keys($uriToIdMapping));
     }
 

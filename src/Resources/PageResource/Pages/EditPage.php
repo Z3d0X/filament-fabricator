@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
@@ -36,7 +37,7 @@ class EditPage extends EditRecord
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
                 ->url(function () {
-                    /** @var PageContract $page */
+                    /** @var PageContract&Model $page */
                     $page = $this->getRecord();
 
                     return FilamentFabricator::getPageUrlFromId($page->id);
