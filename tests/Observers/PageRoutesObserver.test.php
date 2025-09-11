@@ -18,6 +18,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -43,6 +44,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -53,6 +55,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $child = Page::create([
+                'layout' => 'default',
                 'title' => 'My stuff',
                 'slug' => 'my-stuff',
                 'blocks' => [],
@@ -84,6 +87,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $descendant = Page::create([
+                'layout' => 'default',
                 'title' => 'Abc xyz',
                 'slug' => 'abc-xyz',
                 'blocks' => [],
@@ -116,6 +120,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -137,6 +142,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -166,6 +172,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -173,6 +180,7 @@ describe(PageRoutesObserver::class, function () {
             ]);
 
             $child1 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 1',
                 'slug' => 'child-1',
                 'blocks' => [],
@@ -180,6 +188,7 @@ describe(PageRoutesObserver::class, function () {
             ]);
 
             $child2 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 2',
                 'slug' => 'child-2',
                 'blocks' => [],
@@ -187,6 +196,7 @@ describe(PageRoutesObserver::class, function () {
             ]);
 
             $child3 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 3',
                 'slug' => 'child-3',
                 'blocks' => [],
@@ -194,6 +204,7 @@ describe(PageRoutesObserver::class, function () {
             ]);
 
             $childOfChild = Page::create([
+                'layout' => 'default',
                 'title' => 'Subchild 1',
                 'slug' => 'subchild-1',
                 'blocks' => [],
@@ -265,6 +276,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -275,6 +287,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child1
              */
             $child1 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 1',
                 'slug' => 'child-1',
                 'blocks' => [],
@@ -285,6 +298,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child2
              */
             $child2 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 2',
                 'slug' => 'child-2',
                 'blocks' => [],
@@ -295,6 +309,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child3
              */
             $child3 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 3',
                 'slug' => 'child-3',
                 'blocks' => [],
@@ -305,6 +320,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $childOfChild
              */
             $childOfChild = Page::create([
+                'layout' => 'default',
                 'title' => 'Subchild 1',
                 'slug' => 'subchild-1',
                 'blocks' => [],
@@ -358,6 +374,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -368,6 +385,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child1
              */
             $child1 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 1',
                 'slug' => 'child-1',
                 'blocks' => [],
@@ -378,6 +396,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child2
              */
             $child2 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 2',
                 'slug' => 'child-2',
                 'blocks' => [],
@@ -388,6 +407,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child3
              */
             $child3 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 3',
                 'slug' => 'child-3',
                 'blocks' => [],
@@ -398,6 +418,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $childOfChild
              */
             $childOfChild = Page::create([
+                'layout' => 'default',
                 'title' => 'Subchild 1',
                 'slug' => 'subchild-1',
                 'blocks' => [],
@@ -453,6 +474,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -463,6 +485,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child1
              */
             $child1 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 1',
                 'slug' => 'child-1',
                 'blocks' => [],
@@ -473,6 +496,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child2
              */
             $child2 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 2',
                 'slug' => 'child-2',
                 'blocks' => [],
@@ -483,6 +507,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child3
              */
             $child3 = Page::create([
+                'layout' => 'default',
                 'title' => 'My child 3',
                 'slug' => 'child-3',
                 'blocks' => [],
@@ -493,6 +518,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $childOfChild
              */
             $childOfChild = Page::create([
+                'layout' => 'default',
                 'title' => 'Subchild 1',
                 'slug' => 'subchild-1',
                 'blocks' => [],
@@ -546,6 +572,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -568,6 +595,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -578,6 +606,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child
              */
             $child = Page::create([
+                'layout' => 'default',
                 'title' => 'My child page',
                 'slug' => 'my-child-page',
                 'blocks' => [],
@@ -603,6 +632,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $page
              */
             $page = Page::create([
+                'layout' => 'default',
                 'title' => 'My title',
                 'slug' => 'my-slug',
                 'blocks' => [],
@@ -613,6 +643,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $child
              */
             $child = Page::create([
+                'layout' => 'default',
                 'title' => 'My child page',
                 'slug' => 'my-child-page',
                 'blocks' => [],
@@ -623,6 +654,7 @@ describe(PageRoutesObserver::class, function () {
              * @var Page $descendant
              */
             $descendant = Page::create([
+                'layout' => 'default',
                 'title' => 'My sub page',
                 'slug' => 'my-sub-page',
                 'blocks' => [],

@@ -65,6 +65,11 @@ Documentation can be viewed at: https://filamentphp.com/plugins/z3d0x-fabricator
 
 ## Migrate
 
+### From 2.x to 3.x
+
+- There is no longer a default value for the `pages.layout` database column
+- `FilamentFabricatorManager#getPageUrlFromId` no longer has a `prefixSlash` parameter
+
 ### From Filament v3 to Filament v4
 
 Following [the upgrade guide from Filament](https://filamentphp.com/docs/4.x/upgrade-guide) should be enough.

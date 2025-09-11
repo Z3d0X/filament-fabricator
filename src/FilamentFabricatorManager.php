@@ -4,6 +4,7 @@ namespace Z3d0X\FilamentFabricator;
 
 use Closure;
 use Exception;
+use Filament\Forms\Components\Builder\Block;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -18,10 +19,10 @@ class FilamentFabricatorManager
 {
     const ID = 'filament-fabricator';
 
-    /** @var Collection<string,string> */
+    /** @var Collection<string, class-string<PageBlock>> */
     protected Collection $pageBlocks;
 
-    /** @var Collection<string,string> */
+    /** @var Collection<string, class-string<Layout>> */
     protected Collection $layouts;
 
     protected array $schemaSlot = [];
@@ -46,10 +47,10 @@ class FilamentFabricatorManager
     {
         $this->routesService = $routesService ?? resolve(PageRoutesService::class);
 
-        /** @var Collection<string,string> */
+        /** @var Collection<string, class-string<PageBlock>> */
         $pageBlocks = collect([]);
 
-        /** @var Collection<string,string> */
+        /** @var Collection<string, class-string<Layout>> */
         $layouts = collect([]);
 
         $this->pageBlocks = $pageBlocks;
@@ -58,7 +59,7 @@ class FilamentFabricatorManager
 
     /**
      * @param  class-string  $class
-     * @param  class-string  $baseClass
+     * @param  class-string<Layout>|class-string<PageBlock>  $baseClass
      */
     public function registerComponent(string $class, string $baseClass): void
     {
@@ -69,7 +70,7 @@ class FilamentFabricatorManager
         };
     }
 
-    /** @param  class-string  $layout */
+    /** @param  class-string<Layout>  $layout */
     public function registerLayout(string $layout): void
     {
         if (! is_subclass_of($layout, Layout::class)) {
@@ -79,7 +80,7 @@ class FilamentFabricatorManager
         $this->layouts->put($layout::getName(), $layout);
     }
 
-    /** @param  class-string  $pageBlock */
+    /** @param  class-string<PageBlock>  $pageBlock */
     public function registerPageBlock(string $pageBlock): void
     {
         if (! is_subclass_of($pageBlock, PageBlock::class)) {
@@ -114,16 +115,27 @@ class FilamentFabricatorManager
         $this->favicon = $favicon;
     }
 
+    /**
+     * @return class-string<Layout>|null
+     */
     public function getLayoutFromName(string $layoutName): ?string
     {
         return $this->layouts->get($layoutName);
     }
 
+    /**
+     * @return class-string<PageBlock>|null
+     */
     public function getPageBlockFromName(string $name): ?string
     {
         return $this->pageBlocks->get($name);
     }
 
+    /**
+     * Get the list of registered layout labels/names
+     *
+     * @return string[]
+     */
     public function getLayouts(): array
     {
         return $this->layouts->map(fn ($layout) => $layout::getLabel())->toArray();
@@ -134,6 +146,9 @@ class FilamentFabricatorManager
         return $this->layouts->keys()->first();
     }
 
+    /**
+     * @return Block[]
+     */
     public function getPageBlocks(): array
     {
         return $this->pageBlocks->map(fn ($block) => $block::getBlockSchema())->toArray();
@@ -192,12 +207,15 @@ class FilamentFabricatorManager
         return rtrim($prefix, '/');
     }
 
+    /**
+     * @return string[]
+     */
     public function getPageUrls(): array
     {
         return $this->routesService->getAllUrls();
     }
 
-    public function getPageUrlFromId(int|string $id, bool $prefixSlash = false, array $args = []): ?string
+    public function getPageUrlFromId(int|string $id, array $args = []): ?string
     {
         /** @var (PageContract&Model)|null $page */
         $page = $this->getPageModel()::query()->find($id);
