@@ -34,7 +34,7 @@ abstract class Helpers
      * @param array{
      *     type: string,
      *     data: array<string, mixed>,
-     * } $blocks
+     * }[] $blocks
      * @param  class-string<TModel>  $modelClass
      * @param  null|(\Closure(Builder): Builder)  $editQuery
      */
