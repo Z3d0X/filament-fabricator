@@ -14,7 +14,7 @@
 |------|----------|--------|
 | [1.x](https://github.com/z3d0x/filament-fabricator/tree/1.x) | ^2.0 | ^8.0 |
 | [2.x](https://github.com/z3d0x/filament-fabricator/tree/2.x) | ^3.0 | ^8.1 |
-| [3.x](https://github.com/z3d0x/filament-fabricator/tree/3.x) | ^3.0 | ^8.2 |
+| [3.x](https://github.com/z3d0x/filament-fabricator/tree/3.x) | ^4.0 | ^8.2 |
 
 ## Installation
 

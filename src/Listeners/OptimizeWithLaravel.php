@@ -9,7 +9,7 @@ use Z3d0X\FilamentFabricator\Commands\ClearRoutesCacheCommand;
 
 class OptimizeWithLaravel
 {
-    const COMMANDS = [
+    public const COMMANDS = [
         'cache:clear',
         'config:cache',
         'config:clear',
@@ -18,7 +18,7 @@ class OptimizeWithLaravel
         'route:clear',
     ];
 
-    const REFRESH_COMMANDS = [
+    public const REFRESH_COMMANDS = [
         'config:cache',
         'optimize',
     ];
