@@ -220,6 +220,63 @@ public static function mutateData(array $data): array
 @dump($foo) // 'bar'
 ```
 
+### Preload data
+
+In some cases, you might want to preload some data for your blocks before mutating the data and then rendering it.
+
+This is something you can do on a block type/class level:
+
+```php
+/**
+ * Hook used to mass-preload related data to reduce the number of DB queries.
+ * For instance, to load model objects/data from their IDs
+ *
+ * @param  (array{
+ *     type: string,
+ *     data: array,
+ * })[]  $blocks  - The array of blocks' data for the given page and the given block type
+ */
+public static function preloadRelatedData(Page $page, array &$blocks): void
+```
+
+Note that your preload logic is run once per block type/class. It helps avoid N+1 query problems.
+
+You get a mutable reference to an array of block render data that you can mutate with the data you preloaded. That being said, do keep in mind that you're working with references, you will need to throw a few `&` around to properly change your data.
+
+It can be useful, for instance, when you want to preload related models based on an array of IDs.
+
+For instance:
+```php
+use App\Models\SomeModel;
+use Z3d0X\FilamentFabricator\Helpers;
+
+// [...]
+
+/**
+ * @param  (array{
+ *     type: string,
+ *     data: array{
+ *          title: string,
+ *          items: array{
+ *              title: string,
+ *              ref: int,
+ *          }[]
+ *     },
+ * })[]  $blocks  - The array of blocks' data for the given page and the given block type
+ */
+#[\Override]
+public static function preloadRelatedData(Page $page, array &$blocks): void {
+    Helpers::preloadRelatedModels(
+        blocks: $blocks,
+        property: 'items',
+        subProperty: 'ref',
+        modelClass: SomeModel::class,
+    );
+
+    // now $blocks[0]['data']['items'][0]['ref'] is the related instance of SomeModel
+}
+```
+
 ## Page Builder
 
 Underneath the hood `PageBuilder` is just a Filament's [Builder](https://filamentphp.com/docs/3.x/forms/fields/builder) field. Like other filament fields this field also has methods that can be used to modify it. You may configure it like this:

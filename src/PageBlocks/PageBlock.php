@@ -32,7 +32,7 @@ abstract class PageBlock
      *
      * @param  (array{
      *     type: string,
-     *     data: array,
+     *     data: array<string, mixed>,
      * })[]  $blocks  - The array of blocks' data for the given page and the given block type
      */
     public static function preloadRelatedData(Page $page, array &$blocks): void {}
