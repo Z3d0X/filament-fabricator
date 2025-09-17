@@ -143,9 +143,11 @@ use Z3d0X\FilamentFabricator\PageBlocks\PageBlock;
 
 class MyBlock extends PageBlock
 {
-    public static function getBlockSchema(): Block
+    protected static string $name = 'my-block';
+
+    public static function defineBlock(Block $block): Block
     {
-        return Block::make('my-block')
+        return block
             ->schema([
                 //
             ]);
@@ -168,9 +170,9 @@ class MyBlock extends PageBlock
 
 ### Page Block Schema
 
-Define you block schema in this method:
+Define your block schema in this method:
 ```php
-public static function getBlockSchema(): Block
+public static function defineBlock(Block $block): Block
 ```
 You may use any [Fields](https://filamentphp.com/docs/3.x/forms/fields/getting-started#available-fields) to make up your schema.
 
@@ -187,9 +189,9 @@ By default, your blade component will receive raw data from all the fields as pr
 Example:
 ```php
 //Given the following schema
-public static function getBlockSchema(): Block
+public static function defineBlock(Block $block): Block
 {
-    return Block::make('my-block')
+    return block
         ->schema([
             TextInput::make('name'),
         ]);
