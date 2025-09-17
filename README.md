@@ -85,6 +85,8 @@ composer require filament/filament:"^4.0" z3d0x/filament-fabricator:"^4.0" -W --
 composer update
 ```
 
+For more info on breaking changes, please refer to the [CHANGELOG](CHANGELOG.md)
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
