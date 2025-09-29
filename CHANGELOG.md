@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v3.0 - Filament v4 Support - 2025-09-29
+
+### What's Changed
+
+* Migrate 3.x codebase to Filament v4 by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/237
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.6.1...v3.0
+
 ## v2.6.1 - 2025-09-09
 
 ### What's Changed
