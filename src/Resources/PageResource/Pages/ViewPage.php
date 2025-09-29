@@ -2,9 +2,10 @@
 
 namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 
-use Filament\Pages\Actions;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Database\Eloquent\Model;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
@@ -21,12 +22,12 @@ class ViewPage extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            EditAction::make(),
 
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
                 ->url(function () {
-                    /** @var PageContract $page */
+                    /** @var PageContract&Model $page */
                     $page = $this->getRecord();
 
                     return FilamentFabricator::getPageUrlFromId($page->id);

@@ -2,17 +2,20 @@
 
 namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages;
 
-use Filament\Pages\Actions;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 use Z3d0X\FilamentFabricator\Resources\PageResource;
+use Z3d0X\FilamentFabricator\Resources\PageResource\Pages\Concerns\HasPreviewModal;
 
 class EditPage extends EditRecord
 {
-    use Concerns\HasPreviewModal;
+    use HasPreviewModal;
 
     protected static string $resource = PageResource::class;
 
@@ -26,15 +29,15 @@ class EditPage extends EditRecord
         return [
             PreviewAction::make(),
 
-            Actions\ViewAction::make()
+            ViewAction::make()
                 ->visible(config('filament-fabricator.enable-view-page')),
 
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
 
             Action::make('visit')
                 ->label(__('filament-fabricator::page-resource.actions.visit'))
                 ->url(function () {
-                    /** @var PageContract $page */
+                    /** @var PageContract&Model $page */
                     $page = $this->getRecord();
 
                     return FilamentFabricator::getPageUrlFromId($page->id);

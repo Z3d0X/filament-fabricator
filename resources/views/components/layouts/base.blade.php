@@ -1,4 +1,5 @@
 @props([
+    'page',
     'title' => null,
     'dir' => 'ltr',
 ])

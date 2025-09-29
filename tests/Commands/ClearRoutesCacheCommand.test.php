@@ -29,6 +29,7 @@ describe(ClearRoutesCacheCommand::class, function () {
          * @var Page $page
          */
         $page = Page::create([
+            'layout' => 'default',
             'title' => 'My title',
             'slug' => 'my-slug',
             'blocks' => [],
@@ -39,6 +40,7 @@ describe(ClearRoutesCacheCommand::class, function () {
          * @var Page $child
          */
         $child = Page::create([
+            'layout' => 'default',
             'title' => 'My child page',
             'slug' => 'my-child-page',
             'blocks' => [],
@@ -73,6 +75,7 @@ describe(ClearRoutesCacheCommand::class, function () {
          * @var Page $page
          */
         $page = Page::create([
+            'layout' => 'default',
             'title' => 'My title',
             'slug' => 'my-slug',
             'blocks' => [],
@@ -83,6 +86,7 @@ describe(ClearRoutesCacheCommand::class, function () {
          * @var Page $child
          */
         $child = Page::create([
+            'layout' => 'default',
             'title' => 'My child page',
             'slug' => 'my-child-page',
             'blocks' => [],

@@ -10,7 +10,7 @@ use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 
 class FilamentFabricatorPlugin implements Plugin
 {
-    const ID = 'filament-fabricator';
+    public const ID = 'filament-fabricator';
 
     protected BlockPickerStyle|Closure|null $blockPickerStyle = null;
 

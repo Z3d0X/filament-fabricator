@@ -23,11 +23,6 @@ class Page extends Model implements Contract
 
     protected $guarded = [];
 
-    protected $casts = [
-        'blocks' => 'array',
-        'parent_id' => 'integer',
-    ];
-
     public function parent(): BelongsTo
     {
         return $this->belongsTo(static::class, 'parent_id');
@@ -43,5 +38,13 @@ class Page extends Model implements Contract
         return $this->children()
             ->select('id', 'slug', 'title', 'parent_id')
             ->with('allChildren:id,slug,title,parent_id');
+    }
+
+    protected function casts(): array
+    {
+        return array_merge(parent::casts(), [
+            'blocks' => 'array',
+            'parent_id' => 'integer',
+        ]);
     }
 }

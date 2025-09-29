@@ -2,6 +2,7 @@
 
 namespace Z3d0X\FilamentFabricator\Resources\PageResource\Pages\Concerns;
 
+use Exception;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal as BaseHasPreviewModal;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 
@@ -19,17 +20,17 @@ trait HasPreviewModal
         return 'page';
     }
 
-    protected function mutatePreviewModalData($data): array
+    protected function mutatePreviewModalData(array $data): array
     {
         $layoutName = $this->data['layout'] ?? null;
-        if (! isset($layoutName)) {
+        if (empty($layoutName)) {
             return [];
         }
 
         $layout = FilamentFabricator::getLayoutFromName($layoutName);
 
-        if (! isset($layout)) {
-            throw new \Exception("Filament Fabricator: Layout \"{$layoutName}\" not found");
+        if (empty($layout)) {
+            throw new Exception("Filament Fabricator: Layout \"{$layoutName}\" not found");
         }
 
         /** @var string $component */
