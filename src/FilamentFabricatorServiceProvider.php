@@ -114,6 +114,12 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
         }
     }
 
+    /**
+     * @template T of (class-string<Layout>|class-string<PageBlock>)
+     *
+     * @param  T  $baseClass
+     * @param  T[]  $register  - The components to register taken from the user's config file
+     */
     protected function registerComponentsFromDirectory(string $baseClass, array $register, ?string $directory, ?string $namespace): void
     {
         if (blank($directory) || blank($namespace)) {
@@ -128,26 +134,29 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
 
         $namespace = Str::of($namespace);
 
-        $register = array_merge(
-            $register,
-            collect($filesystem->allFiles($directory))
-                ->map(function (SplFileInfo $file) use ($namespace): string {
-                    $variableNamespace = $namespace->contains('*') ? str_ireplace(
-                        ['\\' . $namespace->before('*'), $namespace->after('*')],
-                        ['', ''],
-                        Str::of($file->getPath())
-                            ->after(base_path())
-                            ->replace(['/'], ['\\']),
-                    ) : null;
+        collect($filesystem->allFiles($directory))
+            ->lazy()
+            ->map(function (SplFileInfo $file) use ($namespace): string {
+                /**
+                 * @var ?string $variableNamespace
+                 */
+                $variableNamespace = $namespace->contains('*') ? str_ireplace(
+                    ['\\' . $namespace->before('*'), $namespace->after('*')],
+                    ['', ''],
+                    Str::of($file->getPath())
+                        ->after(base_path())
+                        ->replace(['/'], ['\\']),
+                ) : null;
 
-                    return (string) $namespace
-                        ->append('\\', $file->getRelativePathname())
-                        ->when($variableNamespace, fn ($namespace) => $namespace->replace('*', $variableNamespace))
-                        ->replace(['/', '.php'], ['\\', '']);
-                })
-                ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
-                ->each(fn (string $class) => FilamentFabricator::registerComponent($class, $baseClass))
-                ->all(),
-        );
+                return $namespace
+                    ->append('\\', $file->getRelativePathname())
+                    ->when($variableNamespace, fn ($namespace) => $namespace->replace('*', $variableNamespace))
+                    ->replace(['/', '.php'], ['\\', ''])
+                    ->toString();
+            })
+            ->concat($register)
+            ->filter(fn (string $class): bool => is_subclass_of($class, $baseClass) && (! (new ReflectionClass($class))->isAbstract()))
+            ->each(fn (string $class) => FilamentFabricator::registerComponent($class, $baseClass))
+            ->all();
     }
 }

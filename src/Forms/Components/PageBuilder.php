@@ -21,7 +21,7 @@ class PageBuilder extends Builder
 
         $this->mutateDehydratedStateUsing(static function (?array $state): array {
             if (! is_array($state)) {
-                return array_values([]);
+                return [];
             }
 
             $registerPageBlockNames = array_keys(FilamentFabricator::getPageBlocksRaw());

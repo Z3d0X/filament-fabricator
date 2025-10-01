@@ -13,4 +13,5 @@ parameters:
         - database
         - routes
     tmpDir: build/phpstan
+    treatPhpDocTypesAsCertain: false
 
