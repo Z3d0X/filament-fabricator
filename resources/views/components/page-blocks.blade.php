@@ -8,7 +8,7 @@
         /**
          * @var class-string<\Z3d0X\FilamentFabricator\PageBlocks\PageBlock> $blockClass
          */
-        $blockClass = FilamentFabricator::getPageBlockFromName($blockType);
+        $blockClass = \Z3d0X\FilamentFabricator\Facades\FilamentFabricator::getPageBlockFromName($blockType);
 
         if (!empty($blockClass) && $page !== null) {
             $blockClass::preloadRelatedData($page, $group);
