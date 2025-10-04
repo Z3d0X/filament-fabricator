@@ -2,6 +2,14 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v2.7.0 - 2025-10-04
+
+### What's Changed
+
+* feat(): Backport minor non-breaking changes from 3.X by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/241
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.6.1...v2.7.0
+
 ## v2.6.1 - 2025-09-09
 
 ### What's Changed
