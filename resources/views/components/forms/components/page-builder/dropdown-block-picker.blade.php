@@ -3,6 +3,7 @@
     'afterItem' => null,
     'blocks',
     'columns' => null,
+    'key',
     'statePath',
     'trigger',
     'width' => null,
@@ -17,26 +18,18 @@
     </x-slot>
 
     <x-filament::dropdown.list>
-        <x-filament::grid
-            :default="$columns['default'] ?? 1"
-            :sm="$columns['sm'] ?? null"
-            :md="$columns['md'] ?? null"
-            :lg="$columns['lg'] ?? null"
-            :xl="$columns['xl'] ?? null"
-            :two-xl="$columns['2xl'] ?? null"
-            direction="column"
-        >
+        <div class="grid gap-1 {{ $columns ? 'grid-cols-' . ($columns['default'] ?? 1) : 'grid-cols-1' }}">
             @foreach ($blocks as $block)
                 @php
                     $wireClickActionArguments = ['block' => $block->getName()];
 
-                    if ($afterItem) {
+                    if (filled($afterItem)) {
                         $wireClickActionArguments['afterItem'] = $afterItem;
                     }
 
                     $wireClickActionArguments = \Illuminate\Support\Js::from($wireClickActionArguments);
 
-                    $wireClickAction = "mountFormComponentAction('{$statePath}', '{$action->getName()}', {$wireClickActionArguments})";
+                    $wireClickAction = "mountAction('{$action->getName()}', {$wireClickActionArguments}, { schemaComponent: '{$key}' })";
                 @endphp
 
                 <x-filament::dropdown.list.item
@@ -47,6 +40,6 @@
                     {{ $block->getLabel() }}
                 </x-filament::dropdown.list.item>
             @endforeach
-        </x-filament::grid>
+        </div>
     </x-filament::dropdown.list>
 </x-filament::dropdown>
