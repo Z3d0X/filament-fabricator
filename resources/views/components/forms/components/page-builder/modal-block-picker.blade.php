@@ -3,6 +3,7 @@
     'afterItem' => null,
     'blocks',
     'columns' => null,
+    'key',
     'statePath',
     'trigger',
     'width' => null,
@@ -23,26 +24,26 @@
             @php
                 $wireClickActionArguments = ['block' => $block->getName()];
 
-                if ($afterItem) {
+                if (filled($afterItem)) {
                     $wireClickActionArguments['afterItem'] = $afterItem;
                 }
 
                 $wireClickActionArguments = \Illuminate\Support\Js::from($wireClickActionArguments);
 
-                $wireClickAction = "mountFormComponentAction('{$statePath}', '{$action->getName()}', {$wireClickActionArguments})";
+                $wireClickAction = "mountAction('{$action->getName()}', {$wireClickActionArguments}, { schemaComponent: '{$key}' })";
             @endphp
 
 
             <button
                 type="button"
-                class="flex flex-col items-center justify-center border border-gray-200 dark:border-white/10 w-full h-full gap-4 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
+                class="flex flex-col items-center justify-center border border-gray-200 dark:border-white/10 size-full gap-4 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5"
                 x-on:click="close"
                 wire:click="{{ $wireClickAction }}"
             >
                 @if ($icon = $block->getIcon())
                     <x-filament::icon
                         :icon="$icon"
-                        class="h-8 w-8 text-gray-400 dark:text-gray-500"
+                        class="size-8 text-gray-400 dark:text-gray-500"
                     />
                 @endif
                 <div>

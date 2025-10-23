@@ -1,5 +1,5 @@
 @php
-    use Filament\Forms\Components\Actions\Action;
+    use Filament\Actions\Action;
     use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 
     $containers = $getChildComponentContainers();
@@ -26,6 +26,7 @@
     $isReorderableWithButtons = $isReorderableWithButtons();
     $isReorderableWithDragAndDrop = $isReorderableWithDragAndDrop();
 
+    $key = $getKey();
     $statePath = $getStatePath();
 @endphp
 
@@ -209,6 +210,7 @@
                                                 :after-item="$uuid"
                                                 :columns="$blockPickerColumns"
                                                 :blocks="$blockPickerBlocks"
+                                                :key="$key"
                                                 :state-path="$statePath"
                                                 :width="$blockPickerWidth"
                                             >
@@ -222,6 +224,7 @@
                                                 :after-item="$uuid"
                                                 :columns="$blockPickerColumns"
                                                 :blocks="$blockPickerBlocks"
+                                                :key="$key"
                                                 :state-path="$statePath"
                                                 :width="$blockPickerWidth"
                                             >
@@ -255,6 +258,7 @@
                     :action="$addAction"
                     :blocks="$blockPickerBlocks"
                     :columns="$blockPickerColumns"
+                    :key="$key"
                     :state-path="$statePath"
                     :width="$blockPickerWidth"
                     class="flex justify-center"
@@ -268,6 +272,7 @@
                     :action="$addAction"
                     :blocks="$blockPickerBlocks"
                     :columns="$blockPickerColumns"
+                    :key="$key"
                     :state-path="$statePath"
                     :width="$blockPickerWidth"
                     class="flex justify-center"
