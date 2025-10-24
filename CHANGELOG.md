@@ -2,6 +2,27 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v3.0.1 - 2025-10-24
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.7.0...v2.7.1
+
+### What's Changed
+
+* build(deps): bump actions/cache from 3 to 4 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/239
+* build(deps): bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/238
+* fix: wrong argument used on getPageUrlFromId breaks page listing on f… by @Reapious in https://github.com/Z3d0X/filament-fabricator/pull/245
+* fix: update PageBuilder for Filament v4 compatibility by @mckenziearts in https://github.com/Z3d0X/filament-fabricator/pull/244
+* Add polish translations by @KaminskiDaniell in https://github.com/Z3d0X/filament-fabricator/pull/247
+* build(deps): bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/246
+
+### New Contributors
+
+* @Reapious made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/245
+* @mckenziearts made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/244
+* @KaminskiDaniell made their first contribution in https://github.com/Z3d0X/filament-fabricator/pull/247
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v3.0...v3.0.1
+
 ## v3.0 - Filament v4 Support - 2025-09-29
 
 ### What's Changed
