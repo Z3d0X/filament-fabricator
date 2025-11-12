@@ -36,7 +36,7 @@ abstract class Helpers
      *     data: array<string, mixed>,
      * }[] $blocks
      * @param  class-string<TModel>  $modelClass
-     * @param  null|(\Closure(Builder): Builder)  $editQuery
+     * @param  null|Closure(Builder):Builder  $editQuery
      */
     public static function preloadRelatedModels(
         array &$blocks,

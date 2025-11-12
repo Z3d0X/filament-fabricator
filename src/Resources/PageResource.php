@@ -46,7 +46,7 @@ class PageResource extends Resource
     {
         return $schema
             ->columns(3)
-            ->schema([
+            ->components([
                 Group::make()
                     ->schema([
                         Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::BLOCKS_BEFORE)),

@@ -2,13 +2,24 @@
 
 namespace Z3d0X\FilamentFabricator\Forms\Components;
 
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\Builder;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
 use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
 
-class PageBuilder extends Builder
+class PageBuilder extends Builder implements HasActions, HasSchemas
 {
+    use InteractsWithActions;
+    use InteractsWithFormActions;
+    use InteractsWithForms;
+    use InteractsWithSchemas;
+
     protected string $view = 'filament-fabricator::components.forms.components.page-builder';
 
     protected BlockPickerStyle $blockPickerStyle = BlockPickerStyle::Dropdown;
