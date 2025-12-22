@@ -24,7 +24,7 @@ class PageBuilderTestComponent extends Component implements HasForms
     {
         $this->msgBag = new MessageBag;
         $this->errors = new ViewErrorBag;
-        $this->errors->put('default', $this->getErrorBag());
+        $this->errors->put('default', $this->msgBag);
     }
 
     public function form(Schema $form): Schema
@@ -37,10 +37,11 @@ class PageBuilderTestComponent extends Component implements HasForms
 
     public function getErrorBag()
     {
-        return $this->msgBag;
+        return $this->errors->getBag('default');
     }
 
-    public function getViewErrorBag() {
+    public function getViewErrorBag()
+    {
         return $this->errors;
     }
 
