@@ -2,6 +2,16 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v3.0.2 - 2025-12-23
+
+### What's Changed
+
+* build(deps): bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/252
+* build(deps): bump actions/cache from 4 to 5 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/253
+* hotfix: Filament v4 migration mishaps by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/254
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v3.0.1...v3.0.2
+
 ## v3.0.1 - 2025-10-24
 
 **Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v2.7.0...v2.7.1
