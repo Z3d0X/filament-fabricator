@@ -17,7 +17,11 @@
     failOnEmptyTestSuite="true"
     beStrictAboutOutputDuringTests="true"
     verbose="true"
+    debug="true"
 >
+    <php>
+        <env name="APP_KEY" value="base64:+1JX1LrX2QMk/Gaxv5r89uiy9JWOMKSKhUlwVrJL1A8="/>
+    </php>
 	<source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
 		<include>
             <directory suffix=".php">./src</directory>

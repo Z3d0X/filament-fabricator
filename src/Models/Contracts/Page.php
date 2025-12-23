@@ -4,12 +4,13 @@ namespace Z3d0X\FilamentFabricator\Models\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * @phpstan-require-extends \Illuminate\Database\Eloquent\Model
+ * @phpstan-require-extends Model
  *
  * @property-read int|string $id
  * @property-read string $title
@@ -18,8 +19,8 @@ use Illuminate\Support\Carbon;
  * @property-read array $blocks
  * @property-read int|string|null $parent_id
  * @property-read static|null $parent
- * @property-read Collection<array-key, static&\Illuminate\Database\Eloquent\Model> $children
- * @property-read Collection<array-key, static&\Illuminate\Database\Eloquent\Model> $allChildren
+ * @property-read Collection<array-key, static&Model> $children
+ * @property-read Collection<array-key, static&Model> $allChildren
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  */

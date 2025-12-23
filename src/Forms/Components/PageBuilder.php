@@ -3,12 +3,17 @@
 namespace Z3d0X\FilamentFabricator\Forms\Components;
 
 use Filament\Forms\Components\Builder;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Pages\Concerns\InteractsWithFormActions;
 use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\FilamentFabricatorPlugin;
 
 class PageBuilder extends Builder
 {
+    use InteractsWithFormActions;
+    use InteractsWithForms;
+
     protected string $view = 'filament-fabricator::components.forms.components.page-builder';
 
     protected BlockPickerStyle $blockPickerStyle = BlockPickerStyle::Dropdown;
