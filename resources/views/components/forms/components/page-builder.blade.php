@@ -1,6 +1,8 @@
 @php
     use Filament\Actions\Action;
     use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
+    use Illuminate\Support\MessageBag;
+    use Illuminate\Support\ViewErrorBag;
 
     $containers = $getChildComponentContainers();
     $blockPickerBlocks = $getBlockPickerBlocks();
@@ -28,6 +30,12 @@
 
     $key = $getKey();
     $statePath = $getStatePath();
+
+    $errors ??= new ViewErrorBag;
+
+    if (!$errors->hasBag('default')) {
+        $errors->put('default', new MessageBag);
+    }
 @endphp
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" :errors="$errors">
