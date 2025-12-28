@@ -30,15 +30,9 @@
 
     $key = $getKey();
     $statePath = $getStatePath();
-
-    $errors ??= new ViewErrorBag;
-
-    if (!$errors->hasBag('default')) {
-        $errors->put('default', new MessageBag);
-    }
 @endphp
 
-<x-dynamic-component :component="$getFieldWrapperView()" :field="$field" :errors="$errors">
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <div
         x-data="{}"
         {{
