@@ -1,6 +1,8 @@
 @php
     use Filament\Actions\Action;
     use Z3d0X\FilamentFabricator\Enums\BlockPickerStyle;
+    use Illuminate\Support\MessageBag;
+    use Illuminate\Support\ViewErrorBag;
 
     $containers = $getChildComponentContainers();
     $blockPickerBlocks = $getBlockPickerBlocks();
@@ -30,7 +32,7 @@
     $statePath = $getStatePath();
 @endphp
 
-<x-dynamic-component :component="$getFieldWrapperView()" :field="$field" :errors="$errors">
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <div
         x-data="{}"
         {{
@@ -68,7 +70,7 @@
             <ul
                 x-sortable
                 data-sortable-animation-duration="{{ $getReorderAnimationDuration() }}"
-                wire:end.stop="{{ 'mountFormComponentAction(\'' . $statePath . '\', \'reorder\', { items: $event.target.sortable.toArray() })' }}"
+                wire:end.stop="{{ 'mountAction(\'reorder\', { items: $event.target.sortable.toArray() }, { schemaComponent: \'' . $key . '\' })' }}"
                 class="space-y-4"
             >
                 @php
