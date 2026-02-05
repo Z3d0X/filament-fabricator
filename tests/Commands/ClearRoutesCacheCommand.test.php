@@ -10,7 +10,7 @@ use function Pest\Laravel\artisan;
 
 describe(ClearRoutesCacheCommand::class, function () {
     beforeEach(function () {
-        Config::set('filament-fabricator.routing.prefix', null);
+        Config::set('filament-fabricator.routing.prefix');
     });
 
     it('can be resolved through the container', function () {
