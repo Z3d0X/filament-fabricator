@@ -21,6 +21,7 @@
 >
     <php>
         <env name="APP_KEY" value="base64:+1JX1LrX2QMk/Gaxv5r89uiy9JWOMKSKhUlwVrJL1A8="/>
+        <env name="PHPUNIT_TELEMETRY" value="off"/>
     </php>
 	<source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
 		<include>
