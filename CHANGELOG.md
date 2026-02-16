@@ -2,6 +2,15 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v4.0.0 - Filament v5 Compatibility - 2026-02-16
+
+### What's Changed
+
+* build(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/258
+* Migrate to Filament v5 by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/260
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v3.0.3...v4.0.0
+
 ## v3.0.3 - 2025-12-31
 
 ### What's Changed
