@@ -2,6 +2,15 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v3.1.0 - Laravel 13 Support - 2026-05-06
+
+### What's Changed
+
+* build(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/258
+* feat(3.x): Laravel 13 compat by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/265
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v3.0.3...v3.1.0
+
 ## v3.0.3 - 2025-12-31
 
 ### What's Changed
