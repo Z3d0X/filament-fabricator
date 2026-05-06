@@ -26,7 +26,7 @@
     "require-dev": {
         "driftingly/rector-laravel": "^2.0",
         "filament/upgrade": "^5.0",
-        "larastan/larastan": "^2.9 | ^3.7 | dev-l13",
+        "larastan/larastan": "^2.9 | ^3.7",
         "laravel/pint": "^1.24",
         "nunomaduro/collision": "^8.0",
         "orchestra/testbench": "^10.0 | ^11.0",
