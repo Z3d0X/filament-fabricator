@@ -1,5 +1,8 @@
 <?php
 
+use Z3d0X\FilamentFabricator\Models\Page;
+use Z3d0X\FilamentFabricator\Resources\PageResource;
+
 // config for Z3d0X/FilamentFabricator
 return [
     'routing' => [
@@ -72,13 +75,13 @@ return [
      * The page model to be used by the package.
      * Replace this if you ever extend it
      */
-    'page-model' => \Z3d0X\FilamentFabricator\Models\Page::class,
+    'page-model' => Page::class,
 
     /**
      * The page filament resource to be used by the package.
      * Replace this if you ever extend it
      */
-    'page-resource' => \Z3d0X\FilamentFabricator\Resources\PageResource::class,
+    'page-resource' => PageResource::class,
 
     /**
      * Whether you want to have a view page as part of your PageResource

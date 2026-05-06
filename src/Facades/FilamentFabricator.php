@@ -5,6 +5,7 @@ namespace Z3d0X\FilamentFabricator\Facades;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
+use Z3d0X\FilamentFabricator\FilamentFabricatorManager;
 use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
 
 /**
@@ -32,7 +33,7 @@ use Z3d0X\FilamentFabricator\Models\Contracts\Page as PageContract;
  * @method static array getPageUrls()
  * @method static ?string getPageUrlFromId(int $id, bool $prefixSlash = false)
  *
- * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
+ * @see FilamentFabricatorManager
  */
 class FilamentFabricator extends Facade
 {
