@@ -2,6 +2,16 @@
 
 All notable changes to `filament-fabricator` will be documented in this file.
 
+## v4.1.0 - Laravel 13 Support - 2026-05-06
+
+### What's Changed
+
+* Laravel 13.x Compatibility by @laravel-shift in https://github.com/Z3d0X/filament-fabricator/pull/261
+* build(deps): bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/Z3d0X/filament-fabricator/pull/262
+* feat(4.x): Laravel 13 compat by @Voltra in https://github.com/Z3d0X/filament-fabricator/pull/264
+
+**Full Changelog**: https://github.com/Z3d0X/filament-fabricator/compare/v4.0.0...v4.1.0
+
 ## v4.0.0 - Filament v5 Compatibility - 2026-02-16
 
 ### What's Changed
