@@ -45,6 +45,7 @@ class Page extends Model implements Contract
         return array_merge(parent::casts(), [
             'blocks' => 'array',
             'parent_id' => 'integer',
+            'published_at' => 'datetime',
         ]);
     }
 }

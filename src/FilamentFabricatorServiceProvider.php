@@ -31,6 +31,7 @@ class FilamentFabricatorServiceProvider extends PackageServiceProvider
             ->hasMigrations(
                 'create_pages_table',
                 'fix_slug_unique_constraint_on_pages_table',
+                'add_published_at_to_pages_table',
             )
             ->hasRoute('web')
             ->hasViews()

@@ -24,6 +24,12 @@ class PageController
             $filamentFabricatorPage = $routesService->findPageOrFail('/');
         }
 
+        if (config('filament-fabricator.enable-drafts', false) && ! auth()->check()) {
+            if ($filamentFabricatorPage->published_at === null || $filamentFabricatorPage->published_at->isFuture()) {
+                abort(404);
+            }
+        }
+
         /** @var ?class-string<Layout> $layout */
         $layout = FilamentFabricator::getLayoutFromName($filamentFabricatorPage->layout);
 

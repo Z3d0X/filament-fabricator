@@ -10,6 +10,7 @@ return [
         'slug' => 'Slug',
         'title' => 'Title',
         'url' => 'URL',
+        'published_at' => 'Published At',
     ],
 
     'errors' => [
