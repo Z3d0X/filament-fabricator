@@ -6,6 +6,7 @@ use Closure;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -127,6 +128,10 @@ class PageResource extends Resource
                                             }
                                         }
                                     ),
+
+                                DateTimePicker::make('published_at')
+                                    ->label(__('filament-fabricator::page-resource.labels.published_at'))
+                                    ->visible(config('filament-fabricator.enable-drafts', false)),
                             ]),
 
                         Group::make()->schema(FilamentFabricator::getSchemaSlot(ResourceSchemaSlot::SIDEBAR_AFTER)),

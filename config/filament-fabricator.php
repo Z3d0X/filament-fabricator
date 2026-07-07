@@ -89,6 +89,12 @@ return [
     'enable-view-page' => false,
 
     /**
+     * Whether you want to enable draft pages
+     * If enabled, pages with a published_at date in the future will not be publicly accessible
+     */
+    'enable-drafts' => false,
+
+    /**
      * Whether to hook into artisan's core commands to clear and refresh page route caches along with the rest.
      * Disable for manual control over cache.
      *
